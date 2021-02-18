@@ -25,3 +25,4 @@ Q&A
 
 [ 데이터 베이스 - 기획 ](https://docs.google.com/spreadsheets/d/1rxwd22JbqlsI1Sy3MDnE35C8PwzDOdbRKNOmSWYknpI/edit#gid=0)
 
+[ 일정 정리 ](https://github.com/playdata-finalproject/teamproject_final/projects/1)
