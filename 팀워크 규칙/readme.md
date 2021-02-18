@@ -13,10 +13,11 @@
    (아무렇게 복사 붙여넣기 했다가 망할 수가 있습니다.)
    
 3. 커밋 메세지 내용 
-    1. 깔금하게 정리하기 
-    2. 어디 부분 고쳤는지 간결하게 표현하기
-    3.  코드 안에 readme에 수정부분 정확하게 표현하기
-    
+    1. [깃 커밋 메시지 컨벤션 맞쳐서 작성하기](https://webruden.tistory.com/486)
+    2. [커밋 예시](https://blog.naver.com/PostView.nhn?blogId=duswl0319&logNo=221913439523&parentCategoryNo=&categoryNo=15&viewDate=&isShowPopularPosts=true&from=search)
+    3. 커밋이 어렵다면 리드미에 남기기
+    4. 간단한 내용의 커밋은 한줄로 요약
+   
 4. 코드를 바꿨다면 팀원들에게 알려주기
 
 5. 자신의 블로그를 만들어서 수정부분을 설명해서 
