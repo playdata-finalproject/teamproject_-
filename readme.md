@@ -18,8 +18,10 @@ Q&A
 
 ## 프로젝트 소개
 
-[project - 과정및 기획](https://docs.google.com/presentation/d/1bwWnCMcX6VdLfATa68Uuz4mqvmzMLEKn/edit#slide=id.p2)
+[project - 과정및 기획](https://docs.google.com/presentation/d/1-auToEYtCUQvuk4Y1xfhFQQelqMFU-XGl0jmS-KDumw/edit?usp=sharing)
 
-[ 데이터 베이스 - 기획 ](https://docs.google.com/spreadsheets/d/1rxwd22JbqlsI1Sy3MDnE35C8PwzDOdbRKNOmSWYknpI/edit#gid=0)
+[ 데이터 베이스 - 기획 ](https://docs.google.com/spreadsheets/d/1rxwd22JbqlsI1Sy3MDnE35C8PwzDOdbRKNOmSWYknpI/edit?usp=sharing)
 
 [ 일정 정리 ](https://github.com/playdata-finalproject/teamproject_final/projects/1)
+
+<a href = "./팀워크 규칙/readme.md"> 깃허브 사용규칙 </a>
