@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 public class MainPageControllerTest extends ShelterApplicationTests {
+
     @Autowired
     private MockMvc mockMvc;
 
