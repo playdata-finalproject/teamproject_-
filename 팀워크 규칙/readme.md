@@ -23,3 +23,7 @@
 5. 자신의 블로그를 만들어서 수정부분을 설명해서 
    readme에 주소 알려주기
    
+
+깃허브 pull request(pr)로 올리기
+[pull request 하는법](https://2hyes.tistory.com/153)
+=> 협업해서 하다보니 잔디심기가 안되서 이렇게 올려야 하나봐요....ㅜ
