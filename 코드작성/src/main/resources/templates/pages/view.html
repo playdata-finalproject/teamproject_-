@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<!-- head Start-->
+<div th:replace="fragment/head :: head"></div>
+<!-- head End-->
+
+<body>
+<!--header Start-->
+<div th:replace="fragment/headerTitle ::headerTitle"></div>
+<!--header End-->
+
+
+<!-- wrap -->
+<div id="wrap">
+
+    <div id="container">
+        <!-- location_area -->
+        <div class="location_area customer">
+            <div class="box_inner">
+                <h2 class="tit_page">Best 게시글 In <!--<span class="in"> in </span>--> 코린이 대피소</h2>
+                <p class="location">시니어 개발자 <span class="path">/</span> Nexon 박종천 부본부장</p>
+                <ul class="page_menu clear">
+                    <li><a href="#" class="on">공지사항</a></li>
+                    <li><a href="#">문의하기</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- //location_area -->
+        <div class = "board_main">
+            <div class = "postbox left">
+                <h3>주간 인기</h3>
+                <div class="bm_list">
+                    <ul class = "ranking">
+                        <li>
+                            <span class="num">1</span>
+                            <a href="http://localhost:8080/board/view">개발자가 갖추어야 할 9가지 기술</a>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <a href="http://localhost:8080/board/view">알고리즘과 자료구조 파헤치기</a>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <a href="http://localhost:8080/board/view">CS 기술 면접 가이드</a>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <a href="http://localhost:8080/board/view">애자일 방법론의 기초</a>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <a href="#">클린코드 그리고 리팩토링</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class = "postbox right">
+                <h3>월간 인기</h3>
+                <div class="bm_list">
+                    <ul class = "ranking">
+                        <li>
+                            <span class="num">1</span>
+                            <a href="#">개발자가 갖추어야 할 9가지 기술</a>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <a href="#">알고리즘과 자료구조 파헤치기</a>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <a href="#">CS 기술 면접 가이드</a>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <a href="#">애자일 방법론의 기초</a>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <a href="#">클린코드 그리고 리팩토링</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- bodytext_area -->
+        <div class="bodytext_area box_inner">
+            <ul class="bbsview_list">
+                <li class="bbs_title">개발자가 갖추어야 할 9가지 기술</li>
+                <li class="bbs_hit">작성일 : <span>2021.02.19</span></li>
+                <li class="bbs_date">조회수 : <span>235</span></li>
+                <li class="bbs_content">
+                    <div class="editer_content">
+                        """0. 스피커 주요 경력<br>
+                        - 한컴(93~99), 블리자드(04~16), 넥슨 (16~현재)<br>
+
+                        Hard Skills : 1~5년차 Associate Softwadre Engineer(초급 개발자), Software Engineer(중급 개발자)의 기본 소양<br>
+
+                        1. Basic Knowledge (C++, OS) <br>
+                        - 학교, 직장에서 본인이 직접, 개인적으로 공부해야하는 지식<br>
+                        - 새로운 것을 계속 공부해야 한다. 지금 공부한거는 3년 뒤든 10년 뒤든 버리게 되지만, 계속 공부해야 살아남는다.<br>
+                        <br>
+                        2. Understanding for product 프러덕에 대한 이해<br>
+                        - 상품성에 대한 고민과 전략을 이해해야 함<br>
+                        - 소비자 입장에서 생각하고 제품을 만들어야 함<br>
+
+                        3. Development Cycle 개발 사이클<br>
+                        - 5단계에 소요되는 시간을 1:1:1:1:1로 해야한다<br>
+                        1) Requirements & Analysis<br>
+                        2) Design & Modeling<br>
+                        3) Implementation<br>
+                        4) Test/Release <br>
+                        5) Feedback/Update<br>
+                        - 애자일한 경우에는 이 사이클을 짧고 빠르게 돌리는 것<br>
+                        - 훌륭한 개발자라면 QA와 테스팅에 대한 철학이 있어야 하며, 깊은 고민을 해야 전체 프러덕을 볼 수 있게 된다<br>
+                        - 개발자 유형(스타일) 구분 : 각각의 강점/약점이 있으며, 적절한 역할에 배치하는 것이 리더의 역할<br>
+                        1) Initiator : 새로운 아이디어를 제안하고 시작하는 유형. 입코딩을 많이 하며 개발력은 좀 떨어질 수 있음<br>
+                        2) Implementer : 실제 개발을 많이 하는 사람. 기능을 더해서 개발하려는 성향<br>
+                        3) Finisher : implementer가 개발한 것을 기능을 덜어가며 마무리하여 출시하는 역할<br>
+
+                        Soft Skills : 6~10년차 software engineer(중급 개발자), Senior Software Engineer의 개발 관리 능력 (아직 개발팀장이 되기 전)<br>
+                        - 추천 도서 : Debugging the Development Process (국내 번역판 있음, 팀장을 준비한다면 필독 추천)<br>
+
+                        팀의 3요소 : Project management, Team management, Technical management<br>
+
+                        4. Project Management 제품을 만드는 과정 자체 (기술을 뺀 나머지가 프로젝트)<br>
+                        - 가장 먼저 디버깅을 해야하는 것은 프로그램 코드가 아니라, 개발 과정 그 자체이다<br>
+                        - 3가지 질문에 대해 모든 팀원이 답을 할 수 있어야 한다<br>
+                        1) Why : 이 일을 왜 하느냐<br>
+                        2) What : 우리가 무엇을 만드느냐<br>
+                        3) How<br>
+                        ㄴ project management how : 이것을 누가, 언제까지 하느냐<br>
+                        ㄴ technical management how : 무슨 기술을 쓰고, 어떤 시스템에서 돌아가느냐<br>
+                        - Triple Constaraints 3가지 제약 : 어떻게 효율적으로 쓸지, 무엇을 우선적으로 할지<br>
+                        1) Cost (Resources)<br>
+                        2) Time (Schedule)<br>
+                        3) Scope (Quality)<br>
+
+                        5. Team Management 사람 관리<br>
+                        - 팀이 굴러가는 4단계<br>
+                        1) Forming : 처음 팀 구성 단계<br>
+                        2) Storming : 서로간에 의견 충돌이 발생하는 단계<br>
+                        3) Norming : 서로 이해하고 신뢰가 생기는 단계<br>
+                        4) Performing : 서로간에 아는 지식을 콜라보해서 새로운 것을 만들어내는 단계 (1+1=3)<br>
+                        - MS윈도우 OS 개발자 7만명이 모여서 만들었음<br>
+                        - 사람별 타입. 적절히 팀에 구성돼 있어야 좋음<br>
+                        ㄴ What type : 뭐 만들지 결정하고 바로 시작하는 스타일. 한국인들이 주로 이 유형<br>
+                        ㄴ Why type : 왜 만들어야하나 설득이 필요<br>
+                        ㄴ How type : 기술에 집중<br>
+                        ㄴ What if type : 다른거 만들면 안돼요? 새로운 아이디어 제안<br>
+                        - Roles around the team 서로간에 역할 분담을 정확하게 해야 효율적으로 돌아감 <br>
+                        ㄴ Product owner<br>
+                        ㄴ Producer(PM, 커뮤니케이터), Artists(예쁘게 만들어서 사람들이 오게하는), Designers(제품을 잘 기획), Engineers : 게임사 기준<br>
+                        ㄴ Engineering Team Lead : Project lead, Technical lead, People manager<br>
+
+                        6. Process (Agile, Zero-Bug)<br>
+                        - 제품, 기술, 사람이 최고의 결과를 만드는 방식<br>
+                        - 나만의(회사만의) 프로세스를 갖고 있어야 하며, 지속적으로 새로운 것을 시도하고 evolvint 해야 함<br>
+                        - 실패를 막기 위해 같은 프로세스를 쓰는것. 일부가 실패해도 괜찮도록 프로세스가 보호해야 함<br>
+                        - The Joel Test 12 steps : 이 중 8~9개는 하고 있어야 제대로 돌아가는 것<br>
+                        - PMMM (Project Management Maturity Model) 5단계<br>
+                        1) Initial = Common language  회사 내에 멤버간 같은 용어를 사용<br>
+                        2) Repeatable = Common process 일하는 방식이 회사내에서 같아야 함 (빌드하는 방식, 테스트하는 방식, 개발하는 방식...)<br>
+                        3) Defined = Singular methodology 단일 업무 방식<br>
+                        4) Managed = Benchmarking  계속 측정하는 것<br>
+                        5) Optimized = Continuous improvement 측정한 것을 바탕으로 계속 변화하는 것<br>
+
+                        Business Skills : 10년차 이상 Lead Software Engineer, Technical Director, VP of Tech, CTO, CEO<br>
+
+                        7. HR System : Attract --> Develop --> Engage <br>
+                        - Hiring : 회사의 매력을 갖고 좋은 인력이 오도록<br>
+                        - Performance Reviews : 평가, 테스트. 평가를 잘하는 것이 중요 <br>
+                        ㄴ Productivity, Professionalism, Teamwork, Knowledge, Functionality, Implementation (good code), Design & Architecture<br>
+                        ㄴ 주변에 롤모델을 찾아서 그의 장점을 찾아서 배우자<br>
+                        - Titles (Engineering) : 승진<br>
+                        - Rewards / Benefits  : 평가해서 잘한 경우<br>
+                        - Education : 평가해서 부족한 경우, 성장시키는 것<br>
+
+                        8. Business Management <br>
+                        - Leading People, Manage Business : 사람은 관리하는 것이 아니다. 일을 잘하도록 이끄는 것이다. 팀장은 항상 앞이나 옆에 있어야 한다.<br>
+                        - Making money, ROI, Capability, Strategy, Tactics, Finance, Economics, Marketing, Sales, CS, Operations, Change(Finance)<br>
+
+                        9. Vision/Goals/Culture <br>
+                        - 회사/팀/개인의 골과 비젼이 얼라인이 되어야 한다.<br>
+                        ㄴ Vision and Goals for the company<br>
+                        ㄴ Vision and Goals for the team<br>
+                        ㄴ Vision and Goals for you<br>
+                        - 회사 공통의 컬쳐(철학,색깔)가 있어야 그 컬쳐에 맞는 사람을 뽑을 수 있다.<br>
+
+                        ++ 새로운 것에 대한 호기심이 있어야 죽을 때까지 엔지니어 할 수 있다. 머리나 손이 굳을 때가 아니라 호기심이 죽을때 끝나는거.<br>
+                        ++ 내가 능력을 갖고 노력하고 있으면 언젠가는 기회가 온다.<br>
+                        ++ 처음에 내가 맡은 일은, 내 판단과 다르더라도 무조건 시킨대로 해야 한다. 그것은 일을 시킨 사람의 믿음을 지키고 신뢰를 쌓아가는 과정.<br>
+                        ++ 박종천님이 사람을 뽑는 기준 : 똑똑한가, 부지런한가, 착한가(솔직함 포함)<br>
+                        ++ 10개 요구사항 중 중요한거 1,2개 외에는 져주는 것이 이기는 것이다. 모두 다 이기려 들지 마라.<br>
+
+                        "I don't divide the world into the weak and the strong, or the successes and the failures, those who make it or those who don't. <br>
+                        I divided the world into learners and non-learners."<br>
+                        - Benjamin R. Barber<br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
+                        가장 핵심이 되었던 것 : 제조업은 기술이 제품에 녹아든다면, IT는 개발자에게 기술이 녹아든다."""
+                    </div>
+                </li>
+            </ul>
+            <p class="btn_line txt_right">
+                <a href="javascript:;" class="btn_bbs">수정하기</a>
+                <a href="javascript:;" class="btn_bbs">삭제하기</a>
+            </p>
+            <ul class="near_list mt20">
+                <li><h4 class="prev">다음글</h4><a href="javascript:;">CS 기술 면접 가이드</a></li>
+                <li><h4 class="next">이전글</h4><a href="javascript:;">클린 코드 그리고 리팩토링</a></li>
+            </ul>
+        </div>
+        <!-- //bodytext_area -->
+
+    </div>
+    <!-- //container -->
+
+    <div th:replace="fragment/footer"/>
+
+</div>
+<!-- //wrap -->
+
+<div th:replace="fragment/sideMenu"/>
+
+</body>
+</html>

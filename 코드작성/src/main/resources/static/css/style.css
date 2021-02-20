@@ -1,0 +1,174 @@
+:root {
+    --logo-color:black;
+    --text-color:#a3a5a8;
+    --background-color:#efeffa; 
+    --accent-color:#a3a5a8;
+    --hover-color:#a3a5a8;
+    --toggle-color:#c0c0c0;
+}
+
+body {
+    margin:0;
+    font-family: 'Source Sans Pro';
+}
+
+a{
+    text-decoration:none;
+    color:var(--logo-color);
+}
+
+
+.background_area.customer{
+    height: 445px;
+    background: url(../img/background.PNG) no-repeat center bottom;
+    background-size: 100% 100%;
+}
+
+
+.navbar{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color);
+    padding:8px 1px;
+}
+
+.navbar_logo{
+    font-size:24px;
+    padding:12px 12px;
+}
+
+.navbar_logo i{
+    color:var(--logo-color);
+}
+
+.navbar_menu{
+    display:flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.navbar_menu li {
+    padding: 8px 12px;
+}
+
+.navbar_menu li:hover{
+    background-color: var(--hover-color);
+    border-radius:4px;
+}
+
+.navbar_icons{
+    list-style:none;
+    padding: 8px 12px;
+    display:flex;
+    padding-left:0;
+}
+
+.navbar_icons li {
+    padding: 8px 12px;
+}
+
+.navbar_icons li:hover {
+    background-color: var(--hover-color);
+    border-radius:4px;
+}
+
+.navbar_toogleBtn{
+    display:none;
+    position:absolute;
+    right:32px;
+    font-size:24px;
+    color : var(--toggle-color);
+}
+
+/*첫 화면 */
+
+
+
+
+
+/*순위글*/
+.board_main {
+    align-items: center;
+    position:relative;
+    margin-bottom: 20px;
+    padding-bottom:20px;
+}
+.board_main .left h3{
+    background-color: #b12e30;
+}
+.board_main .right h3{
+    background-color: #393939;
+}
+.board_main h3{
+    height:42px;
+    line-height:42px;
+    color:#fff;
+    padding-left:24px;
+}
+.board_main .postbox{
+	float:left;
+	width:364px;
+}
+
+.board_main .left
+.bm_list{
+	background-color:#ebebeb;
+	padding: 24px 24px 24px 14px;
+}
+.ranking li {
+    padding : 8px 12px;
+}
+.board_main .right
+.bm_list{
+	background-color:#f3f3f3;
+	padding: 24px 24px 24px 14px;
+}
+.board_main .ranking
+.num {
+    color:#b12e30;
+    font-weight:bold;
+}
+.ranking li .num{
+    display:inline-block;
+    width : 30px;
+    text-align:center;
+}
+
+
+
+
+@media screen and (max-width:768px){
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar_menu {
+        display:none;
+        flex-direction: column;
+        align-items: center;
+        width : 100%;
+    }
+    .navbar_logo {
+        padding: 10px 12px;
+    }
+    .navbar_menu li {
+        width: 100%;
+        text-align:center;
+    }
+
+    .navbar_icons {
+        display:none;
+        justify-content:center;
+        width : 100%;
+    }
+    .navbar_toogleBtn{
+        display: block;
+        padding: 8px 12px;
+    }
+
+    .navbar_menu.active,
+    .navbar_icons.active {
+        display:flex;
+    }
+}
