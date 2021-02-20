@@ -1,4 +1,4 @@
-package com.finalproject.shelter.controller.pageController.board;
+package com.finalproject.shelter.controller.pageController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
