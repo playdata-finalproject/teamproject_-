@@ -4,6 +4,5 @@
 
 ---
 
-승배 : controller 폴더 xxxcontroller부분에서 ~~method 고쳤습니다.
-~~~상세 내용 http:www.xxxxxx.xxxxx
+승배 : [html 코드 리팩토링 간단한 설명](https://jsb-diary0011.tistory.com/40)
 
