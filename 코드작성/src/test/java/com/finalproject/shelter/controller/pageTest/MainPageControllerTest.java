@@ -1,4 +1,4 @@
-package com.finalproject.shelter.controllerTest.pageControllerTest;
+package com.finalproject.shelter.controller.pageTest;
 
 
 import com.finalproject.shelter.ShelterApplicationTests;
@@ -14,19 +14,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @AutoConfigureMockMvc
-public class BoardPageControllerTest extends ShelterApplicationTests {
+public class MainPageControllerTest extends ShelterApplicationTests {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void listPageTest() throws Exception{
-        check("/board","/pages/list");
-    }
-
-    @Test
-    public void viewPageTest() throws Exception{
-        check("/board/view","/pages/view");
+    public void mainpage() throws Exception{
+        check("/main","/pages/index");
     }
 
     private ResultActions check(String url, String location) throws Exception{
@@ -37,4 +32,5 @@ public class BoardPageControllerTest extends ShelterApplicationTests {
 
         return result;
     }
+
 }

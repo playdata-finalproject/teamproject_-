@@ -1,4 +1,4 @@
-package com.finalproject.shelter.controllerTest.pageControllerTest;
+package com.finalproject.shelter.controller.pageTest;
 
 import com.finalproject.shelter.ShelterApplicationTests;
 import org.junit.jupiter.api.Test;
