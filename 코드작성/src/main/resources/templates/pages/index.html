@@ -4,13 +4,12 @@
       xmlns:th="http://www.thymeleaf.org/">
 
 <!-- head Start-->
-<div th:replace="fragment/head :: head"></div>
+<div th:replace="fragment/head :: head">head</div>
 <!-- head End-->
-
 
 <body>
 <!--header Start-->
-<div th:replace="fragment/headerTitle ::headerTitle"></div>
+<div th:replace="fragment/headerTitle ::headerTitle">header</div>
 <!--header End-->
 
 <!-- wrap -->
@@ -73,11 +72,10 @@
         </div>
         <!-- //bodytext_area -->
     </div>
-    <div th:replace="fragment/footer"/>
-</div>
+    <div th:replace="fragment/footer"/>footer</div>
 <!-- //wrap -->
 
-<div th:replace="fragment/sideMenu"/>
+<div th:replace="fragment/sideMenu">sideMenu</div>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
