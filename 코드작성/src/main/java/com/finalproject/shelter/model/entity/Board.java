@@ -1,5 +1,6 @@
 package com.finalproject.shelter.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,14 +29,20 @@ public class Board {
 
     private String title;
 
-    private String name;
+    private String nickname;
 
     private String contents;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
+    private int view;
 
-    private LocalDateTime uncreatedAt;
+    private int goodBoard;
+
+    private int hateBoard;
+
+    @CreatedDate
+    private LocalDateTime registeredAt;
+
+    private LocalDateTime unregisteredAt;
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
@@ -45,6 +53,10 @@ public class Board {
     @ManyToOne
     private Category category;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "board")
+    @ManyToOne
+    private User user;
+
+    @OneToMany(mappedBy = "board",fetch = FetchType.LAZY )
+    @JsonIgnore
     private List<Answer> answerList;
 }
