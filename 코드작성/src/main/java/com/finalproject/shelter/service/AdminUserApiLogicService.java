@@ -23,7 +23,7 @@ public class AdminUserApiLogicService implements Crudinterface<AdminUserApiReque
         AdminUserApiRequest body = request.getData();
 
         AdminUser adminUser = AdminUser.builder()
-                .userId(body.getUserId())
+                .nickname(body.getNickname())
                 .password(body.getPassword())
                 .name(body.getName())
                 .build();
@@ -48,7 +48,7 @@ public class AdminUserApiLogicService implements Crudinterface<AdminUserApiReque
         return adminUserRepository.findById(body.getId())
                 .map(adminUser -> {
                     adminUser
-                            .setUserId(body.getUserId())
+                            .setNickname(body.getNickname())
                             .setPassword(body.getPassword())
                             .setName(body.getName());
                     return adminUser;
@@ -72,7 +72,7 @@ public class AdminUserApiLogicService implements Crudinterface<AdminUserApiReque
 
         AdminUserApiResponse body = AdminUserApiResponse.builder()
                 .id(adminUser.getId())
-                .userId(adminUser.getUserId())
+                .nickname(adminUser.getNickname())
                 .password(adminUser.getPassword())
                 .name(adminUser.getName())
                 .createdAt(adminUser.getCreatedAt())

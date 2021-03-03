@@ -1,5 +1,6 @@
 package com.finalproject.shelter.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString(exclude = {"categoryList","answerList"})
+@ToString(exclude = {"boardList"})
 @Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
 public class User {
@@ -28,17 +30,19 @@ public class User {
 
     private Long kakaoId;
 
-    private String userId;
+    private String username;
+
+    private String nickname;
+
+    private String identity;
 
     private String password;
 
-    private String name;
+    private byte enabled;
 
     private String email;
 
     private LocalDateTime lastLoginAt;
-
-    private int loginFailCount; // integer의 용량 이 int보다 큼 바꿀라면 나중에 바꾸자
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
@@ -51,9 +55,10 @@ public class User {
 
     private LocalDateTime uncreatedAt;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "useranwser")
-    private List<Answer> answerList;
+    @ManyToOne
+    private AdminUser adminUser;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "usercategory")
-    private List<Category> categoryList;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+    @JsonIgnore
+    private List<Board> boardList;
 }

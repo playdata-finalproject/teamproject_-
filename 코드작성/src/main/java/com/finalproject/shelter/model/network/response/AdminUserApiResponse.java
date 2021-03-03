@@ -15,15 +15,13 @@ public class AdminUserApiResponse {
 
     private Long id;
 
-    private String userId;
+    private String name;
+
+    private String nickname;
 
     private String password;
 
-    private String name;
-
     private LocalDateTime lastLoginAt;
-
-    private int loginFailCount; // integer의 용량 이 int보다 큼 바꿀라면 나중에 바꾸자
 
     private LocalDateTime createdAt;
 
@@ -32,4 +30,5 @@ public class AdminUserApiResponse {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
+
 }
