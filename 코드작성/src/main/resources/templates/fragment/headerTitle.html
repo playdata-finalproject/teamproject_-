@@ -1,6 +1,7 @@
 <html lang="ko"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org/" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
       xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <div th:fragment="headerTitle">
@@ -11,100 +12,104 @@
         </div>
 
         <ul class="navbar_menu" >
-            <div class="dropdown" id="app">
+            <div class="dropdown" id="language">
                 <button class="btn btn-secondary dropdown-toggle"
                         type="button" id="dropdownMenu1"
                         data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
-                        v-on:click="showname">
+                        v-on:click="languageboard">
                     언어게시판
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
                     <div class="titleview1" v-for="category in categories">
-<!--                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>-->
-                        <li><a v-bind:href="'/board?id=' + category.id">{{category.title}}</a></li>
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+<!--                        <li><a v-bind:href="'/board?id=' + category.id">{{category.title}}</a></li>-->
                     </div>
                 </div>
             </div>
 
-            <div class="dropdown">
+            <div class="dropdown" id="error">
                 <button class="btn btn-secondary dropdown-toggle"
                         type="button" id="dropdownMenu2"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        v-on:click="errorboard">
                     에러모음집
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <li><a href="" th:href="@{/board(id=1)}">C언어</a></li>
-                    <li><a href="" th:href="@{/board(id=1)}">A언어</a></li>
-                    <li><a href="" th:href="@{/board(id=1)}">B언어</a></li>
+                    <div class="titleview2" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                    </div>
                 </div>
             </div>
-            <div class="dropdown">
+            <div class="dropdown" id="best">
                 <button class="btn btn-secondary dropdown-toggle"
                         type="button" id="dropdownMenu3"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        v-on:click="bestboard">
                     Best게시글
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
-                    <li><a href="" th:href="@{/board(id=1)}">C언어</a></li>
-                    <li><a href="" th:href="@{/board(id=1)}">A언어</a></li>
-                    <li><a href="" th:href="@{/board(id=1)}">B언어</a></li>
+                    <div class="titleview3" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                    </div>
                 </div>
             </div>
-            <div class="dropdown">
+            <div class="dropdown" id="job">
                 <button class="btn btn-secondary dropdown-toggle"
                         type="button" id="dropdownMenu4"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        v-on:click="jobboard">
                     취업정보
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu4">
-                    <li><a href="" th:href="@{/board(id=1)}">C언어</a></li>
-                    <li><a href="" th:href="@{/board(id=1)}">A언어</a></li>
-                    <li><a href="" th:href="@{/board(id=1)}">B언어</a></li>
+                    <div class="titleview4" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                    </div>
                 </div>
             </div>
-            <div class="dropdown">
+            <div class="dropdown" id="employee">
                 <button class="btn btn-secondary dropdown-toggle"
                         type="button" id="dropdownMenu5"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        v-on:click="employeeboard">
                     연구/회사원
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu5">
-                    <li><a href="" th:href="@{/board(id=1)}">C언어</a></li>
-                    <li><a href="" th:href="@{/board(id=1)}">A언어</a></li>
-                    <li><a href="" th:href="@{/board(id=1)}">B언어</a></li>
+                    <div class="titleview5" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                    </div>
                 </div>
             </div>
-            <div class="dropdown">
+            <div class="dropdown" id="question">
                 <button class="btn btn-secondary dropdown-toggle"
                         type="button" id="dropdownMenu6"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        v-on:click="questionboard">
                     Q&A
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu6">
-                    <li><a href="" th:href="@{/board(id=1)}">C언어</a></li>
-                    <li><a href="" th:href="@{/board(id=1)}">A언어</a></li>
-                    <li><a href="" th:href="@{/board(id=1)}">B언어</a></li>
+                    <div class="titleview6" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                    </div>
                 </div>
             </div>
-<!--            <li><a href="" th:href="@{/board(id=1)}">언어게시판</a></li>-->
-<!--            <li><a href="" th:href="@{/board(id=2)}">에러 모음집</a></li>-->
-<!--            <li><a href="" th:href="@{/board(id=3)}">Best 게시글</a></li>-->
-<!--            <li><a href="" th:href="@{/board(id=4)}">취업 정보</a></li>-->
-<!--            <li><a href="" th:href="@{/board(id=5)}">연구/회사원</a></li>-->
-<!--            <li><a href="" th:href="@{/board(id=6)}">Q&A</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=1)}">언어게시판</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=2)}">에러 모음집</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=3)}">Best 게시글</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=4)}">취업 정보</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=5)}">연구/회사원</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=6)}">Q&A</a></li>-->
         </ul>
         <ul class="navbar_icons">
             <li><a href="" th:href="@{login}"><i class="fas fa-sign-in-alt"></i></a></li>
@@ -120,28 +125,9 @@
         <li><a href="#container" >본문내용</a></li>
     </ul>
 
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
-    <script>
-        new Vue({
-            el: '#app',
-            data:{
-                categories: []
-            },
-            methods : {
-                showname : function (){
-                    var self = this;
-                    axios.get('http://localhost:8080/category/title')
-                        .then(function (response){
-                            console.log(response)
-                            self.categories = response.data
-                            console.log(self.categorys)
-                        })
-                        .catch(function (error){
-                            self.categories = '에러! '+  error
-                        })
-                }
-            }
-        })
-    </script>
+    <script src="js/headerTitle.js" th:src="@{js/headerTitle.js}"></script>
+
 </div>
 </html>

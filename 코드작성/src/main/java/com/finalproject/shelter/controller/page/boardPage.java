@@ -2,6 +2,7 @@ package com.finalproject.shelter.controller.page;
 
 import com.finalproject.shelter.model.entity.Categorytable;
 import com.finalproject.shelter.repository.CategorytableRepository;
+import com.finalproject.shelter.service.Logic.CategoryLogicService;
 import com.finalproject.shelter.service.Logic.CategorytableLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class boardPage {
 
     @Autowired
-    private CategorytableLogicService categorytableLogicService;
+    private CategoryLogicService categoryLogicService;
 
 
 
@@ -27,7 +28,7 @@ public class boardPage {
         String id = request.getParameter("id");
 
         return new ModelAndView("/pages/list")
-                .addObject("bestTitle",categorytableLogicService.readtitle(id));
+                .addObject("bestTitle",categoryLogicService.readtitle(id));
     }
 
     @GetMapping("/view")
