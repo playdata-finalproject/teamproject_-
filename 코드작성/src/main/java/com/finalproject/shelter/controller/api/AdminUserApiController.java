@@ -4,7 +4,7 @@ import com.finalproject.shelter.ifs.Crudinterface;
 import com.finalproject.shelter.model.Header;
 import com.finalproject.shelter.model.network.request.AdminUserApiRequest;
 import com.finalproject.shelter.model.network.response.AdminUserApiResponse;
-import com.finalproject.shelter.service.AdminUserApiLogicService;
+import com.finalproject.shelter.service.Api.AdminUserApiLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
