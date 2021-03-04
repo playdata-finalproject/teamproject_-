@@ -4,180 +4,32 @@
       xmlns:th="http://www.thymeleaf.org/">
 
 <!-- head Start-->
-<div th:replace="fragment/head :: head"></div>
+<div th:replace="fragment/head :: head">head</div>
 <!-- head End-->
 
 
 <body>
 <!--header Start-->
-<div th:replace="fragment/headerTitle ::headerTitle"></div>
+<div th:replace="fragment/headerTitle ::headerTitle">header</div>
 <!--header End-->
 
-<ul class="skipnavi">
-    <li><a href="#container">본문내용</a></li>
-</ul>
 <!-- wrap -->
 
 <div id="container">
     <!-- location_area -->
-    <div class="location_area customer">
-        <div class="box_inner">
-            <h2 class="tit_page">Best 게시글 In<!--<span class="in">in</span>--> 코린이 대피소</h2>
-        </div>
-    </div>
+    <div th:replace="fragment/board/boardTitle :: best(${bestTitle})"></div>
     <!-- //location_area -->
-
     <!-- bodytext_area -->
-
-
 
     <div class="bodytext_area box_inner">
         <div class = "board_main">
-            <div class = "postbox left">
-                <h3>주간 인기</h3>
-                <div class="bm_list">
-                    <ul class = "ranking">
-                        <li>
-                            <span class="num">1</span>
-                            <a href="board/view">개발자가 갖추어야 할 9가지 기술</a>
-                        </li>
-                        <li>
-                            <span class="num">2</span>
-                            <a href="board/view">알고리즘과 자료구조 파헤치기</a>
-                        </li>
-                        <li>
-                            <span class="num">3</span>
-                            <a href="board/view">CS 기술 면접 가이드</a>
-                        </li>
-                        <li>
-                            <span class="num">4</span>
-                            <a href="board/view">애자일 방법론의 기초</a>
-                        </li>
-                        <li>
-                            <span class="num">5</span>
-                            <a href="board/view">클린코드 그리고 리팩토링</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class = "postbox right">
-                <h3>월간 인기</h3>
-                <div class="bm_list">
-                    <ul class = "ranking">
-                        <li>
-                            <span class="num">1</span>
-                            <a href="board/view">개발자가 갖추어야 할 9가지 기술</a>
-                        </li>
-                        <li>
-                            <span class="num">2</span>
-                            <a href="board/view">알고리즘과 자료구조 파헤치기</a>
-                        </li>
-                        <li>
-                            <span class="num">3</span>
-                            <a href="board/view">CS 기술 면접 가이드</a>
-                        </li>
-                        <li>
-                            <span class="num">4</span>
-                            <a href="board/view">애자일 방법론의 기초</a>
-                        </li>
-                        <li>
-                            <span class="num">5</span>
-                            <a href="board/view">클린코드 그리고 리팩토링</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <div th:replace="fragment/board/bestweekboard :: bestweekboard"></div>
+            <div th:replace="fragment/board/bestmonthboard :: bestmonthboard"></div>
         </div>
-        <form action="#" class="minisrch_form">
-            <fieldset>
-                <legend>검색</legend>
-                <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요">
-                <a href="javascript:;" class="btn_srch">검색</a>
-            </fieldset>
-        </form>
-        <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
-            <caption class="hdd">공지사항  목록</caption>
-            <thead>
-            <tr>
-                <th scope="col">번호</th>
-                <th scope="col">제목</th>
-                <th scope="col">조회수</th>
-                <th scope="col">작성일</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>9</td>
-                <td class="tit_notice"><a href="javascript:;">비전공 개발자의 개발 스토리</a> </td>
-                <td>21</td>
-                <td>2021-03-01</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td class="tit_notice"><a href="javascript:;">알고리즘과 자료구조 파헤치기</a> </td>
-                <td>18</td>
-                <td>2021-02-18</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td class="tit_notice"><a href="javascript:;">개발자 3년차의 늪을 헤쳐나오는 방법</a> </td>
-                <td>16</td>
-                <td>2021-01-05</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td class="tit_notice"><a href="javascript:;">애자일 방법론의 기초</a> </td>
-                <td>13</td>
-                <td>2021-01-01</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td class="tit_notice"><a href="javascript:;">Python Vs Java Vs C++</a> </td>
-                <td>31</td>
-                <td>2020-12-25</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td class="tit_notice"><a href="javascript:;">클린 코드 그리고 리팩토링</a> </td>
-                <td>112</td>
-                <td>2020-11-27</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td class="tit_notice"><a href="javascript:;">CS 기술 면접 가이드</a> </td>
-                <td>334</td>
-                <td>2020-11-23</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td class="tit_notice"><a href="javascript:;">개발자 포트폴리오 구축하기</a> </td>
-                <td>345</td>
-                <td>2020-11-21</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td class="tit_notice"><a href="javascript:;">개발자가 갖추어야할 9가지 기술</a> </td>
-                <td>102</td>
-                <td>2020-11-02</td>
-            </tr>
-            </tbody>
-        </table>
-        <p class="btn_line txt_right">
-            <a href="javascript:;" class="btn_bbs">글쓰기</a>
-        </p>
-        <!-- pagination -->
-        <div class="pagination">
-            <a href="javascript:;" class="firstpage  pbtn"><img src="img/btn_firstpage.png" alt="첫 페이지로 이동"></a>
-            <a href="javascript:;" class="prevpage  pbtn"><img src="img/btn_prevpage.png" alt="이전 페이지로 이동"></a>
-            <a href="javascript:;"><span class="pagenum currentpage">1</span></a>
-            <a href="javascript:;"><span class="pagenum">2</span></a>
-            <a href="javascript:;"><span class="pagenum">3</span></a>
-            <a href="javascript:;"><span class="pagenum">4</span></a>
-            <a href="javascript:;"><span class="pagenum">5</span></a>
-            <a href="javascript:;" class="nextpage  pbtn"><img src="img/btn_nextpage.png" alt="다음 페이지로 이동"></a>
-            <a href="javascript:;" class="lastpage  pbtn"><img src="img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>
-        </div>
-        <!-- //pagination -->
+
+
+        <div th:replace="fragment/board/boardlist :: boardlist"></div>
+
 
     </div>
     <!-- //bodytext_area -->
@@ -186,8 +38,9 @@
 <!-- //container -->
 
 <div th:replace="fragment/footer"/>
-
 <div th:replace="fragment/sideMenu"/>
+
+
 
 </body>
 </html>
