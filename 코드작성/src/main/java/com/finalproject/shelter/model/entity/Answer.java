@@ -12,6 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -29,6 +30,7 @@ public class Answer {
 
     private String nickname;
 
+    @Column(columnDefinition = "Text")
     private String answerText;
 
     private int goodAnswer;
@@ -36,12 +38,12 @@ public class Answer {
     private int hateAnswer;
 
     @CreatedDate
-    private LocalDateTime registeredAt;
+    private LocalDate registeredAt;
 
-    private LocalDateTime unregisteredAt;
+    private LocalDate unregisteredAt;
 
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    private LocalDate updatedAt;
 
     @LastModifiedBy
     private String updatedBy;

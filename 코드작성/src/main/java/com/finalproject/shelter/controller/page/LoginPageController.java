@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/login")
-public class loginPage {
+public class LoginPageController {
 
 
     @GetMapping("")

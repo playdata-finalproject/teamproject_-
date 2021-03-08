@@ -1,7 +1,5 @@
 package com.finalproject.shelter.model.network.request;
 
-import com.finalproject.shelter.model.entity.Category;
-import com.finalproject.shelter.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,33 +8,34 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AdminUserApiRequest {
+public class BoardApiRequest {
 
     private Long id;
 
-    private String name;
+    private String title;
 
     private String nickname;
 
-    private String password;
+    private String contents;
 
-    private LocalDateTime lastLoginAt;
+    private int view;
 
-    private LocalDate createdAt;
+    private int goodBoard;
 
-    private LocalDate uncreatedAt;
+    private int hateBoard;
+
+    private LocalDate registeredAt;
+
+    private LocalDate unregisteredAt;
 
     private LocalDate updatedAt;
 
     private String updatedBy;
-
 }

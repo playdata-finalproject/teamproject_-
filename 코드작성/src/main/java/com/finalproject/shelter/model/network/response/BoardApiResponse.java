@@ -9,27 +9,30 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class AdminUserApiResponse {
+public class BoardApiResponse {
 
     private Long id;
 
-    private String name;
+    private String title;
 
     private String nickname;
 
-    private String password;
+    private String contents;
 
-    private LocalDateTime lastLoginAt;
+    private int view;
 
-    private LocalDate createdAt;
+    private int goodBoard;
 
-    private LocalDate uncreatedAt;
+    private int hateBoard;
+
+    private LocalDate registeredAt;
+
+    private LocalDate unregisteredAt;
 
     private LocalDate updatedAt;
 
     private String updatedBy;
-
 }
