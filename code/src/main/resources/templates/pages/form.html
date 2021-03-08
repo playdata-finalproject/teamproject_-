@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<!-- head Start-->
+<div th:replace="fragment/head :: head">head</div>
+<!-- head End-->
+
+<body>
+<!--header Start-->
+<div th:replace="fragment/headerTitle ::headerTitle">header</div>
+<!--header End-->
+
+<!-- wrap -->
+<div id="wrap">
+    <div id="container">
+        <!-- location_area -->
+        <div th:replace="fragment/board/boardTitle :: best(${eachboard})"></div>
+        <!-- //location_area -->
+
+        <!-- bodytext_area -->
+        <div class="bodytext_area box_inner">
+            <ul class="bbsview_list">
+                <li class="bbs_title">
+                    <label><span th:text="제목 "></span> :  <input type="text" th:value="입력"></label>
+                </li>
+                <li class="bbs_title">
+                    <label><span th:text="작성자 "></span> :  <span th:text="작성자"></span></label>
+                </li>
+                <li class="bbs_content">
+                    <div class="editer_content">
+                      <textarea style="resize: none;" cols="150" rows="30"></textarea>
+                    </div>
+                </li>
+                <p class="btn_line txt_right">
+                    <a href="javascript:;" class="btn btn-primary">취소</a>
+                    <a></a>
+                    <button type="submit" class="btn btn-primary">확인</button>
+                </p>
+            </ul>
+        </div>
+        <!-- //bodytext_area -->
+
+    </div>
+    <!-- //container -->
+
+    <div th:replace="fragment/footer"/>
+
+</div>
+<!-- //wrap -->
+
+<div th:replace="fragment/sideMenu"/>
+
+</body>
+</html>

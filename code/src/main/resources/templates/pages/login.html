@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<!-- head Start-->
+<div th:replace="fragment/head :: head"></div>
+<!-- head End-->
+
+
+<body>
+<!--header Start-->
+<div th:replace="fragment/headerTitle ::headerTitle"></div>
+<!--header End-->
+
+
+<!-- wrap -->
+<div id="wrap">
+
+
+
+    <div id="container">
+        <!-- location_area -->
+        <div class="location_area customer">
+            <div class="box_inner">
+                <h2 class="tit_page">회원가입</h2>
+            </div>
+        </div>
+        <!-- //location_area -->
+
+        <!-- bodytext_area -->
+        <div class="bodytext_area box_inner">
+            <!-- login-wrap -->
+            <div class="login_wrap">
+                <h1 class="loginTit"><a href="#"><img src="img/tit_login.png" alt="TOURIST IN TOUR" /></a></h1>
+                <ul class="login_list">
+                    <li class="kakao"><a href="javascript:;"><strong>카카오톡</strong> 로그인</a></li>
+                    <li class="naver"><a href="javascript:;"><strong>네이버</strong> 로그인</a></li>
+                    <li class="facebook"><a href="javascript:;"><strong>페이스북</strong> 로그인</a></li>
+                    <li class="cellphone"><a href="javascript:;"><strong>이메일 주소</strong> 로그인</a></li>
+                </ul>
+                <div class="btnonoff_line">
+                    <div class="switch"></div>
+                    <p>
+                        <a href="#" class="btn_onoff" onclick="return false;">로그인 유지</a>
+                    </p>
+                </div>
+
+            </div>
+            <!-- //login-wrap -->
+
+        </div>
+        <!-- //bodytext_area -->
+
+        <div th:replace="fragment/footer"/>
+
+    </div>
+    <!-- //wrap -->
+    <div th:replace="fragment/sideMenu"/>
+
+</body>
+</html>

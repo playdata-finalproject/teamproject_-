@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<!-- head Start-->
+<div th:replace="fragment/head :: head">head</div>
+<!-- head End-->
+
+<body>
+<!--header Start-->
+<div th:replace="fragment/headerTitle ::headerTitle">header</div>
+<!--header End-->
+
+<!-- wrap -->
+<div id="wrap">
+    <div id="container">
+        <!-- location_area -->
+        <div th:replace="fragment/board/boardTitle :: best(${eachboard})"></div>
+        <!-- //location_area -->
+        <!-- bodytext_area -->
+
+        <div class="bodytext_area box_inner">
+            <div class = "board_main">
+                <div th:replace="fragment/board/bestweekboard :: bestweekboard"></div>
+                <div th:replace="fragment/board/bestmonthboard :: bestmonthboard"></div>
+            </div>
+
+
+            <div th:replace="fragment/board/boardlist :: boardlist(${boardlist},${eachboard})"></div>
+
+
+        </div>
+        <!-- //bodytext_area -->
+    </div>
+</div>
+<!-- //container -->
+
+<div th:replace="fragment/footer"/>
+<div th:replace="fragment/sideMenu"/>
+
+
+
+</body>
+</html>

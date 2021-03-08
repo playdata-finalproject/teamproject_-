@@ -1,0 +1,133 @@
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<div th:fragment="headerTitle">
+    <nav class="navbar">
+        <div class="navbar_logo">
+            <i class="fas fa-baby"></i>
+            <a href="" th:href="@{/main}" >코린이 대피소</a>
+        </div>
+
+        <ul class="navbar_menu" >
+            <div class="dropdown" id="language">
+                <button class="btn btn-secondary dropdown-toggle"
+                        type="button" id="dropdownMenu1"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        v-on:click="languageboard">
+                    언어게시판
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <div class="titleview1" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+<!--                        <li><a v-bind:href="'/board?id=' + category.id">{{category.title}}</a></li>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="dropdown" id="error">
+                <button class="btn btn-secondary dropdown-toggle"
+                        type="button" id="dropdownMenu2"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        v-on:click="errorboard">
+                    에러모음집
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <div class="titleview2" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown" id="best">
+                <button class="btn btn-secondary dropdown-toggle"
+                        type="button" id="dropdownMenu3"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        v-on:click="bestboard">
+                    Best게시글
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                    <div class="titleview3" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown" id="job">
+                <button class="btn btn-secondary dropdown-toggle"
+                        type="button" id="dropdownMenu4"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        v-on:click="jobboard">
+                    취업정보
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu4">
+                    <div class="titleview4" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown" id="employee">
+                <button class="btn btn-secondary dropdown-toggle"
+                        type="button" id="dropdownMenu5"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        v-on:click="employeeboard">
+                    연구/회사원
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu5">
+                    <div class="titleview5" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown" id="question">
+                <button class="btn btn-secondary dropdown-toggle"
+                        type="button" id="dropdownMenu6"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        v-on:click="questionboard">
+                    Q&A
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu6">
+                    <div class="titleview6" v-for="category in categories">
+                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                    </div>
+                </div>
+            </div>
+            <!--            <li><a href="" th:href="@{/board(id=1)}">언어게시판</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=2)}">에러 모음집</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=3)}">Best 게시글</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=4)}">취업 정보</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=5)}">연구/회사원</a></li>-->
+            <!--            <li><a href="" th:href="@{/board(id=6)}">Q&A</a></li>-->
+        </ul>
+        <ul class="navbar_icons">
+            <li><a href="" th:href="@{login}"><i class="fas fa-sign-in-alt"></i></a></li>
+            <li><a href="" th:href="@{Google}"><i class="fab fa-google"></i></a></li>
+            <li><a href="" th:href="@{Github}"><i class="fab fa-github"></i></a></li>
+        </ul>
+        <a href="#" class = "navbar_toogleBtn">
+            <i class="fas fa-list"></i>
+        </a>
+    </nav>
+
+    <ul class="skipnavi">
+        <li><a href="#container" >본문내용</a></li>
+    </ul>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" th:src="@{//cdn.jsdelivr.net/npm/vue/dist/vue.js}"></script>
+    <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js" th:src="@{//unpkg.com/axios@0.12.0/dist/axios.min.js}"></script>
+    <script src="/js/headerTitle.js" th:src="@{/js/headerTitle.js}"></script>
+
+</div>
+</html>

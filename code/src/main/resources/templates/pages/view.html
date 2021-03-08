@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<!-- head Start-->
+<div th:replace="fragment/head :: head">head</div>
+<!-- head End-->
+
+<body>
+<!--header Start-->
+<div th:replace="fragment/headerTitle ::headerTitle">header</div>
+<!--header End-->
+
+<!-- wrap -->
+<div id="wrap">
+    <div id="container">
+        <!-- location_area -->
+        <div th:replace="fragment/board/boardTitle :: best(${eachboard})"></div>
+        <!-- //location_area -->
+
+        <!-- bodytext_area -->
+        <div class="bodytext_area box_inner">
+
+            <div class = "board_main">
+                <div th:replace="fragment/board/bestweekboard :: bestweekboard"></div>
+                <div th:replace="fragment/board/bestmonthboard :: bestmonthboard"></div>
+            </div>
+
+            <ul class="bbsview_list">
+                <li class="bbs_title">제목 : <span th:text="${eachboard.title}"></span></li>
+                <li class="bbs_hit">작성일 : <span th:text="${eachboard.registeredAt}">2021.02.19</span></li>
+                <li class="bbs_date">조회수 : <span th:text="${eachboard.viewBoard}">235</span></li>
+                <li class="bbs_content">
+                    <div class="editer_content">
+                        <span th:utext="${eachboard.contents.replaceAll('\n','<br/>')}">
+                            가장 핵심이 되었던 것 : 제조업은 기술이 제품에 녹아든다면, IT는 개발자에게 기술이 녹아든다."""
+                        </span>
+                    </div>
+                </li>
+            </ul>
+            <p class="btn_line txt_right">
+                <a href="javascript:;" class="btn_bbs">수정하기</a>
+                <a href="" th:href="@{/board/delete(id=${eachboard.id})}" class="btn_bbs">삭제하기</a>
+            </p>
+            <ul class="near_list mt20">
+                <li><h4 class="prev">다음글</h4><a href="javascript:;">CS 기술 면접 가이드</a></li>
+                <li><h4 class="next">이전글</h4><a href="javascript:;">클린 코드 그리고 리팩토링</a></li>
+            </ul>
+        </div>
+        <!-- //bodytext_area -->
+
+    </div>
+    <!-- //container -->
+
+    <div th:replace="fragment/footer"/>
+
+</div>
+<!-- //wrap -->
+
+<div th:replace="fragment/sideMenu"/>
+
+</body>
+</html>
