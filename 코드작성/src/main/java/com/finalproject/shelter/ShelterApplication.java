@@ -9,5 +9,6 @@ public class ShelterApplication {
     public static void main(String[] args) {
         SpringApplication.run(ShelterApplication.class, args);
     }
+    
 
 }
