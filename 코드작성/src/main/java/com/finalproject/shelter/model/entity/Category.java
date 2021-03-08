@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,16 +30,16 @@ public class Category {
 
     private String title;
 
+    @CreatedDate
+    private LocalDate createdAt;
+
+    private LocalDate uncreatedAt;
+
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    private LocalDate updatedAt;
 
     @LastModifiedBy
     private String updatedBy;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    private LocalDateTime uncreatedAt;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "category")
     @JsonIgnore

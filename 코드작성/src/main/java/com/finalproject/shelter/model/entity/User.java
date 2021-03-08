@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,30 +31,30 @@ public class User {
 
     private Long kakaoId;
 
-    private String username;
+    private String identity;
 
     private String nickname;
 
-    private String identity;
-
     private String password;
 
-    private byte enabled;
+    private String username;
 
     private String email;
 
+    private boolean enabled;
+
     private LocalDateTime lastLoginAt;
 
+    @CreatedDate
+    private LocalDate createdAt;
+
+    private LocalDate uncreatedAt;
+
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    private LocalDate updatedAt;
 
     @LastModifiedBy
     private String updatedBy;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    private LocalDateTime uncreatedAt;
 
     @ManyToOne
     private AdminUser adminUser;
