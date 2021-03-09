@@ -18,8 +18,9 @@ public class BoardLogicService {
     @Autowired
     private BoardRepository boardRepository;
 
-    Long ids;
-    Board board1;
+    private Board newboard;
+    private Long ids;
+    private Board board1;
 
     public Page<Board> readAll(String id, Pageable pageable){
 
@@ -57,5 +58,20 @@ public class BoardLogicService {
         });
 
         return String.valueOf(ids);
+    }
+
+    public Board postservice(Board board){
+        Optional<Board> board1 = boardRepository.findBoardById(board.getId());
+
+        board1.ifPresent(select->{
+            select.setTitle(board.getTitle())
+                    .setContents(board.getContents());
+            newboard = boardRepository.save(select);
+        });
+        if (board1.isEmpty()){
+            newboard = boardRepository.save(board);
+        }
+
+        return newboard;
     }
 }
