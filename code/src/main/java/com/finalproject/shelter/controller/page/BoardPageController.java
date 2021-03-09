@@ -33,7 +33,7 @@ public class BoardPageController {
         int startPage = Math.max(1,boardlist.getPageable().getPageNumber() -4);
         int endPage = Math.min(boardlist.getTotalPages(),boardlist.getPageable().getPageNumber()+4);
 
-        return new ModelAndView("/pages/list")
+        return new ModelAndView("pages/list")
                 .addObject("boardlist",boardlist)
                 .addObject("startPage",startPage)
                 .addObject("endPage",endPage)
@@ -44,7 +44,7 @@ public class BoardPageController {
     public ModelAndView listview(HttpServletRequest request){
         String id = request.getParameter("id");
 
-        return new ModelAndView("/pages/view")
+        return new ModelAndView("pages/view")
                 .addObject("eachboard",boardLogicService.readBoard(id));
     }
 
@@ -54,7 +54,7 @@ public class BoardPageController {
         String id = request.getParameter("id");
 
 
-        return new ModelAndView("/pages/form")
+        return new ModelAndView("pages/form")
                 .addObject("eachboard",boardLogicService.readBoard(id));
     }
 

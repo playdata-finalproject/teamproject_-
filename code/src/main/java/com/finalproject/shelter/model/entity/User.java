@@ -1,16 +1,14 @@
 package com.finalproject.shelter.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import lombok.experimental.Accessors;
-import org.springframework.data.annotation.CreatedBy;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +17,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString(exclude = {"boardList"})
-@Accessors(chain = true)
-@EntityListeners(AuditingEntityListener.class)
+//@Builder
+//@ToString(exclude = {"categoryList","answerList"})
+//@Accessors(chain = true)
+//@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
@@ -31,35 +29,43 @@ public class User {
 
     private Long kakaoId;
 
-    private String identity;
-
     private String nickname;
+    private String identity;
 
     private String password;
 
+    //private String password2;
     private String username;
 
     private String email;
 
-    private boolean enabled;
+    private Boolean enabled;
 
     private LocalDateTime lastLoginAt;
 
-    @CreatedDate
-    private LocalDate createdAt;
-
-    private LocalDate uncreatedAt;
+    private int loginFailCount; // integer의 용량 이 int보다 큼 바꿀라면 나중에 바꾸자
 
     @LastModifiedDate
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 
     @LastModifiedBy
     private String updatedBy;
 
-    @ManyToOne
-    private AdminUser adminUser;
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+    private LocalDateTime uncreatedAt;
+
+    //private Long adminUserId;
+
     @JsonIgnore
-    private List<Board> boardList;
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns =  @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id"))
+    private List<Role> roles = new ArrayList<>();
+
+    //@OneToMany(mappedBy = "User")
+    //private List<Board> Board = new ArrayList<>();
 }

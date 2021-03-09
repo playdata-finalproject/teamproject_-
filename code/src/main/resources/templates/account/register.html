@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<!-- head Start-->
+<div th:replace="fragment/head :: head"></div>
+<!-- head End-->
+
+
+<body>
+<!--header Start-->
+<div th:replace="fragment/headerTitle ::headerTitle"></div>
+<!--header End-->
+
+
+<!-- wrap -->
+<div id="wrap">
+
+    <div id="container">
+        <!-- location_area -->
+        <div class="location_area customer">
+            <div class="box_inner">
+                <h2 class="tit_page">회원가입</h2>
+            </div>
+        </div>
+        <!-- //location_area -->
+        <div class="bodytext_area box_inner">
+            <!-- appForm -->
+
+            <form class="form-signin" commandName = "User" th:action="@{/account/register}" method="post">
+<!--                <div th:if="${password!=password2}" class="alert alert-danger" role="alert">-->
+<!--                    Password is not equal.-->
+<!--                </div>-->
+                <a th:href="@{/}"><img class="mb-4" src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"></a>
+                <h1 class="h3 mb-3 font-weight-normal">회원가입</h1>
+<!--                <identity, password, password, username, email, nickname>
+                     ID, 비밀번호, 비밀번호 확인, 이름, 이메일, 닉네임-->
+                <label for="username" class="sr-only">이름</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="username" required autofocus>
+                <label for="identity" class="sr-only">아이디</label>
+                <input type="text" id="identity" name="identity" class="form-control" placeholder="identity" required autofocus>
+                <label for="password" class="sr-only">비밀번호</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+<!--                <label for="password" class="sr-only">비밀번호 확인 </label>-->
+<!--                <input type="password" id="password2" name="password" class="form-control" placeholder="Password Check" required>-->
+                <label for="email" class="sr-only">이메일</label>
+                <input type="text" id="email" name="email" class="form-control" placeholder="email" required autofocus>
+                <label for="nickname" class="sr-only">닉네임</label>
+                <input type="text" id="nickname" name="nickname" class="form-control" placeholder="nickname" required autofocus>
+                <!-- <div class="checkbox mb-3">
+                  <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                  </label>
+                </div> -->
+                <button class="btn btn-lg btn-primary btn-block" type="submit">회원가입</button>
+                <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+            </form>
+
+        <div th:replace="fragment/footer"/>
+
+    </div>
+    <!-- //wrap -->
+    <div th:replace="fragment/sideMenu"/>
+
+</body>
+</html>

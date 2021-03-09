@@ -51,7 +51,7 @@ public class AdminUser {
     @JsonIgnore
     private List<Category> categoryList;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "adminUser")
-    @JsonIgnore
-    private List<User> userList;
+    //@OneToMany(fetch = FetchType.LAZY,mappedBy = "adminUser")
+    //@JsonIgnore
+    //private List<User> userList;
 }
