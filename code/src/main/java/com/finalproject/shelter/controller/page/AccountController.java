@@ -25,11 +25,10 @@ public class AccountController {
         return "account/register";
     }
 
-
     @PostMapping("/register")
     public String register(User user){
         userService.save(user);
-        return "redirect:/main";
+        return "redirect:/login";
     }
 
 }
