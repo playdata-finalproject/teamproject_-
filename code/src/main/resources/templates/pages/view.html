@@ -40,7 +40,8 @@
                 </li>
             </ul>
             <p class="btn_line txt_right">
-                <a href="javascript:;" class="btn_bbs">수정하기</a>
+                <a href="" th:href="@{/board(id=${eachboard.category.id})}" class="btn_bbs">글목록</a>
+                <a href="" th:href="@{/board/form(id=${eachboard.id},name=modify)}" class="btn_bbs">수정하기</a>
                 <a href="" th:href="@{/board/delete(id=${eachboard.id})}" class="btn_bbs">삭제하기</a>
             </p>
             <ul class="near_list mt20">

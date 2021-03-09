@@ -22,23 +22,31 @@
         <!-- bodytext_area -->
         <div class="bodytext_area box_inner">
             <ul class="bbsview_list">
-                <li class="bbs_title">
-                    <label><span th:text="제목 "></span> :  <input type="text" th:value="입력"></label>
-                </li>
-                <li class="bbs_title">
-                    <label><span th:text="작성자 "></span> :  <span th:text="작성자"></span></label>
-                </li>
-                <li class="bbs_content">
-                    <div class="editer_content">
-                      <textarea style="resize: none;" cols="150" rows="30"></textarea>
-                    </div>
-                </li>
-                <p class="btn_line txt_right">
-                    <a href="javascript:;" class="btn btn-primary">취소</a>
-                    <a></a>
-                    <button type="submit" class="btn btn-primary">확인</button>
-                </p>
+                <form action="#" th:action="@{/board/form}" th:object="${board}" method="post">
+                    <input type="hidden" th:field="*{id}">
+                    <li class="bbs_title">
+                        <label><span th:text="제목 "></span> :  <input type="text" th:field="*{title}"></label>
+                    </li>
+                    <li class="bbs_hit">
+                        <label><span th:text="작성자 "></span> :  <span th:text="*{nickname}">로그인 유저</span></label>
+                    </li>
+                    <li class="bbs_hit">
+                        <label><span th:text="Category "></span> :
+                            <input type="hidden" th:field="*{category.id}" th:text="*{category.title}" readonly="readonly" ></label>
+                    </li>
+                    <li class="bbs_content">
+                        <div class="editer_content">
+                          <textarea style="resize: none;" cols="150" rows="30" th:field="*{contents}"></textarea>
+                        </div>
+                    </li>
+                    <p class="btn_line txt_right">
+                        <a href="" th:href="@{/board(id=*{category.id},page=0)}" class="btn btn-primary">취소</a>
+                        <a></a>
+                        <button type="submit" class="btn btn-primary">확인</button>
+                    </p>
+                </form>
             </ul>
+
         </div>
         <!-- //bodytext_area -->
 
