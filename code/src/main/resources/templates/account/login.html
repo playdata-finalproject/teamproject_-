@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<!-- head Start-->
+<div th:replace="fragment/head :: head"></div>
+<!-- head End-->
+
+<div th:replace="fragment/headerTitle ::headerTitle"></div>
+
+<body class = "text-center">
+
+    <form class="form-signin"  th:action="@{/account/login}" method="post">
+        <i class="fas fa-baby" ></i>
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <div th:if="${param.error}" class="alert alert-danger" role="alert">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}" class="alert alert-primary" role="alert">
+            You have been logged out.
+        </div>
+        <!--    <a th:href="@{/}"><img class="mb-4" src="/img/logo.png" alt="" width="72" height="72"></a>-->
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+    </form>
+
+    <div th:replace="fragment/footer"/>
+    <div th:replace="fragment/sideMenu"/>
+</body>
+</html>
