@@ -24,7 +24,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <div class="titleview1" v-for="category in categories">
-                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                        <li><a v-bind:href="`/board?id=${category.id}`" v-text="category.title">회원이 아닙니다</a></li>
 <!--                        <li><a v-bind:href="'/board?id=' + category.id">{{category.title}}</a></li>-->
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                     <div class="titleview2" v-for="category in categories">
-                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                        <li><a v-bind:href="`/board?id=${category.id}`"v-text="category.title">회원이 아닙니다</a></li>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
                     <div class="titleview3" v-for="category in categories">
-                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                        <li><a v-bind:href="`/board?id=${category.id}`"v-text="category.title">회원이 아닙니다</a></li>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu4">
                     <div class="titleview4" v-for="category in categories">
-                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                        <li><a v-bind:href="`/board?id=${category.id}`"v-text="category.title">회원이 아닙니다</a></li>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu5">
                     <div class="titleview5" v-for="category in categories">
-                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                        <li><a v-bind:href="`/board?id=${category.id}`"v-text="category.title">회원이 아닙니다</a></li>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu6">
                     <div class="titleview6" v-for="category in categories">
-                        <li><a v-bind:href="`/board?id=${category.id}`">{{category.title}}</a></li>
+                        <li><a v-bind:href="`/board?id=${category.id}`"v-text="category.title">회원이 아닙니다</a></li>
                     </div>
                 </div>
             </div>
