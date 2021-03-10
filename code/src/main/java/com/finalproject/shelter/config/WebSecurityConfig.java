@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private DataSource dataSource;
 
@@ -23,7 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/","/main", "/account/register", "/css/**", "/api/**").permitAll()
+                    .antMatchers("/","/main","/account/register").permitAll()
+                    .antMatchers( "/css/**","/img/**","/api/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -35,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .permitAll();
     }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
@@ -54,5 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+        //로그인 요청 시, 입력된 유저 정보와 DB의 회원정보를 비교해 인증된
+        // 사용자인지 체크하는 로직이 정의되어있습니다.
     }
 }

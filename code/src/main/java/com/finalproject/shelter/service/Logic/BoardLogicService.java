@@ -22,13 +22,22 @@ public class BoardLogicService {
     private Long ids;
     private Board board1;
 
-    public Page<Board> readAll(String id, Pageable pageable){
+    public Page<Board> readAll(String id,String select, String searchText, Pageable pageable){
 
-        Page<Board> boards = boardRepository.findAllByCategoryId(Long.parseLong(id),pageable);
-
-        if (boards!=null){
-            return boards;
+        if (select.equals("title")){
+            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContaining
+                    (Long.parseLong(id),searchText,"",pageable);
+            if (boards!=null){
+                return boards;
+            }
+        }else{
+            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContaining
+                    (Long.parseLong(id),"",searchText,pageable);
+            if (boards!=null){
+                return boards;
+            }
         }
+
         return null;
     }
 
