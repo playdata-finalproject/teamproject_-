@@ -1,9 +1,10 @@
 package com.finalproject.shelter.controller.page;
 
+import com.finalproject.shelter.model.entity.Answer;
 import com.finalproject.shelter.model.entity.Board;
+import com.finalproject.shelter.service.Logic.AnswerLogicService;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -19,6 +21,9 @@ public class BoardPageController {
 
     @Autowired
     private BoardLogicService boardLogicService;
+
+    @Autowired
+    private AnswerLogicService answerLogicService;
 
     @GetMapping("")
     public ModelAndView findboardlist(HttpServletRequest request,
@@ -40,13 +45,38 @@ public class BoardPageController {
                 .addObject("eachboard",boardLogicService.readCategory(id));
     }
 
+
+
+
+
     @GetMapping("/view")
-    public ModelAndView listview(HttpServletRequest request){
-        String id = request.getParameter("id");
+    public ModelAndView listview(
+            @RequestParam(value = "id",required = false, defaultValue = "0") String id){
+        Board eachboard = boardLogicService.readBoard(id);
+        Answer answer = Answer.builder()
+                .board(eachboard)
+                .build();
+        List<Answer> answerList = answerLogicService.readAnswer(id);
 
         return new ModelAndView("/pages/view")
-                .addObject("eachboard",boardLogicService.readBoard(id));
+                .addObject("eachboard",eachboard)
+                .addObject("Answer",answer)
+                .addObject("Answers",answerList);
     }
+
+    @PostMapping("/view/answer")
+    public String postanswer(@ModelAttribute Answer answer){
+
+        Answer answer1 = answerLogicService.save(answer);
+
+        return "redirect:/board/view?id=" + answer1.getBoard().getId();
+    }
+
+
+
+
+
+
 
     @GetMapping("/form")
     public ModelAndView writeview(HttpServletRequest request,@RequestParam("name") String name,
@@ -76,6 +106,10 @@ public class BoardPageController {
         Board newboard = boardLogicService.postservice(board);
         return "redirect:/board/view?id=" + newboard.getId();
     }
+
+
+
+
 
     @GetMapping("/delete")
     public String deleteboard(HttpServletRequest request){

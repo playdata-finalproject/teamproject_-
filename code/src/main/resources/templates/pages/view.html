@@ -44,6 +44,14 @@
                 <a href="" th:href="@{/board/form(id=${eachboard.id},name=modify)}" class="btn_bbs">수정하기</a>
                 <a href="" th:href="@{/board/delete(id=${eachboard.id})}" class="btn_bbs">삭제하기</a>
             </p>
+
+            <!--댓글 기능시작 -->
+
+            <div th:replace="fragment/answer/answerlist :: answerlist(${Answer},${Answers})">answerlist</div>
+
+            <br><br>
+            <!--댓글 기능끝-->
+
             <ul class="near_list mt20">
                 <li><h4 class="prev">다음글</h4><a href="javascript:;">CS 기술 면접 가이드</a></li>
                 <li><h4 class="next">이전글</h4><a href="javascript:;">클린 코드 그리고 리팩토링</a></li>
