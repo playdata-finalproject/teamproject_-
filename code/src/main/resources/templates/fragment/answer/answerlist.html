@@ -1,0 +1,45 @@
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<div th:fragment="answerlist(Answer,Answers)">
+    <form action="" th:action="@{/board/view/answer}" th:method="Post" th:object="${Answer}">
+        <div class="near_list">
+            <h4><span class="text-right">사용자 이름 </span>
+                <span> &nbsp;&nbsp; | &nbsp;&nbsp; </span>
+                <span class="text-center">댓글 시간</span></h4>
+            <p>
+            <input type="hidden" th:field="*{Board}">
+            <li><input type="text" class="form-control" style="width: 858px;border-color: #6f788B"
+                th:field="*{answerText}">
+                <button type="submit" class="btn_bbs" >확인</button></li>
+            </p>
+        </div>
+    </form>
+    <br><br><br>
+    <div class="d-sm-flex justify-content-between text-center">
+        <p class="comment-count" ><span class="align-middle"><i class="fa fa-comment"></i>
+                    </span><span th:text="${#lists.size(Answers)}"></span> Comments</p>
+        <div class="col-sm-4 text-right my-2 my-sm-0">
+            <p class="like-info"><span class="align-middle">
+                            <i class="fa fa-thumbs-up"></i></i></span>
+                <span>좋아요</span>
+                ( 4 ) &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="align-middle">
+                            <i class="fa fa-thumbs-down"></i></i></span>
+                <span>싫어요</span>
+                ( 4 )</p></p>
+            <p class="like-info">
+<!--            <i class="fa fa-thumbs-down">-->
+        </div>
+    </div>
+    <div class="near_list" th:each="answer : ${Answers}">
+        <h4 style="font-size: 1.5em"><span class="text-right" th:text="${answer.nickname}">사용자 이름 </span>
+            <span> &nbsp;&nbsp; | &nbsp;&nbsp; </span>
+            <span class="text-center" th:text="${answer.registeredAt}">댓글 시간</span></h4>
+        <li style="font-size: 1.2em"><a th:text="${answer.answerText}">aaa</a>
+            <i class="fa fa-reply" onclick=""><a>답변</a></i></li>
+    </div>
+</div>
+
+</html>
