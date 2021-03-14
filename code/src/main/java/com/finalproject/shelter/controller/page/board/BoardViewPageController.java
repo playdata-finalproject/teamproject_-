@@ -29,6 +29,8 @@ public class BoardViewPageController {
 
         Board eachboard = boardLogicService.readBoardview(id,viewboard);
         List<Answer> answerList = answerLogicService.readAnswer(id);
+        List<Board> weekview = boardLogicService.bestweekview(String.valueOf(eachboard.getCategory().getId()));
+        List<Board> monthview = boardLogicService.bestmonthview(String.valueOf(eachboard.getCategory().getId()));
 
         Answer answer = Answer.builder()
                 .board(eachboard)
@@ -37,7 +39,9 @@ public class BoardViewPageController {
         return new ModelAndView("/pages/view")
                 .addObject("eachboard",eachboard)
                 .addObject("Answer",answer)
-                .addObject("Answers",answerList);
+                .addObject("Answers",answerList)
+                .addObject("weekview",weekview)
+                .addObject("monthview",monthview);
     }
 
     @PostMapping("/answer")

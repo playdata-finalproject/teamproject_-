@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @Controller
@@ -33,6 +34,8 @@ public class BoardPageController {
         String id = request.getParameter("id");
 
         Page<Board> boardlist = boardLogicService.readAll(id,select,searchText,pageable);
+        List<Board> weekview = boardLogicService.bestweekview(id);
+        List<Board> monthview = boardLogicService.bestmonthview(id);
         Board eachboard = boardLogicService.readCategory(id);
 
         int startPage = Math.max(1,boardlist.getPageable().getPageNumber() -4);
@@ -42,7 +45,9 @@ public class BoardPageController {
                 .addObject("boardlist",boardlist)
                 .addObject("startPage",startPage)
                 .addObject("endPage",endPage)
-                .addObject("eachboard",eachboard);
+                .addObject("eachboard",eachboard)
+                .addObject("weekview",weekview)
+                .addObject("monthview",monthview);
     }
 
     @GetMapping("/delete")

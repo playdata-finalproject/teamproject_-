@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +18,11 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
 
     Optional<Board> findBoardById(@Param("id") Long id);
 
-    Page<Board> findBoardByCategoryIdAndTitleContainingAndContentsContaining(@Param("id") Long id,String title,String content,Pageable pageable);
+    Page<Board> findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc(@Param("id") Long id,String title,String content,Pageable pageable);
 
-    List<Board> findBoardByCategoryIdAndTitleContainingAndContentsContaining(Long id,String title,String content);
+    List<Board> findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc(Long id,String title,String content);
 
     List<Board> findBoardByCategoryId(Long id);
 
+    List<Board> findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc(Long id, LocalDate date1, LocalDate date2);
 }

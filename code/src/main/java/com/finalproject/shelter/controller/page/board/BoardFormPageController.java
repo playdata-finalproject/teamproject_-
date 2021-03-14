@@ -1,7 +1,6 @@
 package com.finalproject.shelter.controller.page.board;
 
 import com.finalproject.shelter.model.entity.Board;
-import com.finalproject.shelter.service.Logic.AnswerLogicService;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +17,7 @@ public class BoardFormPageController {
     private BoardLogicService boardLogicService;
 
     @GetMapping("")
-    public ModelAndView writeview(HttpServletRequest request, @RequestParam("name") String name,
-                                  @RequestParam(required = false,defaultValue = "0")String boardid){
+    public ModelAndView writeview(HttpServletRequest request, @RequestParam("name") String name){
 
         String id = request.getParameter("id");
         Board board = boardLogicService.readBoard(id);

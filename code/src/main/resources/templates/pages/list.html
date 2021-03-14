@@ -22,8 +22,8 @@
 
         <div class="bodytext_area box_inner">
             <div class = "board_main">
-                <div th:replace="fragment/board/bestweekboard :: bestweekboard"></div>
-                <div th:replace="fragment/board/bestmonthboard :: bestmonthboard"></div>
+                <div th:replace="fragment/board/bestweekboard :: bestweekboard(${weekview})"></div>
+                <div th:replace="fragment/board/bestmonthboard :: bestmonthboard(${monthview})"></div>
             </div>
 
             <div th:replace="fragment/board/boardlist :: boardlist(${boardlist},${eachboard})"></div>

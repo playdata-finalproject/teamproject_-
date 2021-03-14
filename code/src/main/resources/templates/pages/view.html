@@ -23,8 +23,8 @@
         <div class="bodytext_area box_inner">
 
             <div class = "board_main">
-                <div th:replace="fragment/board/bestweekboard :: bestweekboard"></div>
-                <div th:replace="fragment/board/bestmonthboard :: bestmonthboard"></div>
+                <div th:replace="fragment/board/bestweekboard :: bestweekboard(${weekview})"></div>
+                <div th:replace="fragment/board/bestmonthboard :: bestmonthboard(${monthview})"></div>
             </div>
 
             <ul class="bbsview_list">
@@ -47,7 +47,7 @@
 
             <!--댓글 기능시작 -->
 
-            <div th:replace="fragment/answer/answerlist :: answerlist(${eachboard})">answerlist</div>
+            <div th:replace="fragment/answer/answerlist :: answerlist(${Answer},${Answers})">answerlist</div>
 
             <br><br>
             <!--댓글 기능끝-->

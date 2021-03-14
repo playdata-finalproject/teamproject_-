@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +34,20 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
     }
 
     @Test
+    public void boardview() throws Exception{
+        List<Board> boardList = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
+                (3L,LocalDate.now().minusDays(15),LocalDate.now().plusDays(15));
+
+        if(boardList!=null){
+            boardList.stream().forEach(select->{
+                System.out.println(select);
+            });
+        }
+    }
+
+    @Test
     public void boardlist() throws Exception{
-        List<Board> boardList = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContaining
+        List<Board> boardList = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc
                 (3L,"test","");
         if(boardList!=null){
             boardList.stream().forEach(select->{

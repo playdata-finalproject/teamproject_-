@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,13 +27,13 @@ public class BoardLogicService {
     public Page<Board> readAll(String id,String select, String searchText, Pageable pageable){
 
         if (select.equals("title")){
-            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContaining
+            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc
                     (Long.parseLong(id),searchText,"",pageable);
             if (boards!=null){
                 return boards;
             }
         }else{
-            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContaining
+            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc
                     (Long.parseLong(id),"",searchText,pageable);
             if (boards!=null){
                 return boards;
@@ -75,6 +76,29 @@ public class BoardLogicService {
         });
         return board1;
     }
+
+
+
+    public List<Board> bestweekview(String id){
+        List<Board> weekview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
+                (Long.parseLong(id), LocalDate.now().minusDays(3),LocalDate.now().plusDays(4));
+        if (weekview!=null){
+            return weekview;
+        }else {
+            return null;
+        }
+    }
+    public List<Board> bestmonthview(String id){
+        List<Board> monthview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
+                (Long.parseLong(id), LocalDate.now().minusDays(15),LocalDate.now().plusDays(15));
+        if (monthview!=null){
+            return monthview;
+        }else {
+            return null;
+        }
+    }
+
+
 
 
 
