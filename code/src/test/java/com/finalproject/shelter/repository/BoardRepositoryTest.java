@@ -3,14 +3,13 @@ package com.finalproject.shelter.repository;
 
 import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.model.entity.Board;
-import com.finalproject.shelter.service.Logic.BoardLogicService;
+import com.finalproject.shelter.model.entity.Category;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,15 +21,39 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
 
     @Test
     public void create() throws Exception {
-        Board board = Board.builder()
-                .title("Test1")
-                .nickname("asas")
-                .contents("얼마나 많은 줄을 쓸수 있을까....\n" +
-                        "띄어쓰기는 되려나?? 띄어쓰기도 신경써야하네\n" +
-                        "해야할게 많도다 이거 다 띄어쓰기 안될것이다.")
-                .build();
-        Board newboard = boardRepository.save(board);
-        System.out.println(newboard);
+        for (int i=10; i<30; i++) {
+            Board board = Board.builder()
+                    .title("Test"+i)
+                    .nickname("asas")
+                    .contents("testtest"+i)
+                    .category(Category.builder().id(16L).build())
+                    .build();
+            Board newboard = boardRepository.save(board);
+            System.out.println(newboard);
+        }
+    }
+
+    @Test
+    public void boardview() throws Exception{
+        List<Board> boardList = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
+                (3L,LocalDate.now().minusDays(15),LocalDate.now().plusDays(15));
+
+        if(boardList!=null){
+            boardList.stream().forEach(select->{
+                System.out.println(select);
+            });
+        }
+    }
+
+    @Test
+    public void boardlist() throws Exception{
+        List<Board> boardList = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc
+                (3L,"test","");
+        if(boardList!=null){
+            boardList.stream().forEach(select->{
+                System.out.println(select);
+            });
+        }
     }
 //
     @Test

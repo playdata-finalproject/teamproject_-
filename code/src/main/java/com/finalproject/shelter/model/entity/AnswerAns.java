@@ -1,7 +1,9 @@
 package com.finalproject.shelter.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -10,19 +12,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
-@ToString(exclude = "answerAnsList")
-public class Answer {
-
+public class AnswerAns {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,10 +29,6 @@ public class Answer {
 
     @Column(columnDefinition = "Text")
     private String answerText;
-
-    private int goodAnswer;
-
-    private int hateAnswer;
 
     @CreatedDate
     private LocalDate registeredAt;
@@ -48,8 +42,5 @@ public class Answer {
     private String updatedBy;
 
     @ManyToOne
-    private Board board;
-
-    @OneToMany(mappedBy = "answer",fetch = FetchType.LAZY)
-    private List<AnswerAns> answerAnsList;
+    private Answer answer;
 }

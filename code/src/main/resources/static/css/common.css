@@ -289,6 +289,7 @@ footer .foot_area .snslink li + li + li a {background-image:url(../img/ico_insta
 .near_list li h4 { float:left; width:100px; padding:0 0 0 50px; background:url(../img/ico_nearNext.png) no-repeat 12px 50%; font-size:15px;}
 .near_list li h4.next {background:url('../img/ico_nearPrev.png') no-repeat 12px 50%;}
 .near_list li a {float:left;}
+.near_list li button {float:right;}
 
 /* place_area */
 .bodytext_area.place_area {padding:55px 0 0;}

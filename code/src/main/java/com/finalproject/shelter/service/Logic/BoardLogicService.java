@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,14 +22,24 @@ public class BoardLogicService {
     private Board newboard;
     private Long ids;
     private Board board1;
+    private int view;
 
-    public Page<Board> readAll(String id, Pageable pageable){
+    public Page<Board> readAll(String id,String select, String searchText, Pageable pageable){
 
-        Page<Board> boards = boardRepository.findAllByCategoryId(Long.parseLong(id),pageable);
-
-        if (boards!=null){
-            return boards;
+        if (select.equals("title")){
+            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc
+                    (Long.parseLong(id),searchText,"",pageable);
+            if (boards!=null){
+                return boards;
+            }
+        }else{
+            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc
+                    (Long.parseLong(id),"",searchText,pageable);
+            if (boards!=null){
+                return boards;
+            }
         }
+
         return null;
     }
 
@@ -48,6 +59,48 @@ public class BoardLogicService {
         });
         return board1;
     }
+
+    public Board readBoardview(String id, String viewboard){
+
+        view = Integer.parseInt(viewboard);
+
+        if (view>1 || view<0){
+            view = 1;
+        }
+
+        Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
+
+        board.ifPresent(select->{
+            select.setViewBoard(select.getViewBoard()+view);
+            board1 = boardRepository.save(select);
+        });
+        return board1;
+    }
+
+
+
+    public List<Board> bestweekview(String id){
+        List<Board> weekview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
+                (Long.parseLong(id), LocalDate.now().minusDays(3),LocalDate.now().plusDays(4));
+        if (weekview!=null){
+            return weekview;
+        }else {
+            return null;
+        }
+    }
+    public List<Board> bestmonthview(String id){
+        List<Board> monthview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
+                (Long.parseLong(id), LocalDate.now().minusDays(15),LocalDate.now().plusDays(15));
+        if (monthview!=null){
+            return monthview;
+        }else {
+            return null;
+        }
+    }
+
+
+
+
 
     public String deleteid(String id){
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
