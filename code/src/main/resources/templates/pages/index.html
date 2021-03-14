@@ -13,6 +13,10 @@
 <!--header End-->
 
 <!-- wrap -->
+
+<div class="alert alert-warning" role="alert" th:if="${account != null && !account.enabled}">
+    스터디올레 가입을 완료하려면 <a href="#" th:href="@{/check-email}" class="alert-link">계정 인증 이메일을 확인</a>하세요.
+</div>
 <div id="wrap">
     <div id="container">
         <!-- location_area -->
@@ -49,25 +53,25 @@
         <!-- //location_area -->
 
         <!-- bodytext_area -->
-        <div class="bodytext_area box_inner">
-            <!-- login-wrap -->
-            <div class="login_wrap">
-                <h1 class="loginTit"><a href="#"><img src="img/tit_login.png" alt="TOURIST IN TOUR" /></a></h1>
-                <a class="btn btn-primary my-2 mr-2 my-sm-0" th:href="@{/account/login}"
-                   sec:authorize="!isAuthenticated()">로그인</a>
-                <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/register}"
-                   sec:authorize="!isAuthenticated()">회원가입</a>
-                <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="POST" sec:authorize="isAuthenticated()">
-                    <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
-                    <span class="text-white" sec:authentication="name">사용자</span>
-                    <span class="text-white mx-2" sec:authentication="principal.authorities">권한</span>
-                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button>
-                </form>
+<!--        <div class="bodytext_area box_inner">-->
+<!--            &lt;!&ndash; login-wrap &ndash;&gt;-->
+<!--            <div class="login_wrap">-->
+<!--                <h1 class="loginTit"><a href="#"><img src="img/tit_login.png" alt="TOURIST IN TOUR" /></a></h1>-->
+<!--                <a class="btn btn-primary my-2 mr-2 my-sm-0" th:href="@{/account/login}"-->
+<!--                   sec:authorize="!isAuthenticated()">로그인</a>-->
+<!--                <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/register}"-->
+<!--                   sec:authorize="!isAuthenticated()">회원가입</a>-->
+<!--                <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="POST" sec:authorize="isAuthenticated()">-->
+<!--                    &lt;!&ndash; <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> &ndash;&gt;-->
+<!--                    <span class="text-white" sec:authentication="name">사용자</span>-->
+<!--                    <span class="text-white mx-2" sec:authentication="principal.authorities">권한</span>-->
+<!--                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button>-->
+<!--                </form>-->
 
-            </div>
-            <!-- //login-wrap -->
+<!--            </div>-->
+<!--            &lt;!&ndash; //login-wrap &ndash;&gt;-->
 
-        </div>
+<!--        </div>-->
         <!-- //bodytext_area -->
     </div>
     <div th:replace="fragment/footer"/>footer</div>

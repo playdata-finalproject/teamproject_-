@@ -56,7 +56,7 @@ public class Board {
     private Category category;
 
     @ManyToOne
-    private User user;
+    private Account user;
 
     @OneToMany(mappedBy = "board",fetch = FetchType.LAZY )
     @JsonIgnore
