@@ -2,33 +2,43 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org/">
 
-<div th:fragment="answerlist(Answer,Answers)">
-    <form action="" th:action="@{/board/view/answer}" th:method="Post" th:object="${Answer}">
-        <div class="near_list">
-            <h4><span class="text-right">사용자 이름 </span>
-                <span> &nbsp;&nbsp; | &nbsp;&nbsp; </span>
-                <span class="text-center">댓글 시간</span></h4>
-            <p>
-            <input type="hidden" th:field="*{Board}">
-            <li><input type="text" class="form-control" style="width: 858px;border-color: #6f788B"
-                th:field="*{answerText}">
-                <button type="submit" class="btn_bbs" >확인</button></li>
-            </p>
-        </div>
-    </form>
+<div th:fragment="answerlist(board)">
+    <div id="answerwrite">
+        <form @submit.prevent="submitform">
+            <div class="near_list">
+                <h4><span class="text-right">사용자 이름 </span>
+                    <span> &nbsp;&nbsp; | &nbsp;&nbsp; </span>
+                    <span class="text-center">댓글 시간</span></h4>
+                <p>
+                <input type="hidden" v-model="form.board" th:value="${board}">
+                <li><input type="text" class="form-control" style="width: 858px;border-color: #6f788B"
+                    v-model="form.answerText">
+                    <button type="submit" class="btn_bbs" >확인</button></li>
+                </p>
+            </div>
+        </form>
+    </div>
     <br><br><br>
     <div class="d-sm-flex justify-content-between text-center">
         <p class="comment-count" ><span class="align-middle"><i class="fa fa-comment"></i>
                     </span><span th:text="${#lists.size(Answers)}"></span> Comments</p>
         <div class="col-sm-4 text-right my-2 my-sm-0">
             <p class="like-info"><span class="align-middle">
-                            <i class="fa fa-thumbs-up"></i></i></span>
-                <span>좋아요</span>
-                ( 4 ) &nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="align-middle">
-                            <i class="fa fa-thumbs-down"></i></i></span>
-                <span>싫어요</span>
-                ( 4 )</p></p>
+            <div>
+<!--            <input type="hidden" v-model="id" th:value="${Answers[0].board.id}">-->
+            <button id = "good" type="button" v-on:click="show"
+                    style="border: 0; outline: 0;"
+                    class="fa fa-thumbs-up"></button></i></span>
+            <span>좋아요</span>
+            ( <span aria-labelledby="good"
+                    v-bind:href="`/board/view?id=${good.id}`" v-text="good.goodBoard"></span> )
+            <button v-on:click="show" th:value="${Answers[0].board.id}"
+                    style="border: 0; outline: 0;"
+                    class="fa fa-thumbs-down"></button></i></span>
+            <span>싫어요</span>
+            ( <span th:text="${Answers[0].board.hateBoard}"></span> )
+        </p></p>
+        </div>
             <p class="like-info">
 <!--            <i class="fa fa-thumbs-down">-->
         </div>
@@ -38,8 +48,50 @@
             <span> &nbsp;&nbsp; | &nbsp;&nbsp; </span>
             <span class="text-center" th:text="${answer.registeredAt}">댓글 시간</span></h4>
         <li style="font-size: 1.2em"><a th:text="${answer.answerText}">aaa</a>
-            <i class="fa fa-reply" onclick=""><a>답변</a></i></li>
+            <button id="answer" class="fa fa-reply" v-on:click="answer"
+                    style="border: 0;outline: 0;"
+                    th:value="${answer.id}"><a>답변</a></button></li>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" th:src="@{//cdn.jsdelivr.net/npm/vue/dist/vue.js}"></script>
+<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js" th:src="@{//unpkg.com/axios@0.12.0/dist/axios.min.js}"></script>
+
+<script>
+new Vue({
+    el : 'answerwrite',
+    data:{
+        form:{
+            board : '',
+            answerText : ''
+        },
+        errors: [],
+        errorshow:  false,
+    },
+    method : {
+        validationCheck(){
+            this.errors = [];
+            if(!this.form.answerText){
+                this.errors.push("write Text")
+            }
+        },
+        clearAll(){
+            this.form.board='',
+                this.form.answerText=''
+        },
+        submetform(){
+            this.validationCheck();
+
+            if(this.errors.length == 0){
+                axios.post('https://localhost:8080/api/view',this.form)
+                .then((res)=>{
+                    console.log(res.data)
+                })
+            }
+            this.clearAll();
+        }
+    }
+})
+</script>
 
 </html>

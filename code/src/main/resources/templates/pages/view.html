@@ -47,15 +47,15 @@
 
             <!--댓글 기능시작 -->
 
-            <div th:replace="fragment/answer/answerlist :: answerlist(${Answer},${Answers})">answerlist</div>
+            <div th:replace="fragment/answer/answerlist :: answerlist(${eachboard})">answerlist</div>
 
             <br><br>
             <!--댓글 기능끝-->
 
-<!--            <ul class="near_list mt20">-->
-<!--                <li><h4 class="prev">다음글</h4><a th:href="@{board/view(id=${boardlist[${eachboard.id}] - 1})}">CS 기술 면접 가이드</a></li>-->
-<!--                <li><h4 class="next">이전글</h4><a th:href="@{board/view(id=${boardlist[${eachboard.id}] + 1})}">클린 코드 그리고 리팩토링</a></li>-->
-<!--            </ul>-->
+            <ul class="near_list mt20">
+                <li><h4 class="prev">이전글</h4><a>CS 기술 면접 가이드</a></li>
+                <li><h4 class="next">다음글</h4><a>클린 코드 그리고 리팩토링</a></li>
+            </ul>
         </div>
         <!-- //bodytext_area -->
 

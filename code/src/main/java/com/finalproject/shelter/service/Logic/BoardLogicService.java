@@ -21,6 +21,7 @@ public class BoardLogicService {
     private Board newboard;
     private Long ids;
     private Board board1;
+    private int view;
 
     public Page<Board> readAll(String id,String select, String searchText, Pageable pageable){
 
@@ -57,6 +58,25 @@ public class BoardLogicService {
         });
         return board1;
     }
+
+    public Board readBoardview(String id, String viewboard){
+
+        view = Integer.parseInt(viewboard);
+
+        if (view>1 || view<0){
+            view = 1;
+        }
+
+        Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
+
+        board.ifPresent(select->{
+            select.setViewBoard(select.getViewBoard()+view);
+            board1 = boardRepository.save(select);
+        });
+        return board1;
+    }
+
+
 
     public String deleteid(String id){
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
