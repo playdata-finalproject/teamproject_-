@@ -24,18 +24,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/","/main","/account/register").permitAll()
-                    .antMatchers( "/css/**","/img/**","/api/**").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
+                .antMatchers("/","/main", "/account/register", "/css/**", "/api/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .antMatchers("/","/main","/account/register").permitAll()
+                .antMatchers( "/css/**","/img/**","/api/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
-                    .loginPage("/account/login")
-                    .defaultSuccessUrl("/main", true)
-                    //.failureUrl("/account/login")
-                    .permitAll()
-                    .and()
+                .loginPage("/account/login")
+                .defaultSuccessUrl("/main", true)
+                //.failureUrl("/account/login")
+                .permitAll()
+                .and()
                 .logout()
-                    .permitAll();
+                .permitAll();
     }
 
     @Autowired
@@ -45,10 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("select username,password,enabled "
-                        + "from user "
+                        + "from account "
                         + "where username = ?")
                 .authoritiesByUsernameQuery("select u.username,r.name "
-                        + "from user_role ur inner join user u on ur.user_id=u.id "
+                        + "from user_role ur inner join account u on ur.user_id=u.id "
                         + "inner join role r on ur.role_id=r.id "
                         + "where u.username = ?");
     }

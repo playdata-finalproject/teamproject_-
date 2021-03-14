@@ -28,31 +28,99 @@
         <div class="bodytext_area box_inner">
             <!-- appForm -->
 
-            <form class="form-signin" commandName = "User" th:action="@{/account/register}" method="post">
-<!--                <div th:if="${password!=password2}" class="alert alert-danger" role="alert">-->
-<!--                    Password is not equal.-->
-<!--                </div>-->
+            <form class="form-signin" commandName = "User" th:action="@{/account/register}" th:object="${signUpForm}"  method="post">
+                <!--                <div th:if="${password!=password2}" class="alert alert-danger" role="alert">-->
+                <!--                    Password is not equal.-->
+                <!--                </div>-->
                 <a th:href="@{/}"><img class="mb-4" src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"></a>
                 <h1 class="h3 mb-3 font-weight-normal">회원가입</h1>
-<!--                <identity, password, password, username, email, nickname>
-                     ID, 비밀번호, 비밀번호 확인, 이름, 이메일, 닉네임-->
-                <label for="username" class="sr-only">이름</label>
-                <input type="text" id="username" name="username" class="form-control" placeholder="username" required autofocus>
-                <label for="identity" class="sr-only">아이디</label>
-                <input type="text" id="identity" name="identity" class="form-control" placeholder="identity" required autofocus>
-                <label for="password" class="sr-only">비밀번호</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-<!--                <label for="password" class="sr-only">비밀번호 확인 </label>-->
-<!--                <input type="password" id="password2" name="password" class="form-control" placeholder="Password Check" required>-->
-                <label for="email" class="sr-only">이메일</label>
-                <input type="text" id="email" name="email" class="form-control" placeholder="email" required autofocus>
-                <label for="nickname" class="sr-only">닉네임</label>
-                <input type="text" id="nickname" name="nickname" class="form-control" placeholder="nickname" required autofocus>
-                <!-- <div class="checkbox mb-3">
-                  <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                  </label>
-                </div> -->
+                <!--                <identity, password, password, username, email, nickname>
+                                     ID, 비밀번호, 비밀번호 확인, 이름, 이메일, 닉네임-->
+<!--                <label for="username" class="sr-only">이름</label>-->
+<!--                <input type="text" id="username" name="username" class="form-control" placeholder="username" required autofocus>-->
+<!--                <label for="identity" class="sr-only">아이디</label>-->
+<!--                <input type="text" id="identity" name="identity" class="form-control" placeholder="identity" required autofocus>-->
+<!--                <label for="password" class="sr-only">비밀번호</label>-->
+<!--                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>-->
+<!--                &lt;!&ndash;                <label for="password" class="sr-only">비밀번호 확인 </label>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <input type="password" id="password2" name="password" class="form-control" placeholder="Password Check" required>&ndash;&gt;-->
+<!--                <label for="email" class="sr-only">이메일</label>-->
+<!--                <input type="text" id="email" name="email" class="form-control" placeholder="email" required autofocus>-->
+<!--                <label for="nickname" class="sr-only">닉네임</label>-->
+<!--                <input type="text" id="nickname" name="nickname" class="form-control" placeholder="nickname" required autofocus>-->
+<!--                &lt;!&ndash; <div class="checkbox mb-3">-->
+                <div class="form-group">
+                    <label for="username">이름</label>
+                    <input id="username" type="text" th:field="*{username}" class="form-control"
+                           placeholder="corin" aria-describedby="nicknameHelp" required minlength="3" maxlength="20">
+                    <small id="usernameHelp" class="form-text text-muted">
+                        공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요. 가입후에 변경할 수 있습니다.
+                    </small>
+                    <small class="invalid-feedback">이름을 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
+                        Error</small>
+                </div>
+                <div class="form-group">
+                    <label for="identity">아이디</label>
+                    <input id="identity" type="text" th:field="*{identity}" class="form-control"
+                           placeholder="아이디" aria-describedby="identityHelp" required minlength="3" maxlength="20">
+                    <small id="identityHelp" class="form-text text-muted">
+                        공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요. 가입후에 변경할 수 있습니다.
+                    </small>
+                    <small class="invalid-feedback">아이디를 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('identity')}" th:errors="*{identity}">Identity
+                        Error</small>
+                </div>
+                <div class="form-group">
+                    <label for="nickname">닉네임</label>
+                    <input id="nickname" type="text" th:field="*{nickname}" class="form-control"
+                           placeholder="whiteship" aria-describedby="nicknameHelp" required minlength="3" maxlength="20">
+                    <small id="nicknameHelp" class="form-text text-muted">
+                        공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요. 가입후에 변경할 수 있습니다.
+                    </small>
+                    <small class="invalid-feedback">닉네임을 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">Nickname
+                        Error</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input id="email" type="email" th:field="*{email}" class="form-control"
+                           placeholder="your@email.com" aria-describedby="emailHelp" required>
+                    <small id="emailHelp" class="form-text text-muted">
+                        코린이대피소는 사용자의 이메일을 공개하지 않습니다.
+                    </small>
+                    <small class="invalid-feedback">이메일을 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email
+                        Error</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">패스워드</label>
+                    <input id="password" type="password" th:field="*{password}" class="form-control"
+                           placeholder="password"
+                           aria-describedby="passwordHelp" required minlength="8" maxlength="50">
+                    <small id="passwordHelp" class="form-text text-muted">
+                        8자 이상 50자 이내로 입력하세요. 영문자, 숫자, 특수기호를 사용할 수 있으며 공백은 사용할 수 없습니다.
+                    </small>
+                    <small class="invalid-feedback">패스워드를 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+                        Error</small>
+                </div>
+<!--                <div class="form-group">-->
+<!--                    <label for="newPasswordConfirm">새 패스워드 확인</label>-->
+<!--                    <input id="newPasswordConfirm" type="password" th:field="*{newPasswordConfirm}"-->
+<!--                           class="form-control"-->
+<!--                           aria-describedby="newPasswordConfirmHelp" required min="8" max="50">-->
+<!--                    <small id="newPasswordConfirmHelp" class="form-text text-muted">-->
+<!--                        새 패스워드를 다시 한번 입력하세요.-->
+<!--                    </small>-->
+<!--                    <small class="invalid-feedback">새 패스워드를 다시 입력하세요.</small>-->
+<!--                    <small class="form-text text-danger" th:if="${#fields.hasErrors('newPasswordConfirm')}"-->
+<!--                           th:errors="*{newPasswordConfirm}">New Password Confirm Error</small>-->
+<!--                </div>-->
+
+
                 <button class="btn btn-lg btn-primary btn-block" type="submit">회원가입</button>
                 <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
             </form>

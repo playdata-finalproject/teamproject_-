@@ -21,7 +21,7 @@ import java.util.List;
 @Builder
 @Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
-@ToString(exclude = {"categoryList","userList"})
+//@ToString(exclude = {"categoryList","userList"})
 public class AdminUser {
 
     @Id
