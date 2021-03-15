@@ -6,6 +6,8 @@
       xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <div th:fragment="headerTitle">
+    <link rel="stylesheet" href="css/custom.css" th:href="@{/css/custom.css}">
+    <link rel="stylesheet" href="css/tagify.css">
     <nav class="navbar">
         <div class="navbar_logo">
             <i class="fas fa-baby"></i>
@@ -14,7 +16,7 @@
 
         <ul class="navbar_menu" >
             <div class="dropdown" id="language">
-                <button class="btn my-2 mr-2 my-sm-0 dropdown-toggle"
+                <button class="btn dropdown-toggle"
                         type="button" id="dropdownMenu1"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -31,7 +33,7 @@
             </div>
 
             <div class="dropdown" id="error">
-                <button class="btn my-2 mr-2 my-sm-0 dropdown-toggle"
+                <button class="btn dropdown-toggle"
                         type="button" id="dropdownMenu2"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -46,7 +48,7 @@
                 </div>
             </div>
             <div class="dropdown" id="best">
-                <button class="btn my-2 mr-2 my-sm-0 dropdown-toggle"
+                <button class="btn dropdown-toggle"
                         type="button" id="dropdownMenu3"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -61,7 +63,7 @@
                 </div>
             </div>
             <div class="dropdown" id="job">
-                <button class="btn my-2 mr-2 my-sm-0 dropdown-toggle"
+                <button class="btn dropdown-toggle"
                         type="button" id="dropdownMenu4"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -76,7 +78,7 @@
                 </div>
             </div>
             <div class="dropdown" id="employee">
-                <button class="btn my-2 mr-2 my-sm-0 dropdown-toggle"
+                <button class="btn dropdown-toggle"
                         type="button" id="dropdownMenu5"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -91,7 +93,7 @@
                 </div>
             </div>
             <div class="dropdown" id="question">
-                <button class="btn my-2 mr-2 my-sm-0 dropdown-toggle"
+                <button class="btn dropdown-toggle"
                         type="button" id="dropdownMenu6"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -105,26 +107,8 @@
                     </div>
                 </div>
             </div>
-            <!--            <li><a href="" th:href="@{/board(id=1)}">언어게시판</a></li>-->
-            <!--            <li><a href="" th:href="@{/board(id=2)}">에러 모음집</a></li>-->
-            <!--            <li><a href="" th:href="@{/board(id=3)}">Best 게시글</a></li>-->
-            <!--            <li><a href="" th:href="@{/board(id=4)}">취업 정보</a></li>-->
-            <!--            <li><a href="" th:href="@{/board(id=5)}">연구/회사원</a></li>-->
-            <!--            <li><a href="" th:href="@{/board(id=6)}">Q&A</a></li>-->
         </ul>
-<!--        <a class="btn btn-primary my-2 mr-2 my-sm-0" th:href="@{/account/login}"-->
-<!--           sec:authorize="!isAuthenticated()">로그인</a>-->
-<!--        <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/register}"-->
-<!--           sec:authorize="!isAuthenticated()">회원가입</a>-->
-<!--        <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="POST" sec:authorize="isAuthenticated()">-->
-<!--            &lt;!&ndash; <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> &ndash;&gt;-->
-<!--            <span class="text-white" sec:authentication="name">사용자</span>-->
-<!--            <span class="text-white mx-2" sec:authentication="principal.authorities">권한</span>-->
-<!--            <button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button>-->
-<!--        </form>-->
-<!--        <a href="#" class = "navbar_toogleBtn">-->
-<!--            <i class="fas fa-list"></i>-->
-<!--        </a>-->
+
 
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item" sec:authorize="!isAuthenticated()">
@@ -135,11 +119,7 @@
             <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-<!--                    <svg th:if="${#strings.isEmpty(account?.profileImage)}"-->
-<!--                         th:data-jdenticon-value="${#authentication.name}"-->
-<!--                         width="24" height="24" class="rounded border bg-light"></svg>-->
-<!--                    <img th:if="${!#strings.isEmpty(user?.profileImage)}" th:src="${user.profileImage}"-->
-<!--                         width="24" height="24" class="rounded border"/>-->
+
                 </a>
                 <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="userDropdown">
                     <h6 class="dropdown-header">
@@ -156,6 +136,22 @@
                 </div>
             </li>
         </ul>
+
+
+
+<!--        <div class="dropdown" id="best">-->
+<!--            <button class="btn dropdown-toggle" type="button" id="dropdownMenu7" data-toggle="dropdown" aria-haspopup="true"-->
+<!--                    aria-expanded="false" v-on:click="bestboard">-->
+<!--                Best게시글-->
+<!--            </button>-->
+<!--            <div class="dropdown-menu" aria-labelledby="dropdownMenu3">-->
+<!--                <div class="titleview3" v-for="category in categories">-->
+<!--                    <li><a v-bind:href="`/board?id=${category.id}`"v-text="category.title">회원이 아닙니다</a></li>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        -->
+<!--        -->
 
     </nav>
 

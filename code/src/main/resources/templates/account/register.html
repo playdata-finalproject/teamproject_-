@@ -32,7 +32,7 @@
                 <!--                <div th:if="${password!=password2}" class="alert alert-danger" role="alert">-->
                 <!--                    Password is not equal.-->
                 <!--                </div>-->
-                <a th:href="@{/}"><img class="mb-4" src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"></a>
+                <a th:href="@{/main}"><img class="mb-4 center-block" src="/img/logo.png" alt="" width="140" height="140"></a>
                 <h1 class="h3 mb-3 font-weight-normal">회원가입</h1>
                 <!--                <identity, password, password, username, email, nickname>
                                      ID, 비밀번호, 비밀번호 확인, 이름, 이메일, 닉네임-->
@@ -130,6 +130,7 @@
     </div>
     <!-- //wrap -->
     <div th:replace="fragment/sideMenu"/>
-
+    </div>
+</div>
 </body>
 </html>
