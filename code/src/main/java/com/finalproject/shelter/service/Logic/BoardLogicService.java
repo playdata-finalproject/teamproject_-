@@ -122,7 +122,9 @@ public class BoardLogicService {
             newboard = boardRepository.save(select);
         });
         if (board1.isEmpty()){
-            newboard = boardRepository.save(board);
+            Board selectboard = board;
+            selectboard.setNickname(board.getUser().getIdentity());
+            newboard = boardRepository.save(selectboard);
         }
 
         return newboard;

@@ -30,6 +30,7 @@
                     <li class="bbs_hit">
                         <label><span th:text="작성자 "></span> :  <span th:text="*{nickname}">로그인 유저</span></label>
                     </li>
+                    <input type="hidden" th:field="*{user}">
                     <li class="bbs_hit">
                         <label><span th:text="Category "></span> :
                             <input type="hidden" th:field="*{category.id}" th:text="*{category.title}" readonly="readonly" ></label>

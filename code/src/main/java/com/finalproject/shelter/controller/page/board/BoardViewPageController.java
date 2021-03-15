@@ -2,9 +2,12 @@ package com.finalproject.shelter.controller.page.board;
 
 import com.finalproject.shelter.model.entity.Answer;
 import com.finalproject.shelter.model.entity.Board;
+import com.finalproject.shelter.repository.UserRepository;
 import com.finalproject.shelter.service.Logic.AnswerLogicService;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,11 +24,16 @@ public class BoardViewPageController {
     @Autowired
     private AnswerLogicService answerLogicService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("")
     public ModelAndView listview(
             @RequestParam(value = "id",required = false, defaultValue = "0") String id,
             @RequestParam(value = "viewboard",required = false, defaultValue = "0") String viewboard
     ){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
 
         Board eachboard = boardLogicService.readBoardview(id,viewboard);
         List<Answer> answerList = answerLogicService.readAnswer(id);
@@ -33,6 +41,7 @@ public class BoardViewPageController {
         List<Board> monthview = boardLogicService.bestmonthview(String.valueOf(eachboard.getCategory().getId()));
 
         Answer answer = Answer.builder()
+                .nickname(userRepository.findByUsername(username).getIdentity())
                 .board(eachboard)
                 .build();
 

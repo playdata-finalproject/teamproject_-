@@ -1,10 +1,7 @@
 package com.finalproject.shelter.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -21,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//@ToString(exclude = {"categoryList","answerList"})
+@ToString(exclude = {"roles"})
 //@Accessors(chain = true)
 //@EntityListeners(AuditingEntityListener.class)
 public class Account {
