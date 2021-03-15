@@ -21,13 +21,13 @@
 <!--                 th:src="${account.profileImage}"-->
 <!--                 width="125" height="125"/>-->
 <!--        </div>-->
-        <div class="col-8">
-            <h1 class="display-4 " th:text="${account.username}">Whiteship</h1>
+<!--        <div class="col-8">-->
+<!--            <h1 class="display-4 " th:text="${account.username}">Whiteship</h1>-->
 <!--            <p class="lead" th:if="${!#strings.isEmpty(user.bio)}" th:text="${user.bio}">bio</p>-->
 <!--            <p class="lead" th:if="${#strings.isEmpty(user.bio) && isOwner}">-->
 <!--                한 줄 소개를 추가하세요.-->
 <!--            </p>-->
-        </div>
+<!--        </div>-->
     </div>
 
     <div class="row mt-3 justify-content-center">
@@ -37,52 +37,55 @@
                    role="tab" aria-controls="v-pills-profile" aria-selected="true">소개</a>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-9">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
                      aria-labelledby="v-pills-home-tab">
-
                     <p th:if="${isOwner}">
-                            <span style="font-size: 20px;">
-                                <i class="fas fa-signature"></i>
-                            </span>
+                    <span style="font-size: 20px;">
+                        <i class="fas fa-signature"></i>
+                    </span>
                         <span th:text="${account.username}" class="col-9"></span>
                     </p>
                     <p th:if="${isOwner}">
-                            <span style="font-size: 20px;">
-                                <i class="fas fa-id-card"></i>
-                            </span>
+                    <span style="font-size: 20px;">
+                        <i class="fas fa-id-card"></i>
+                    </span>
                         <span th:text="${account.identity}" class="col-9"></span>
                     </p>
                     <p th:if="${isOwner}">
-                            <span style="font-size: 20px;">
-                                <i class="fa fa-envelope-o col-1"></i>
-                            </span>
+                    <span style="font-size: 20px;">
+                        <i class="fa fa-envelope-o"></i>
+                    </span>
                         <span th:text="${account.email}" class="col-9"></span>
                     </p>
                     <p th:if="${isOwner}">
-                            <span style="font-size: 20px;">
-                                <i class="fab fa-odnoklassniki"></i>
-                            </span>
+                    <span style="font-size: 20px;">
+                        <i class="fab fa-odnoklassniki"></i>
+                    </span>
                         <span th:text="${account.nickname}" class="col-9"></span>
                     </p>
                     <p th:if="${isOwner}">
-                            <span style="font-size: 20px;">
-                                <i class="fa fa-envelope-o col-1"></i>
-                            </span>
+                    <span style="font-size: 20px;">
+                        <i class="fa fa-envelope-o"></i>
+                    </span>
                         <span th:text="${account.createdAt}" class="col-9"></span>
                     </p>
-                    <p th:if="${isOwner || account.enabled}">
-                            <span style="font-size: 20px;">
-                                <i class="fa fa-calendar-o col-1"></i>
-                            </span>
-                        <span th:if="${isOwner && !account.enabled}" class="col-9">
+                    <p th:if="${isOwner}">
+                    <span style="font-size: 20px;">
+                        <i class="fa fa-calendar-o"></i>
+                    </span>
+                        <span th:if="${!account.enabled}" class="col-9">
                             <a href="#"  th:href="@{'/checkemail?email=' + ${account.email}}">가입을 완료하려면 이메일을 확인하세요.</a>
                         </span>
                         <span th:text="${#temporals.format(account.createdAt, 'yyyy년 M월 가입')}" class="col-9"></span>
                     </p>
                     <div th:if="${isOwner}">
-                        <a class="btn btn-outline-primary" href="#" th:href="@{/settings/profile}">프로필 수정</a>
+                        <a class="btn btn-outline-primary" href="#" th:href="@{/settings/password}">프로필 수정</a>
+                    </div>
+
+                    <div th:if="${isOwner}">
+                        <a class="btn btn-outline-primary" href="#" th:href="@{/settings/account}">닉네임 수정</a>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-study" role="tabpanel" aria-labelledby="v-pills-profile-tab">

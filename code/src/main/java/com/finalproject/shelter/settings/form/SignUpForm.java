@@ -22,7 +22,6 @@ public class SignUpForm {
     @Length(min = 8, max = 50)
     private String newPasswordConfirm;
 
-
     @Email
     @NotBlank
     private String email;

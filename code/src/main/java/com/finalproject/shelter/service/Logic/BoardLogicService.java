@@ -81,7 +81,7 @@ public class BoardLogicService {
 
     public List<Board> bestweekview(String id){
         List<Board> weekview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
-                (Long.parseLong(id), LocalDate.now().minusDays(3),LocalDate.now().plusDays(4));
+                (Long.parseLong(id), LocalDate.now().minusDays(7),LocalDate.now());
         if (weekview!=null){
             return weekview;
         }else {
@@ -90,7 +90,7 @@ public class BoardLogicService {
     }
     public List<Board> bestmonthview(String id){
         List<Board> monthview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
-                (Long.parseLong(id), LocalDate.now().minusDays(15),LocalDate.now().plusDays(15));
+                (Long.parseLong(id), LocalDate.now().minusMonths(1),LocalDate.now());
         if (monthview!=null){
             return monthview;
         }else {

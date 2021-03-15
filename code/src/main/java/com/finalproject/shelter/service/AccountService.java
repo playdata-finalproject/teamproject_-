@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 @Slf4j
 public class AccountService implements UserDetailsService {
 
@@ -99,13 +99,16 @@ public class AccountService implements UserDetailsService {
         }
         return new UserAccount(account);  // Principal 객체 리턴
     }
-    public void updateProfile(Account account, Profile profile) {
-        modelMapper.map(profile, account);
-//        account.setUrl(profile.getUrl());
-//        account.setOccupation(profile.getOccupation());
-//        account.setBio(profile.getBio());
-//        account.setLocation(profile.getLocation());
-//        account.setProfileImage(profile.getProfileImage());
+
+
+    @Transactional
+    public void updatePassword(Account account, String newPassword) {
+        account.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(account);
+    }
+
+    public void updateNickname(Account account, String nickname) {
+        account.setNickname(nickname);
         userRepository.save(account);
     }
 }
