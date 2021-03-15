@@ -9,7 +9,7 @@
             <ul class = "ranking" th:each="eachview,num : ${monthview}">
                 <li>
                     <span class="num" th:text="${num.count}">1</span>
-                    <a href="" th:href="@{/board/view(id=${eachview.id})}" th:text="${eachview.title}">개발자가 갖추어야 할 9가지 기술</a>
+                    <a href="" th:href="@{/board/view(id=${eachview.id},viewboard=1)}" th:text="${eachview.title}">개발자가 갖추어야 할 9가지 기술</a>
                 </li>
             </ul>
         </div>
