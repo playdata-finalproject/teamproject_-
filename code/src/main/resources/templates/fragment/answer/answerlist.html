@@ -6,10 +6,11 @@
 
     <form action="" th:action="@{/board/view/answer}" th:method="Post" th:object="${Answer}">
         <div class="near_list">
-            <h4><span class="text-right">사용자 이름 </span>
+            <h4><span class="text-right" th:text="${Answer.nickname}">사용자 이름 </span>
                 <span> &nbsp;&nbsp; | &nbsp;&nbsp; </span>
-                <span class="text-center">댓글 시간</span></h4>
+                <span class="text-center" th:text="${#calendars.format(#calendars.createNow(),'yyyy-MM-dd')}">댓글 시간</span></h4>
             <p>
+                <input type="hidden" th:field="*{nickname}">
                 <input type="hidden" th:field="*{Board}">
             <li><input type="text" class="form-control" style="width: 858px;border-color: #6f788B"
                        th:field="*{answerText}">

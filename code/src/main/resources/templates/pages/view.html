@@ -30,6 +30,8 @@
             <ul class="bbsview_list">
                 <li class="bbs_title">제목 : <span th:text="${eachboard.title}"></span></li>
                 <li class="bbs_hit">작성일 : <span th:text="${eachboard.registeredAt}">2021.02.19</span></li>
+                <li class="bbs_hit">수정일 : <span th:text="${eachboard.updatedAt}">2021.02.19</span></li>
+                <li class="bbs_hit">작성자 : <span th:text="${eachboard.nickname}">2021.02.19</span></li>
                 <li class="bbs_date">조회수 : <span th:text="${eachboard.viewBoard}">235</span></li>
                 <li class="bbs_content">
                     <div class="editer_content">
@@ -41,8 +43,11 @@
             </ul>
             <p class="btn_line txt_right">
                 <a href="" th:href="@{/board(id=${eachboard.category.id})}" class="btn_bbs">글목록</a>
-                <a href="" th:href="@{/board/form(id=${eachboard.id},name=modify)}" class="btn_bbs">수정하기</a>
-                <a href="" th:href="@{/board/delete(id=${eachboard.id})}" class="btn_bbs">삭제하기</a>
+                <a></a>
+                <span th:if="${eachboard.nickname}==${Answer.nickname}">
+                    <a href="" th:href="@{/board/form(id=${eachboard.id},name=modify)}" class="btn_bbs">수정하기</a>
+                    <a href="" th:href="@{/board/delete(id=${eachboard.id})}" class="btn_bbs">삭제하기</a>
+                </span>
             </p>
 
             <!--댓글 기능시작 -->
