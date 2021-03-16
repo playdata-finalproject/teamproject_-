@@ -5,7 +5,7 @@ new Vue({
     },
     methods : {
         languageboard : function (){
-            var self = this;
+            let self = this;
             axios.get('http://localhost:8080/category/title/1')
                 .then(function (response){
                     console.log(response)
@@ -25,7 +25,7 @@ new Vue({
     },
     methods : {
         errorboard : function (){
-            var self = this;
+            let self = this;
             axios.get('http://localhost:8080/category/title/2')
                 .then(function (response){
                     console.log(response)
@@ -45,28 +45,8 @@ new Vue({
     },
     methods : {
         bestboard : function (){
-            var self = this;
+            let self = this;
             axios.get('http://localhost:8080/category/title/3')
-                .then(function (response){
-                    console.log(response)
-                    self.categories = response.data
-                    console.log(self.categorys)
-                })
-                .catch(function (error){
-                    self.categories = '에러! '+  error
-                })
-        }
-    }
-})
-new Vue({
-    el: '#job',
-    data:{
-        categories: []
-    },
-    methods : {
-        jobboard : function (){
-            var self = this;
-            axios.get('http://localhost:8080/category/title/4')
                 .then(function (response){
                     console.log(response)
                     self.categories = response.data
@@ -85,8 +65,8 @@ new Vue({
     },
     methods : {
         employeeboard : function (){
-            var self = this;
-            axios.get('http://localhost:8080/category/title/5')
+            let self = this;
+            axios.get('http://localhost:8080/category/title/4')
                 .then(function (response){
                     console.log(response)
                     self.categories = response.data
@@ -105,8 +85,8 @@ new Vue({
     },
     methods : {
         questionboard : function (){
-            var self = this;
-            axios.get('http://localhost:8080/category/title/6')
+            let self = this;
+            axios.get('http://localhost:8080/category/title/5')
                 .then(function (response){
                     console.log(response)
                     self.categories = response.data

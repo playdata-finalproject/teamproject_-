@@ -21,8 +21,8 @@ public class CategoryRepositoryTest extends ShelterApplicationTests {
     public void create(){
 
         Category category = Category.builder()
-                .title("Q&A")
-                .categorytable(categorytableRepository.getOne(6L))
+                .title("이직")
+                .categorytable(categorytableRepository.getOne(5L))
                 .build();
         categoryRepository.save(category);
     }

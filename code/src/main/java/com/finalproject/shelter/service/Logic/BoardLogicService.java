@@ -2,6 +2,7 @@ package com.finalproject.shelter.service.Logic;
 
 import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.repository.BoardRepository;
+import com.finalproject.shelter.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,9 @@ public class BoardLogicService {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     private Board newboard;
     private Long ids;
     private Board board1;
@@ -27,13 +31,13 @@ public class BoardLogicService {
     public Page<Board> readAll(String id,String select, String searchText, Pageable pageable){
 
         if (select.equals("title")){
-            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc
+            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
                     (Long.parseLong(id),searchText,"",pageable);
             if (boards!=null){
                 return boards;
             }
         }else{
-            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc
+            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
                     (Long.parseLong(id),"",searchText,pageable);
             if (boards!=null){
                 return boards;
@@ -44,9 +48,17 @@ public class BoardLogicService {
     }
 
     public Board readCategory(String id){
-        List<Board> board = boardRepository.findBoardByCategoryId(Long.parseLong(id));
-        board1 = board.get(0);
 
+        List<Board> board = boardRepository.findBoardByCategoryId(Long.parseLong(id));
+
+        // 이것을 해주지 않으면 null값으 board가 나와서 에러
+        if(board.isEmpty()){
+            board1 = Board.builder()
+                    .category(categoryRepository.getOne(Long.parseLong(id)))
+                    .build();
+        }else {
+            board1= board.get(0);
+        }
         return board1;
     }
 
