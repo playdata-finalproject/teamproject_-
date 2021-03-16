@@ -24,26 +24,29 @@ public class BoardFormPageController {
     private AccountRepository accountRepository;
 
     @GetMapping("")
-    public ModelAndView writeview(HttpServletRequest request, @RequestParam("name") String name){
+    public ModelAndView writeview(@RequestParam(value = "boardid",defaultValue = "") String boardid,
+                                  @RequestParam(value = "name",defaultValue = "") String name,
+                                  @RequestParam(value = "categoryid",defaultValue = "") String categoryid){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
         Account account = accountRepository.findByUsername(username);
-        String id = request.getParameter("id");
-        Board board = boardLogicService.readBoard(id);
-        Board board1 = Board.builder()
-                .nickname(account.getIdentity())
-                .user(account)
-                .category(board.getCategory())
-                .build();
-
 
         if (name.equals("write")){
+            Board board = boardLogicService.readCategory(categoryid);
+            Board board1 = Board.builder()
+                    .nickname(account.getIdentity())
+                    .user(account)
+                    .category(board.getCategory())
+                    .build();
+
             return new ModelAndView("pages/form")
                     .addObject("eachboard",board)
                     .addObject("board",board1);
+
         }else{
+            Board board = boardLogicService.readBoard(boardid);
             return new ModelAndView("pages/form")
                     .addObject("eachboard",board)
                     .addObject("board",board);
