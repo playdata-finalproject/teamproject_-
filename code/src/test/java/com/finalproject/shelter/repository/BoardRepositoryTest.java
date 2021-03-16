@@ -20,20 +20,24 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
     private BoardRepository boardRepository;
 
     @Test
-    public void create() throws Exception {
-        for (int i=10; i<30; i++) {
-            Board board = Board.builder()
-                    .title("Test"+i)
-                    .nickname("asas")
-                    .contents("testtest"+i)
-                    .category(Category.builder().id(16L).build())
-                    .build();
-            Board newboard = boardRepository.save(board);
-            System.out.println(newboard);
+    public void create(){
+        try {
+            for (int i=101; i<102; i++) {
+                Board board = Board.builder()
+                        .title("Test"+i)
+                        .nickname("승헌")
+                        .contents("testtestssss"+i)
+                        .category(Category.builder().id(1L).build())
+                        .build();
+                Board newboard = boardRepository.save(board);
+                Assertions.assertTrue(newboard != null);}
+        }catch(Exception e) {
+                System.out.println("error" + e);
         }
     }
 
     @Test
+    @Transactional
     public void boardview() throws Exception{
         List<Board> boardList = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
                 (3L,LocalDate.now().minusDays(15),LocalDate.now().plusDays(15));
@@ -47,13 +51,8 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
 
     @Test
     public void boardlist() throws Exception{
-        List<Board> boardList = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDesc
-                (3L,"test","");
-        if(boardList!=null){
-            boardList.stream().forEach(select->{
-                System.out.println(select);
-            });
-        }
+        List<Board> board = boardRepository.findBoardByCategoryId(Long.parseLong("1"));
+        Assertions.assertTrue(board.isEmpty());
     }
 //
     @Test
