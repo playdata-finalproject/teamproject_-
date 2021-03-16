@@ -27,7 +27,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <div class="titleview1" v-for="category in categories">
                         <li><a v-bind:href="`/board?id=${category.id}`" v-text="category.title">회원이 아닙니다</a></li>
-<!--                        <li><a v-bind:href="'/board?id=' + category.id">{{category.title}}</a></li>-->
+                        <!--                        <li><a v-bind:href="'/board?id=' + category.id">{{category.title}}</a></li>-->
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                         aria-haspopup="true"
                         aria-expanded="false"
                         v-on:click="questionboard">
-                    Q&A
+                    Q&A(질의응답)
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu6">
                     <div class="titleview6" v-for="category in categories">
@@ -122,19 +122,19 @@
 
 
 
-<!--        <div class="dropdown" id="best">-->
-<!--            <button class="btn dropdown-toggle" type="button" id="dropdownMenu7" data-toggle="dropdown" aria-haspopup="true"-->
-<!--                    aria-expanded="false" v-on:click="bestboard">-->
-<!--                Best게시글-->
-<!--            </button>-->
-<!--            <div class="dropdown-menu" aria-labelledby="dropdownMenu3">-->
-<!--                <div class="titleview3" v-for="category in categories">-->
-<!--                    <li><a v-bind:href="`/board?id=${category.id}`"v-text="category.title">회원이 아닙니다</a></li>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        -->
-<!--        -->
+        <!--        <div class="dropdown" id="best">-->
+        <!--            <button class="btn dropdown-toggle" type="button" id="dropdownMenu7" data-toggle="dropdown" aria-haspopup="true"-->
+        <!--                    aria-expanded="false" v-on:click="bestboard">-->
+        <!--                Best게시글-->
+        <!--            </button>-->
+        <!--            <div class="dropdown-menu" aria-labelledby="dropdownMenu3">-->
+        <!--                <div class="titleview3" v-for="category in categories">-->
+        <!--                    <li><a v-bind:href="`/board?id=${category.id}`"v-text="category.title">회원이 아닙니다</a></li>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        -->
+        <!--        -->
 
     </nav>
 
@@ -148,3 +148,4 @@
 
 </div>
 </html>
+© 2021 GitHub, Inc.
