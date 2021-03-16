@@ -45,7 +45,7 @@ public class AccountService implements UserDetailsService {
         user.setPassword(encodedPassword);
         user.setIdentity(user.getIdentity());
         user.setEmail(user.getEmail());
-        user.setNickname(user.getNickname());
+        user.setNickname("aaaa");
         user.setKakaoId(1L);
         user.setLoginFailCount(0);
         user.setCreatedAt(LocalDateTime.now());

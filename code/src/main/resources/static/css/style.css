@@ -108,7 +108,8 @@ a{
 }
 .board_main .postbox{
 	float:left;
-	width:364px;
+	width:50%;
+    padding : 0px 0px 10px 0px;
 }
 
 .board_main .left

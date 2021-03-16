@@ -3,44 +3,49 @@
       xmlns:th="http://www.thymeleaf.org/">
 
 <div th:fragment="boardlist(lists,findid)">
-    <div align =  "right" class = "col-xs-10 col-sm-10">
-        <form action="" class="minisrch_form" th:method="GET" th:action="@{/board}">
-            <fieldset>
-                <legend>검색</legend>
-                <input type="hidden" th:name="id" th:value="${findid.category.id}">
-                <select class="rounded" th:name="select" th:id="select">
-                    <option value="title" <c:if test="${title eq 'title'}"></c:if>제목</option>
-                    <option value="contents" <c:if test="${contents eq 'contents'}"></c:if>내용</option>
-                </select>
-                <input type="text" class="form-control" style="width: 180px;height: 30px;" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요"
-                th:name="searchText" id="keyword" th:value="${keyword}">
-                <button type="submit" class="btn_srch">검색</button>
-            </fieldset>
-        </form>
+    <div class="boardlist">
+        <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
+            <caption class="hdd">공지사항  목록</caption>
+            <thead>
+            <tr>
+                <th scope="col">번호</th>
+                <th scope="col">제목</th>
+                <th scope="col">작성자</th>
+                <th scope="col">작성일</th>
+                <th scope="col">조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="list,num : ${lists}" >
+                <td class="tit_notice" th:text="${num.count}">number</td>
+                <td class="tit_notice"><a href="" th:href="@{board/view(id=${list.id},viewboard=1)}" th:text="${list.title}">Otto</a></td>
+                <td class="tit_notice" th:text="${list.nickname}">홍길동</td>
+                <td class="tit_notice" th:text="${list.registeredAt}">홍길동</td>
+                <td class="tit_notice" th:text="${list.viewBoard}">홍길동</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
-        <caption class="hdd">공지사항  목록</caption>
-        <thead>
-        <tr>
-            <th scope="col">번호</th>
-            <th scope="col">제목</th>
-            <th scope="col">작성자</th>
-            <th scope="col">작성일</th>
-            <th scope="col">조회수</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="list,num : ${lists}" >
-            <td class="tit_notice" th:text="${num.count}">number</td>
-            <td class="tit_notice"><a href="" th:href="@{board/view(id=${list.id},viewboard=1)}" th:text="${list.title}">Otto</a></td>
-            <td class="tit_notice" th:text="${list.nickname}">홍길동</td>
-            <td class="tit_notice" th:text="${list.registeredAt}">홍길동</td>
-            <td class="tit_notice" th:text="${list.viewBoard}">홍길동</td>
-        </tr>
-        </tbody>
-    </table>
+    <div>
+    <form action="" class="minisrch_form text-center" th:method="GET" th:action="@{/board}">
+        <a class="search">
+            <legend>검색</legend>
+            <input type="hidden" th:name="id" th:value="${findid.category.id}">
+            <select class="rounded" th:name="select" th:id="select">
+                <option value="title"> <th:if test="${title eq 'title'}"></th:if>제목</option>
+                <option value="contents"> <th:if test="${contents eq 'contents'}"></th:if>내용</option>
+            </select>
+            <input type="text" class="form-control" style="width: 180px;height: 30px;" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요"
+                   th:name="searchText" id="keyword" th:value="${keyword}">
+            <button type="submit" class="btn_srch">검색</button>
+        </a>
+        <a type="button" class="btn btn-primary write" th:href="@{/board/form(id=${findid.id},name=write)}">쓰기</a>
+    </form>
+    </div>
+
+
     <nav aria-label="Page navigation">
-        <ul class="pagination">
+        <ul class="pagination justify-content-center">
             <li class="page" th:classappend="${1 == lists.pageable.pageNumber + 1} ? 'disabled'">
                 <a class="page-link" href="#"
                    th:href="@{/board(id=${findid.category.id},page=${lists.pageable.pageNumber - 1},searchText=${param.searchText})}"
@@ -54,9 +59,7 @@
             </li>
         </ul>
     </nav>
-    <div class="text-right">
-        <a type="button" class="btn btn-primary" th:href="@{/board/form(id=${findid.id},name=write)}">쓰기</a>
-    </div>
+
     <!-- //pagination -->
     <script type="text/javascript">
         var target = document.getElementById("searchText");

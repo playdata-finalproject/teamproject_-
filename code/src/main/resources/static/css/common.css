@@ -268,7 +268,7 @@ footer .foot_area .snslink li + li + li a {background-image:url(../img/ico_insta
 .bbsListTbl td:nth-child(3) {width:18%;}
 .bbsListTbl td:nth-child(4) {width:12%;}
 .bbsListTbl td:nth-child(5) {width:8%;}
-.pagination {padding:40px 0 0; text-align:center;}
+.pagination {padding:10px 0 0; text-align:center;}
 .pagination a {display:inline-block; }
 .pagination a.pbtn {display:inline-block; padding:7px; text-align:center; vertical-align:middle; font-size:0;}
 .pagination a .pagenum {display:inline-block; width:25px; height:25px; line-height:25px; text-align:center; vertical-align:middle;}
