@@ -2,7 +2,7 @@ package com.finalproject.shelter.controller.page.board;
 
 import com.finalproject.shelter.model.entity.Answer;
 import com.finalproject.shelter.model.entity.Board;
-import com.finalproject.shelter.repository.UserRepository;
+import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.Logic.AnswerLogicService;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class BoardViewPageController {
     private AnswerLogicService answerLogicService;
 
     @Autowired
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     @GetMapping("")
     public ModelAndView listview(
@@ -41,7 +41,7 @@ public class BoardViewPageController {
         List<Board> monthview = boardLogicService.bestmonthview(String.valueOf(eachboard.getCategory().getId()));
 
         Answer answer = Answer.builder()
-                .nickname(userRepository.findByUsername(username).getIdentity())
+                .nickname(accountRepository.findByUsername(username).getIdentity())
                 .board(eachboard)
                 .build();
 

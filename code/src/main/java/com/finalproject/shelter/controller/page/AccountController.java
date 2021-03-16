@@ -1,15 +1,11 @@
 package com.finalproject.shelter.controller.page;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finalproject.shelter.model.entity.Account;
-import com.finalproject.shelter.model.entity.CurrentUser;
-import com.finalproject.shelter.model.entity.Profile;
-import com.finalproject.shelter.repository.UserRepository;
+import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.AccountService;
 import com.finalproject.shelter.settings.form.SignUpForm;
 import com.finalproject.shelter.settings.form.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +25,7 @@ public class AccountController {
     private final SignUpFormValidator signUpFormValidator;
     @Autowired
     private final AccountService accountService;
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
     private final String HOME = "redirect:/main";
     private final String SIGN_UP_VIEW = "sign/login";
@@ -64,7 +60,7 @@ public class AccountController {
 
     @GetMapping("/check-email-token")
     public String checkEmailToken(String token, String email, Model model) {
-        Account account = userRepository.findByEmail(email);
+        Account account = accountRepository.findByEmail(email);
         String view = "account/checked-email";
         if (Objects.isNull(account)) {
             model.addAttribute("error", "wrong.email");
@@ -77,7 +73,7 @@ public class AccountController {
         }
 
         accountService.completeSignUp(account);
-        model.addAttribute("numberOfUser", userRepository.count());
+        model.addAttribute("numberOfUser", accountRepository.count());
         model.addAttribute("nickname", account.getNickname());
         return view;
     }

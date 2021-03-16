@@ -1,7 +1,7 @@
 package com.finalproject.shelter.settings.form;
 
 
-import com.finalproject.shelter.repository.UserRepository;
+import com.finalproject.shelter.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 @RequiredArgsConstructor
 public class SignUpFormValidator implements Validator {
 
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
 
     @Override
@@ -23,14 +23,14 @@ public class SignUpFormValidator implements Validator {
     public void validate(Object object, Errors errors) {
         // TODO email, nickname
         SignUpForm signUpForm = (SignUpForm) object;
-        if (userRepository.existsByEmail(signUpForm.getEmail())) {
+        if (accountRepository.existsByEmail(signUpForm.getEmail())) {
             errors.rejectValue("email", "invalid.email", new Object[]{signUpForm.getEmail()}, "이미 사용중인 이메일 입니다.");
         }
-        if (userRepository.existsByNickname(signUpForm.getNickname())) {
+        if (accountRepository.existsByNickname(signUpForm.getNickname())) {
             errors.rejectValue("nickname", "invalid.nickname", new Object[]{signUpForm.getNickname()}, "이미 사용중인 닉네임 입니다.");
         }
 
-        if (userRepository.existsByNickname(signUpForm.getIdentity())) {
+        if (accountRepository.existsByNickname(signUpForm.getIdentity())) {
             errors.rejectValue("identity", "invalid.identity", new Object[]{signUpForm.getIdentity()}, "이미 사용중인 아이디입니다.");
         }
 
