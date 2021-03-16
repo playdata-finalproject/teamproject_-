@@ -25,7 +25,10 @@
                 <form action="#" th:action="@{/board/form}" th:object="${board}" method="post">
                     <input type="hidden" th:field="*{id}">
                     <li class="bbs_title">
-                        <label><span th:text="제목 "></span> :  <input type="text" th:field="*{title}"></label>
+                        <label><span th:text="제목 "></span> :
+                            <input type="text" th:field="*{title}"
+                                   placeholder="제목을 해주세요" aria-describedby="nicknameHelp" required minlength="1">
+                        </label>
                     </li>
                     <li class="bbs_hit">
                         <label><span th:text="작성자 "></span> :  <span th:text="*{nickname}">로그인 유저</span></label>
@@ -37,7 +40,9 @@
                     </li>
                     <li class="bbs_content">
                         <div class="editer_content">
-                          <textarea style="resize: none;" cols="150" rows="30" th:field="*{contents}"></textarea>
+                          <textarea style="resize: none;" cols="150" rows="30" th:field="*{contents}"
+                                    placeholder="글을 작성해주세요" aria-describedby="nicknameHelp" required minlength="1">
+                          ></textarea>
                         </div>
                     </li>
                     <p class="btn_line txt_right">
