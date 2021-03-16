@@ -36,6 +36,7 @@ public class BoardPageController {
         Page<Board> boardlist = boardLogicService.readAll(id,select,searchText,pageable);
         List<Board> weekview = boardLogicService.bestweekview(id);
         List<Board> monthview = boardLogicService.bestmonthview(id);
+
         Board eachboard = boardLogicService.readCategory(id);
 
         int startPage = Math.max(1,boardlist.getPageable().getPageNumber() -4);
