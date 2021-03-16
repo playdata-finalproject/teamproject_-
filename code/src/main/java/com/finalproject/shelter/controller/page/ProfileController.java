@@ -1,21 +1,15 @@
 package com.finalproject.shelter.controller.page;
 
 import com.finalproject.shelter.model.entity.Account;
-import com.finalproject.shelter.model.entity.CurrentUser;
-import com.finalproject.shelter.model.entity.Profile;
-import com.finalproject.shelter.repository.UserRepository;
+import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/profile")
@@ -23,12 +17,12 @@ import javax.validation.Valid;
 public class ProfileController {
 
     private final AccountService accountService;
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
 
     @GetMapping("/{username}")
     public String viewProfile(@PathVariable String username, Model model){
-        Account byUsername = userRepository.findByUsername(username);
+        Account byUsername = accountRepository.findByUsername(username);
 
         if (username == null) {
             throw new IllegalArgumentException(username + " 에 해당하는 사용자가 없습니다.");

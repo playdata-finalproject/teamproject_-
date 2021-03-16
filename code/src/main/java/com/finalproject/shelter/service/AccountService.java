@@ -2,16 +2,13 @@ package com.finalproject.shelter.service;
 
 import com.finalproject.shelter.config.AppProperties;
 import com.finalproject.shelter.model.entity.Account;
-import com.finalproject.shelter.model.entity.Profile;
 import com.finalproject.shelter.model.entity.Role;
 import com.finalproject.shelter.model.entity.UserAccount;
-import com.finalproject.shelter.repository.UserRepository;
-import lombok.NoArgsConstructor;
+import com.finalproject.shelter.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
 import java.time.LocalDateTime;
 
@@ -29,7 +25,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class AccountService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
     private final TemplateEngine templateEngine;
     private final AppProperties appProperties;
     private final ModelMapper modelMapper;
@@ -58,7 +54,7 @@ public class AccountService implements UserDetailsService {
         role.setId(1l);
         user.getRoles().add(role);
         //validateDuplicateIdentity(user);
-        return userRepository.save(user);
+        return accountRepository.save(user);
     }
 
 
@@ -89,7 +85,7 @@ public class AccountService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // 로그인 처리, Spring Security에서 자동으로 처리함.
-        Account account = userRepository.findByUsername(username);
+        Account account = accountRepository.findByUsername(username);
 //        if (account == null) {
 //            account = userRepository.findByIdentity(account.getIdentity());
 //        }
@@ -104,11 +100,11 @@ public class AccountService implements UserDetailsService {
     @Transactional
     public void updatePassword(Account account, String newPassword) {
         account.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(account);
+        accountRepository.save(account);
     }
 
     public void updateNickname(Account account, String nickname) {
         account.setNickname(nickname);
-        userRepository.save(account);
+        accountRepository.save(account);
     }
 }

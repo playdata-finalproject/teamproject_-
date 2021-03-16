@@ -1,7 +1,7 @@
 package com.finalproject.shelter.controller.api;
 
 import com.finalproject.shelter.model.entity.Account;
-import com.finalproject.shelter.repository.UserRepository;
+import com.finalproject.shelter.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 //@Slf4j
 class UserApiController {
     @Autowired
-    private UserRepository repository;
+    private AccountRepository repository;
 
     // Aggregate root
     // tag::get-aggregate-root[]

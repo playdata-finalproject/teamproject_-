@@ -20,7 +20,6 @@ import java.util.List;
 @Builder
 @Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
-@ToString(exclude = "answerAnsList")
 public class Answer {
 
     @Id
@@ -49,7 +48,4 @@ public class Answer {
 
     @ManyToOne
     private Board board;
-
-    @OneToMany(mappedBy = "answer",fetch = FetchType.LAZY)
-    private List<AnswerAns> answerAnsList;
 }

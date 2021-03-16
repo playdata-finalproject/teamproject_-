@@ -1,7 +1,7 @@
 package com.finalproject.shelter.settings.form;
 
 import com.finalproject.shelter.model.entity.Account;
-import com.finalproject.shelter.repository.UserRepository;
+import com.finalproject.shelter.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 @RequiredArgsConstructor
 public class UsernameFormValidator implements Validator {
 
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -21,7 +21,7 @@ public class UsernameFormValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         UsernameForm usernameForm = (UsernameForm) target;
-        Account byUsername = userRepository.findByUsername(usernameForm.getUsername());
+        Account byUsername = accountRepository.findByUsername(usernameForm.getUsername());
         if (byUsername != null) {
             errors.rejectValue("username", "wrong.value", "입력하신 이름을 사용할 수 없습니다.");
         }

@@ -2,7 +2,7 @@ package com.finalproject.shelter.controller.page.board;
 
 import com.finalproject.shelter.model.entity.Account;
 import com.finalproject.shelter.model.entity.Board;
-import com.finalproject.shelter.repository.UserRepository;
+import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,7 +21,7 @@ public class BoardFormPageController {
     private BoardLogicService boardLogicService;
 
     @Autowired
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     @GetMapping("")
     public ModelAndView writeview(HttpServletRequest request, @RequestParam("name") String name){
@@ -29,7 +29,7 @@ public class BoardFormPageController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        Account account = userRepository.findByUsername(username);
+        Account account = accountRepository.findByUsername(username);
         String id = request.getParameter("id");
         Board board = boardLogicService.readBoard(id);
         Board board1 = Board.builder()

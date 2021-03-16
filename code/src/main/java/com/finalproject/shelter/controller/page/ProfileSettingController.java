@@ -1,9 +1,7 @@
 package com.finalproject.shelter.controller.page;
 
 import com.finalproject.shelter.model.entity.Account;
-import com.finalproject.shelter.model.entity.CurrentUser;
-import com.finalproject.shelter.model.entity.Profile;
-import com.finalproject.shelter.repository.UserRepository;
+import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.AccountService;
 import com.finalproject.shelter.settings.form.NicknameForm;
 import com.finalproject.shelter.settings.form.NicknameFormValidator;
@@ -30,7 +28,7 @@ public class ProfileSettingController {
     static final String SETTINGS_ACCOUNT_URL = "/settings/account";
 
     private final AccountService accountService;
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
     private final NicknameFormValidator nicknameValidator;
     private final ModelMapper modelMapper;
 
