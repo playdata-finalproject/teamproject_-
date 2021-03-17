@@ -25,19 +25,14 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @NotNull(message = "Can't be empty")
-//    @Size(min = 2, max = 30, message = "Must be more than 2 and less than 30 symbols")
     private Long id;
 
     private Long kakaoId;
 
     private String nickname;
 
-//    @NotNull(message = "Can't be empty")
-//    @Size(min = 2, max = 30, message = "Must be more than 2 and less than 30 symbols")
     private String identity;
-//    @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})",
-//            message = "Enter valid password")
+
     private String password;
 //    private String password2;
 
@@ -55,7 +50,7 @@ public class Account {
     private LocalDateTime lastLoginAt;
 
 
-    private int loginFailCount; // integer의 용량 이 int보다 큼 바꿀라면 나중에 바꾸자
+    private int loginFailCount;
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
@@ -78,10 +73,6 @@ public class Account {
             inverseJoinColumns = @JoinColumn(name="role_id"))
     private List<Role> roles = new ArrayList<>();
 
-//    @AssertTrue(message = "Passwords should match")
-//    public boolean isPasswordsEqual() {
-//        return (password == null) ? false : password.equals(password2);
-//    }
 
     //@OneToMany(mappedBy = "User")
     //private List<Board> Board = new ArrayList<>();

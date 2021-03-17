@@ -5,10 +5,16 @@ import com.finalproject.shelter.model.entity.Account;
 import com.finalproject.shelter.model.entity.Role;
 import com.finalproject.shelter.model.entity.UserAccount;
 import com.finalproject.shelter.repository.AccountRepository;
+import com.finalproject.shelter.settings.form.SignUpForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +23,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.TemplateEngine;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,50 +41,55 @@ public class AccountService implements UserDetailsService {
 //    @Autowired
 //    private final EmailService emailService;
 
+    @Transactional
+    public Account processNewAccount(@Valid SignUpForm signUpForm) {
+        //회원 가입 처리
+        Account newAccount = saveNewAccount(signUpForm);
+        //Mail Send
+        return newAccount;
+    }
+
+    private Account saveNewAccount(@Valid SignUpForm signUpForm) {
+        signUpForm.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
+        Account account = modelMapper.map(signUpForm, Account.class);
+        account.generateEmailCheckToken();
+        return accountRepository.save(account);
+    }
+
     @Autowired
     private PasswordEncoder passwordEncoder;
     //여기 부터!
-    public Account save(Account user){
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        user.setIdentity(user.getIdentity());
-        user.setEmail(user.getEmail());
-        user.setNickname("aaaa");
-        user.setKakaoId(1L);
-        user.setLoginFailCount(0);
-        user.setCreatedAt(LocalDateTime.now());
-        user.setUncreatedAt(LocalDateTime.now());
-        user.setUpdatedAt(LocalDateTime.now());
-        user.setLastLoginAt(LocalDateTime.now());
-        user.setUpdatedBy("");
-        user.setEnabled(false);
+    public Account save(Account account){
+        String encodedPassword = passwordEncoder.encode(account.getPassword());
+        account.setPassword(encodedPassword);
+        account.setIdentity(account.getIdentity());
+        account.setEmail(account.getEmail());
+        account.setNickname("aaaa");
+        account.setKakaoId(1L);
+        account.setLoginFailCount(0);
+        account.setCreatedAt(LocalDateTime.now());
+        account.setUncreatedAt(LocalDateTime.now());
+        account.setUpdatedAt(LocalDateTime.now());
+        account.setLastLoginAt(LocalDateTime.now());
+        account.setUpdatedBy("");
+        account.setEnabled(false);
         Role role = new Role();
         role.setId(1l);
-        user.getRoles().add(role);
-        //validateDuplicateIdentity(user);
-        return accountRepository.save(user);
+        account.getRoles().add(role);
+        //validateDuplicateIdentity(account);
+        return accountRepository.save(account);
     }
 
+    public void login(Account account) {
+        // username과 password를 조합해서 UsernamePasswordAuthenticationToken 인스턴스를 생성
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                new UserAccount(account),
+                account.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_USER")));
 
-
-//    public void sendSignUpConfirmEmail(Account newAccount) {
-//        Context context = new Context();
-//        context.setVariable("link", "/check-email-token?token=" + newAccount.getEmailCheckToken() +
-//                "&email=" + newAccount.getEmail());
-//        context.setVariable("nickname", newAccount.getNickname());
-//        context.setVariable("linkName", "이메일 인증하기");
-//        context.setVariable("message", "스터디올래 서비스를 사용하려면 링크를 클릭하세요.");
-//        context.setVariable("host", appProperties.getHost());
-//        String message = templateEngine.process("mail/simple-link", context);
-//
-//        EmailMessage emailMessage = EmailMessage.builder()
-//                .to(newAccount.getEmail())
-//                .subject("스터디올래, 회원 가입 인증")
-//                .message(message)
-//                .build();
-//
-//        emailService.sendEmail(emailMessage);
-//    }
+        SecurityContext context = SecurityContextHolder.getContext();
+        context.setAuthentication(token);
+    }
 
     @Transactional
     public void completeSignUp(Account account) {
@@ -84,14 +97,16 @@ public class AccountService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // 로그인 처리, Spring Security에서 자동으로 처리함.
-        Account account = accountRepository.findByUsername(username);
-//        if (account == null) {
-//            account = userRepository.findByIdentity(account.getIdentity());
-//        }
+    public UserDetails loadUserByUsername(String usernameOrIdentity) throws UsernameNotFoundException { // 로그인 처리, Spring Security에서 자동으로 처리함.
+        Account account = accountRepository.findByUsername(usernameOrIdentity);
+        //Account  확인
+        if (account == null) {
+            account = accountRepository.findByIdentity(usernameOrIdentity);
+            //Account  확인
+        }
 
         if (account == null) {
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException(usernameOrIdentity);
         }
         return new UserAccount(account);  // Principal 객체 리턴
     }
@@ -103,8 +118,8 @@ public class AccountService implements UserDetailsService {
         accountRepository.save(account);
     }
 
-    public void updateNickname(Account account, String nickname) {
-        account.setNickname(nickname);
+    public void updateIdentity(Account account, String identity) {
+        account.setIdentity(identity);
         accountRepository.save(account);
     }
 }

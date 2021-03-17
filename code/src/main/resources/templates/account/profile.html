@@ -56,18 +56,6 @@
                 </p>
                 <p th:if="${isOwner}">
                     <span>
-                        <i class="fab fa-odnoklassniki"></i>
-                    </span>
-                    <span th:text="${account.nickname}" class="col-9"></span>
-                </p>
-                <p th:if="${isOwner}">
-                    <span>
-                        <i class="fa fa-envelope-o"></i>
-                    </span>
-                    <span th:text="${account.createdAt}" class="col-9"></span>
-                </p>
-                <p th:if="${isOwner}">
-                    <span>
                         <i class="fa fa-calendar-o"></i>
                     </span>
                     <span th:if="${!account.enabled}" class="col-9">
@@ -75,6 +63,7 @@
                         </span>
                     <span th:text="${#temporals.format(account.createdAt, 'yyyy년 M월 가입')}" class="col-9"></span>
                 </p>
+                <br>
                 <div th:if="${isOwner}">
                     <a class="btn btn-primary" href="#" th:href="@{/settings/password}">프로필 수정</a>
                     <a class="btn btn-secondary" href="#" th:href="@{/settings/account}">닉네임 수정</a>

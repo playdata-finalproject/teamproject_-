@@ -21,22 +21,23 @@ public class SignUpFormValidator implements Validator {
 
     @Override
     public void validate(Object object, Errors errors) {
-        // TODO email, nickname
+        // TODO username, email, nickname
         SignUpForm signUpForm = (SignUpForm) object;
+        if (accountRepository.existsByUsername(signUpForm.getUsername())) {
+            errors.rejectValue("username", "invalid.username", new Object[]{signUpForm.getUsername()}, "이미 사용중인 이메일 입니다.");
+        }
+
         if (accountRepository.existsByEmail(signUpForm.getEmail())) {
             errors.rejectValue("email", "invalid.email", new Object[]{signUpForm.getEmail()}, "이미 사용중인 이메일 입니다.");
         }
-        if (accountRepository.existsByNickname(signUpForm.getNickname())) {
-            errors.rejectValue("nickname", "invalid.nickname", new Object[]{signUpForm.getNickname()}, "이미 사용중인 닉네임 입니다.");
+//        if (accountRepository.existsByNickname(signUpForm.getNickname())) {
+//            errors.rejectValue("nickname", "invalid.nickname", new Object[]{signUpForm.getNickname()}, "이미 사용중인 닉네임 입니다.");
+//        }
+
+        if (accountRepository.existsByIdentity(signUpForm.getIdentity())) {
+            errors.rejectValue("identity", "invalid.identity", new Object[]{signUpForm.getIdentity()}, "이미 사용중인닉네임입니다.");
         }
 
-        if (accountRepository.existsByNickname(signUpForm.getIdentity())) {
-            errors.rejectValue("identity", "invalid.identity", new Object[]{signUpForm.getIdentity()}, "이미 사용중인 아이디입니다.");
-        }
-
-        if (!signUpForm.getNewPasswordConfirm().equals(signUpForm.getNewPasswordConfirm())) {
-            errors.rejectValue("newPasswordConfirm", "wrong.value", "입력한 새 패스워드가 일치하지 않습니다.");
-        }
     }
 
 }

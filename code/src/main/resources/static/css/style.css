@@ -24,7 +24,9 @@ a{
     background-size: 100% 100%;
 }
 
-
+.nav.navbar{
+    padding-bottom:0px;
+}
 .navbar{
     display:flex;
     justify-content: space-between;
@@ -35,7 +37,7 @@ a{
 
 .navbar_logo{
     font-size:24px;
-    padding:12px 12px;
+    padding : 0px 12px 0px 12px;
 }
 
 .navbar_logo i{
@@ -44,12 +46,15 @@ a{
 
 .navbar_menu{
     display:flex;
+    align-items: center;
+    position:relative;
     list-style: none;
     padding-left: 0;
 }
 
+
 .navbar_menu li {
-    padding: 8px 12px;
+    padding: 10px 12px 0px 12px;
 }
 
 .navbar_menu li:hover{
@@ -62,6 +67,9 @@ a{
     padding: 8px 12px;
     display:flex;
     padding-left:0;
+}
+.loginarea{
+    margin-top: 10px;
 }
 
 .navbar_icons li {
@@ -83,9 +91,112 @@ a{
 
 /*첫 화면 */
 
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+* {
+    font-family : 'Nanum Gothic';
+}
+h1 {
+    font-family : 'Hanna';
+}
 
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    height: 100px;
+    width: 100px;
+    outline: black;
+    background-size: 100%, 100%;
+    border-radius: 50%;
+    /*border: 1px solid black;*/
+    background-image: none;
+}
 
+.carousel-control-next-icon:after
+{
+    content: '>';
+    font-size: 55px;
+//color: red;
+}
 
+.carousel-control-prev-icon:after {
+    content: '<';
+    font-size: 55px;
+//color: red;
+}
+
+dropdown-toggle{
+    font-size:15px;
+}
+.btn{
+    font-size:13px;
+    /*margin : 10px;*/
+    font-weight: bold;
+    padding: 15px 12px;
+    text-align:center;
+    margin-top: 7px;
+}
+a{
+    font-weight : bold;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 350px;
+    padding: 15px;
+    margin: auto;
+}
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.write{
+    float:right;
+}
+.profile-content{
+    font-size:20px;
+    position:relative;
+    padding : 10px;
+}
+
+.search{
+    position:relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 15px;
+    margin:15px;
+    font-size: 16px;
+}
+.boardlist{
+    padding: 15px 0px 15px 0px;
+    margin:10px 0px 10px 0px;
+}
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.profile {
+    overflow:auto;
+    display:block;
+    position:absolute;
+}
+/*배경화면*/
 
 /*순위글*/
 .board_main {
@@ -144,6 +255,9 @@ a{
         align-items: flex-start;
     }
 
+    .loginarea{
+        display: none;
+    }
     .navbar_menu {
         display:none;
         flex-direction: column;
@@ -173,3 +287,4 @@ a{
         display:flex;
     }
 }
+

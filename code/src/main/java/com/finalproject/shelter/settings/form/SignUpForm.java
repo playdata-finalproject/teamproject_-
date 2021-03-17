@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 
 @Data
 public class SignUpForm {
-
+    @Length(min = 4, max = 50)
     @NotBlank
     private String username;
 
@@ -18,17 +18,17 @@ public class SignUpForm {
 
     @Length(min = 8, max = 50)
     private String password;
-
-    @Length(min = 8, max = 50)
-    private String newPasswordConfirm;
+//
+//    @Length(min = 8, max = 50)
+//    private String newPasswordConfirm;
 
     @Email
     @NotBlank
     private String email;
 
-    @NotBlank
-    @Length(min = 3, max = 20)
-    @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9_-]{3,20}$")
-    private String nickname;
+//    @NotBlank
+//    @Length(min = 3, max = 20)
+//    @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9_-]{3,20}$")
+//    private String nickname;
 
 }

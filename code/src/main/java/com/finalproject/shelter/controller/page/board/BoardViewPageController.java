@@ -5,7 +5,7 @@ import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.Logic.AnswerLogicService;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
-import com.finalproject.shelter.validator.AnswerValidator;
+//import com.finalproject.shelter.validator.AnswerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,14 +32,14 @@ public class BoardViewPageController {
     private AccountRepository accountRepository;
 
     @Autowired
-    private AnswerValidator answerValidator;
+    //private AnswerValidator answerValidator;
 
     @GetMapping("")
     public String listview(
             @RequestParam(value = "id",required = false, defaultValue = "0") String id,
             @RequestParam(value = "viewboard",required = false, defaultValue = "0") String viewboard,
-            Model model
-    ){
+            Model model)
+    {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
@@ -64,7 +64,7 @@ public class BoardViewPageController {
     @PostMapping("/answer")
     public String postanswer(@Valid Answer answer, BindingResult bindingResult, Model model){
 
-        answerValidator.validate(answer,bindingResult);
+        //answerValidator.validate(answer,bindingResult);
 
         String id = String.valueOf(answer.getBoard().getId());
 

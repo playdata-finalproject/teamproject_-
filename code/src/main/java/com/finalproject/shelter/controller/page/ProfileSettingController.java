@@ -1,12 +1,10 @@
 package com.finalproject.shelter.controller.page;
 
 import com.finalproject.shelter.model.entity.Account;
+import com.finalproject.shelter.model.entity.CurrentUser;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.AccountService;
-import com.finalproject.shelter.settings.form.NicknameForm;
-import com.finalproject.shelter.settings.form.NicknameFormValidator;
-import com.finalproject.shelter.settings.form.PasswordForm;
-import com.finalproject.shelter.settings.form.PasswordFormValidator;
+import com.finalproject.shelter.settings.form.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -28,8 +26,9 @@ public class ProfileSettingController {
     static final String SETTINGS_ACCOUNT_URL = "/settings/account";
 
     private final AccountService accountService;
-    private final AccountRepository accountRepository;
-    private final NicknameFormValidator nicknameValidator;
+//    private final AccountRepository accountRepository;
+    private final IdentityFormValidator identityFormValidator;
+
     private final ModelMapper modelMapper;
 
     @InitBinder("passwordForm")
@@ -38,66 +37,46 @@ public class ProfileSettingController {
     }
 
 
-    @InitBinder("nicknameForm")
-    public void nicknameFormInitBinder(WebDataBinder webDataBinder) {
-        webDataBinder.addValidators(nicknameValidator);
+    @InitBinder("identityForm")
+    public void identityFormInitBinder(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(identityFormValidator);
     }
 
-//    @GetMapping(SETTINGS_PROFILE_URL)
-//    public String profileForm(Account account, Model model) {
-//        model.addAttribute(account);
-//        model.addAttribute(modelMapper.map(account, Profile.class));
-//        return SETTINGS_PROFILE_VIEW_NAME;
-//    }
-
-//    @PostMapping(SETTINGS_PROFILE_URL)
-//    public String updateProfile( Account account, @Valid Profile profile, Errors errors,
-//                                Model model, RedirectAttributes attributes) {
-//        // 현재 account는 detached 상태이다. 한번이라도 영속성 컨텍스트에 들어간 객체 (id값이 있는 상태)
-//        if (errors.hasErrors()) {
-//            model.addAttribute(account);
-//            return SETTINGS_PROFILE_VIEW_NAME;
-//        }
-//
-//        accountService.updateProfile(account, profile);
-//        attributes.addFlashAttribute("message", "프로필을 수정했습니다.");// 리다이텍트 시 한번 사용하고 사라지는 데이터, 자동으로 Model에 들어간다.
-//        return "redirect:" + SETTINGS_PROFILE_URL;
-//    }
     @GetMapping(SETTINGS_PASSWORD_URL)
-    public String updatePasswordForm( Account account, Model model) {
-        model.addAttribute(account);
+    public String updatePasswordForm(@CurrentUser Account accounts, Model model) {
+        model.addAttribute(accounts);
         model.addAttribute(new PasswordForm());
         return SETTINGS_PASSWORD_VIEW_NAME;
     }
 
     @PostMapping(SETTINGS_PASSWORD_URL)
-    public String updatePassword( Account account, @Valid PasswordForm passwordForm, Errors errors,
+    public String updatePassword(@CurrentUser Account accounts, @Valid PasswordForm passwordForm, Errors errors,
                                  Model model, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
-            model.addAttribute(account);
+            model.addAttribute(accounts);
             return SETTINGS_PASSWORD_VIEW_NAME;
         }
 
-        accountService.updatePassword(account, passwordForm.getNewPassword());
+        accountService.updatePassword(accounts, passwordForm.getNewPassword());
         redirectAttributes.addFlashAttribute("message", "패스워드를 변경하였습니다.");
         return "redirect:" + SETTINGS_PASSWORD_URL;
     }
     @GetMapping(SETTINGS_ACCOUNT_URL)
-    public String updateAccountForm( Account account, Model model) {
-        model.addAttribute(account);
-        model.addAttribute(modelMapper.map(account, NicknameForm.class));
+    public String updateAccountForm(@CurrentUser Account accounts, Model model) {
+        model.addAttribute(accounts);
+        model.addAttribute(modelMapper.map(accounts, IdentityForm.class));
         return SETTINGS_ACCOUNT_VIEW_NAME;
     }
 
     @PostMapping(SETTINGS_ACCOUNT_URL)
-    public String updateAccount( Account account, @Valid NicknameForm nicknameForm, Errors errors,
+    public String updateAccount(@CurrentUser Account accounts, @Valid IdentityForm identityForm, Errors errors,
                                 Model model, RedirectAttributes attributes) {
         if (errors.hasErrors()) {
-            model.addAttribute(account);
+            model.addAttribute(accounts);
             return SETTINGS_ACCOUNT_VIEW_NAME;
         }
 
-        accountService.updateNickname(account, nicknameForm.getNickname());
+        accountService.updateIdentity(accounts, identityForm.getIdentity());
         attributes.addFlashAttribute("message", "닉네임을 수정했습니다.");
         return "redirect:" + SETTINGS_ACCOUNT_URL;
     }
