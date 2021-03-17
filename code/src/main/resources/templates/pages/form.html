@@ -24,25 +24,38 @@
             <ul class="bbsview_list">
                 <form action="#" th:action="@{/board/form}" th:object="${board}" method="post">
                     <input type="hidden" th:field="*{id}">
-                    <li class="bbs_title">
-                        <label><span th:text="제목 "></span> :
-                            <input type="text" th:field="*{title}"
-                                   placeholder="제목을 해주세요" aria-describedby="nicknameHelp" required minlength="1">
-                        </label>
-                    </li>
+                    <div class="form-group">
+                        <li class="bbs_title">
+                            <label ><span th:text="제목 "></span> :
+                                <input type="text" class="form-control" th:field="*{title}"
+                                       th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'"
+                                       placeholder="제목을 입력해주세요" aria-describedby="nicknameHelp" required minlength="1">
+                            </label>
+                        </li>
+                    </div>
                     <li class="bbs_hit">
                         <label><span th:text="작성자 "></span> :  <span th:text="*{nickname}">로그인 유저</span></label>
                     </li>
+                    <input type="hidden" th:field="*{nickname}">
                     <input type="hidden" th:field="*{user}">
                     <li class="bbs_hit">
                         <label><span th:text="Category "></span> :
-                            <input type="hidden" th:field="*{category.id}" th:text="*{category.title}" readonly="readonly" ></label>
+                            <input type="hidden" th:field="*{category.id}" th:text="*{category.title}" readonly="readonly" >
+                        </label>
                     </li>
+                    <input type="hidden" th:field="*{category}">
                     <li class="bbs_content">
                         <div class="editer_content">
-                          <textarea style="resize: none;" cols="150" rows="30" th:field="*{contents}"
-                                    placeholder="글을 작성해주세요" aria-describedby="nicknameHelp" required minlength="1">
-                          ></textarea>
+                            <textarea class="form-control" style="resize: none; font-size: medium;" cols="120" rows="30" th:field="*{contents}"
+                                th:classappend="${#fields.hasErrors('contents')} ? 'is-invalid'"
+                                placeholder="글을 작성해주세요" aria-describedby="nicknameHelp" required minlength="1">
+                            </textarea>
+                            <div style="color: rgb(223, 70, 85); font-size: 80%;" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                                제목 에러 메시지
+                            </div>
+                            <div style="color: rgb(223, 70, 85); font-size: 80%;"  th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}">
+                                제목 에러 메시지
+                            </div>
                         </div>
                     </li>
                     <p class="btn_line txt_right">
@@ -52,7 +65,6 @@
                     </p>
                 </form>
             </ul>
-
         </div>
         <!-- //bodytext_area -->
 

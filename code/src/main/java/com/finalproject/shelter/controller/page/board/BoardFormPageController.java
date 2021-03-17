@@ -4,14 +4,16 @@ import com.finalproject.shelter.model.entity.Account;
 import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
+import com.finalproject.shelter.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/board/form")
@@ -23,10 +25,16 @@ public class BoardFormPageController {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private BoardValidator boardValidator;
+
     @GetMapping("")
-    public ModelAndView writeview(@RequestParam(value = "boardid",defaultValue = "") String boardid,
-                                  @RequestParam(value = "name",defaultValue = "") String name,
-                                  @RequestParam(value = "categoryid",defaultValue = "") String categoryid){
+    public String writeview(
+            @RequestParam(value = "boardid",defaultValue = "") String boardid,
+            @RequestParam(value = "name",defaultValue = "") String name,
+            @RequestParam(value = "categoryid",defaultValue = "") String categoryid,
+            Model model
+    ){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -40,21 +48,32 @@ public class BoardFormPageController {
                     .user(account)
                     .category(board.getCategory())
                     .build();
+            model.addAttribute("eachboard",board);
+            model.addAttribute("board",board1);
 
-            return new ModelAndView("pages/form")
-                    .addObject("eachboard",board)
-                    .addObject("board",board1);
+            return "pages/form";
 
         }else{
             Board board = boardLogicService.readBoard(boardid);
-            return new ModelAndView("pages/form")
-                    .addObject("eachboard",board)
-                    .addObject("board",board);
+            model.addAttribute("eachboard",board);
+            model.addAttribute("board",board);
+
+            return "pages/form";
         }
     }
 
     @PostMapping("")
-    public String postform(@ModelAttribute Board board){
+    public String postform(@Valid Board board,BindingResult bindingResult, Model model){
+
+        boardValidator.validate(board,bindingResult);
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("eachboard",board);
+            model.addAttribute("board",board);
+
+            return "pages/form";
+        }
+
         Board newboard = boardLogicService.postservice(board);
         return "redirect:/board/view?id=" + newboard.getId();
     }

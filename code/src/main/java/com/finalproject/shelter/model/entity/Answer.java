@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,6 +30,7 @@ public class Answer {
     private String nickname;
 
     @Column(columnDefinition = "Text")
+    @NotBlank(message = "댓글을 입력해주세요")
     private String answerText;
 
     private int goodAnswer;
