@@ -36,12 +36,15 @@ public class Account {
 //    @NotNull(message = "Can't be empty")
 //    @Size(min = 2, max = 30, message = "Must be more than 2 and less than 30 symbols")
     private String identity;
+
 //    @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})",
 //            message = "Enter valid password")
     private String password;
+
 //    private String password2;
 
     //private String password2;
+
     private String username;
 
     @Email(message = "Enter valid e-mail" )

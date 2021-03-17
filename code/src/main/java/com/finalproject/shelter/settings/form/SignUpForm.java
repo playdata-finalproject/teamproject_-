@@ -17,6 +17,7 @@ public class SignUpForm {
     private String identity;
 
     @Length(min = 8, max = 50)
+    @NotBlank
     private String password;
 
     @Length(min = 8, max = 50)
