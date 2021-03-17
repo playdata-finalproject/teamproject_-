@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,12 +27,12 @@ public class BoardPageController {
     private AnswerLogicService answerLogicService;
 
     @GetMapping("")
-    public ModelAndView findboardlist(HttpServletRequest request,
+    public String findboardlist(@RequestParam(value = "id") String id,
                                   @PageableDefault(size = 10) Pageable pageable,
                                       @RequestParam(value = "select",required = false, defaultValue = "") String select,
-                                      @RequestParam(value = "searchText",required = false, defaultValue = "") String searchText){
-
-        String id = request.getParameter("id");
+                                      @RequestParam(value = "searchText",required = false, defaultValue = "") String searchText,
+                                      Model model
+                                      ){
 
         Page<Board> boardlist = boardLogicService.readAll(id,select,searchText,pageable);
         List<Board> weekview = boardLogicService.bestweekview(id);
@@ -42,13 +43,14 @@ public class BoardPageController {
         int startPage = Math.max(1,boardlist.getPageable().getPageNumber() -4);
         int endPage = Math.min(boardlist.getTotalPages(),boardlist.getPageable().getPageNumber()+4);
 
-        return new ModelAndView("/pages/list")
-                .addObject("boardlist",boardlist)
-                .addObject("startPage",startPage)
-                .addObject("endPage",endPage)
-                .addObject("eachboard",eachboard)
-                .addObject("weekview",weekview)
-                .addObject("monthview",monthview);
+        model.addAttribute("boardlist",boardlist);
+        model.addAttribute("startPage",startPage);
+        model.addAttribute("endPage",endPage);
+        model.addAttribute("eachboard",eachboard);
+        model.addAttribute("weekview",weekview);
+        model.addAttribute("monthview",monthview);
+
+        return "/pages/list";
     }
 
     @GetMapping("/delete")

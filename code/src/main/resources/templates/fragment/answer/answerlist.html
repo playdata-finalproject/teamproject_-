@@ -4,7 +4,7 @@
 
 <div th:fragment="answerlist(Answer,Answers)">
 
-    <form action="" th:action="@{/board/view/answer}" th:method="Post" th:object="${Answer}">
+    <form action="#" th:action="@{/board/view/answer}" th:method="Post" th:object="${Answer}">
         <div class="near_list">
             <h4><span class="text-right" th:text="${Answer.nickname}">사용자 이름 </span>
                 <span> &nbsp;&nbsp; | &nbsp;&nbsp; </span>
@@ -12,12 +12,16 @@
             <p>
                 <input type="hidden" th:field="*{nickname}">
                 <input type="hidden" th:field="*{Board}">
-            <li><input type="text" class="form-control" style="width: 858px;border-color: #6f788B"
-                       th:field="*{answerText}">
-                <button type="submit" class="btn_bbs" >확인</button></li>
+            <label><input type="text" class="form-control" th:classappend="${#fields.hasErrors('AnswerText')} ? 'is-invalid'" th:field="*{AnswerText}"
+                        style="width: 858px;border-color: #6f788B;"
+                       placeholder="글을 작성해주세요" aria-describedby="nicknameHelp" required minlength="1">
+                <button type="submit" class="btn_bbs" >확인</button>
+            </label>
             </p>
         </div>
-
+        <div style="color: rgb(223, 70, 85); font-size: 80%;" th:if="${#fields.hasErrors('AnswerText')}" th:errors="*{AnswerText}">
+            제목 에러 메시지
+        </div>
     </form>
 
     <br><br><br>

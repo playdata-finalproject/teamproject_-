@@ -1,6 +1,8 @@
 package com.finalproject.shelter.service.Logic;
 
+import com.finalproject.shelter.model.entity.Answer;
 import com.finalproject.shelter.model.entity.Board;
+import com.finalproject.shelter.repository.AnswerRepository;
 import com.finalproject.shelter.repository.BoardRepository;
 import com.finalproject.shelter.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,9 @@ public class BoardLogicService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private AnswerRepository answerRepository;
 
     private Board newboard;
     private Long ids;
@@ -110,17 +115,23 @@ public class BoardLogicService {
         }
     }
 
-
-
-
-
     public String deleteid(String id){
+
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
 
         board.ifPresent(select->{
+            newboard = select;
             ids = select.getCategory().getId();
             boardRepository.delete(select);
         });
+
+        List<Answer> answer = answerRepository.findAnswerByBoardId(newboard.getId());
+
+        if (answer!=null){
+            answer.stream().forEach(select->{
+                answerRepository.delete(select);
+            });
+        }
 
         return String.valueOf(ids);
     }
@@ -133,6 +144,7 @@ public class BoardLogicService {
                     .setContents(board.getContents());
             newboard = boardRepository.save(select);
         });
+
         if (board1.isEmpty()){
             Board selectboard = board;
             selectboard.setNickname(board.getUser().getIdentity());

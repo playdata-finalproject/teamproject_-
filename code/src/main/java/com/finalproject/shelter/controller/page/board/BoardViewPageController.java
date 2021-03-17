@@ -5,13 +5,17 @@ import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.Logic.AnswerLogicService;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
+import com.finalproject.shelter.validator.AnswerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -27,10 +31,14 @@ public class BoardViewPageController {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private AnswerValidator answerValidator;
+
     @GetMapping("")
-    public ModelAndView listview(
+    public String listview(
             @RequestParam(value = "id",required = false, defaultValue = "0") String id,
-            @RequestParam(value = "viewboard",required = false, defaultValue = "0") String viewboard
+            @RequestParam(value = "viewboard",required = false, defaultValue = "0") String viewboard,
+            Model model
     ){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -44,17 +52,29 @@ public class BoardViewPageController {
                 .nickname(accountRepository.findByUsername(username).getIdentity())
                 .board(eachboard)
                 .build();
+        model.addAttribute("eachboard",eachboard);
+        model.addAttribute("Answer",answer);
+        model.addAttribute("Answers",answerList);
+        model.addAttribute("weekview",weekview);
+        model.addAttribute("monthview",monthview);
 
-        return new ModelAndView("/pages/view")
-                .addObject("eachboard",eachboard)
-                .addObject("Answer",answer)
-                .addObject("Answers",answerList)
-                .addObject("weekview",weekview)
-                .addObject("monthview",monthview);
+        return "pages/view";
     }
 
     @PostMapping("/answer")
-    public String postanswer(@ModelAttribute Answer answer){
+    public String postanswer(@Valid Answer answer, BindingResult bindingResult, Model model){
+
+        answerValidator.validate(answer,bindingResult);
+
+        String id = String.valueOf(answer.getBoard().getId());
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("eachboard",answer.getBoard());
+            model.addAttribute("Answer",answer);
+            model.addAttribute("Answers",answerLogicService.readAnswer(id));
+
+            return "pages/view";
+        }
 
         Answer answer1 = answerLogicService.save(answer);
 
