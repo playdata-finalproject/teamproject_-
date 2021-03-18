@@ -15,14 +15,14 @@ public class NicknameFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return NicknameForm.class.isAssignableFrom(clazz);
+        return IdentityForm.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        NicknameForm nicknameForm = (NicknameForm) target;
-        Account byNickname = accountRepository.findByNickname(nicknameForm.getNickname());
-        if (byNickname != null) {
+        IdentityForm identityForm = (IdentityForm) target;
+        Account byIdentity = accountRepository.findByIdentity(identityForm.getIdentity());
+        if (byIdentity != null) {
             errors.rejectValue("nickname", "wrong.value", "입력하신 닉네임을 사용할 수 없습니다.");
         }
     }

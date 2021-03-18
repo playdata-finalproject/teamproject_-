@@ -1,6 +1,7 @@
 package com.finalproject.shelter.controller.page;
 
 import com.finalproject.shelter.model.entity.Account;
+import com.finalproject.shelter.model.entity.CurrentUser;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.AccountService;
 import lombok.RequiredArgsConstructor;

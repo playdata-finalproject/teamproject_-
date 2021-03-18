@@ -38,8 +38,8 @@ public class BoardViewPageController {
     public String listview(
             @RequestParam(value = "id",required = false, defaultValue = "0") String id,
             @RequestParam(value = "viewboard",required = false, defaultValue = "0") String viewboard,
-            Model model
-    ){
+            Model model)
+    {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
@@ -64,7 +64,7 @@ public class BoardViewPageController {
     @PostMapping("/answer")
     public String postanswer(@Valid Answer answer, BindingResult bindingResult, Model model){
 
-        answerValidator.validate(answer,bindingResult);
+        //answerValidator.validate(answer,bindingResult);
 
         String id = String.valueOf(answer.getBoard().getId());
 

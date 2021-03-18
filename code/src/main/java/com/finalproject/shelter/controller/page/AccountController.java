@@ -1,12 +1,15 @@
 package com.finalproject.shelter.controller.page;
 
 import com.finalproject.shelter.model.entity.Account;
+import com.finalproject.shelter.model.entity.CurrentUser;
+import com.finalproject.shelter.model.entity.Role;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.AccountService;
 import com.finalproject.shelter.settings.form.SignUpForm;
 import com.finalproject.shelter.settings.form.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Controller
@@ -26,7 +30,7 @@ public class AccountController {
     @Autowired
     private final AccountService accountService;
     private final AccountRepository accountRepository;
-
+    private PasswordEncoder passwordEncoder;
     private final String HOME = "redirect:/main";
     private final String SIGN_UP_VIEW = "sign/login";
     //private final String EMAIL_CONFIRM_VIEW = "account/emailConfirm";
@@ -36,18 +40,39 @@ public class AccountController {
         webDataBinder.addValidators(signUpFormValidator);
     }
 
-
     @GetMapping("/login")
     public String login(){
         return "account/login";
     }
 
+//    @PostMapping("/login")
+//    public String signUpSubmit(@Valid SignUpForm signUpForm, Errors errors){
+//        if(errors.hasErrors()){
+//            return "account/login";
+//        }
+//
+//        Account account = accountService.processNewAccount(signUpForm);
+//        accountService.login(account);
+//        return "redirect:/main";
+//    }
+
     @GetMapping ("/register")
     public String register(Model model){
-        model.addAttribute(new SignUpForm());
+        model.addAttribute("signUpForm",new SignUpForm());
         return "account/register";
     }
-
+//
+//    @PostMapping("/register")
+//    public String register(@Valid SignUpForm signUpForm, Errors errors) throws Exception{
+//        if (errors.hasErrors()) {
+//            return "account/register";
+//        }
+//        Account account = accountService.processNewAccount(signUpForm);
+//        accountService.login(account);
+//        //이메일 임시 승인
+//        account.completeSignUp();
+//        return "redirect:/login";
+//    }
     @PostMapping("/register")
     public String register(Account user, RedirectAttributes rttr, @Valid SignUpForm signUpForm, Errors errors) throws Exception{
         if (errors.hasErrors()) {
@@ -57,7 +82,6 @@ public class AccountController {
         rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
         return "redirect:/login";
     }
-
     @GetMapping("/check-email-token")
     public String checkEmailToken(String token, String email, Model model) {
         Account account = accountRepository.findByEmail(email);
