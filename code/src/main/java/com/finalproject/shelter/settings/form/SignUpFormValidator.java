@@ -24,7 +24,7 @@ public class SignUpFormValidator implements Validator {
         // TODO username, email, nickname
         SignUpForm signUpForm = (SignUpForm) object;
         if (accountRepository.existsByUsername(signUpForm.getUsername())) {
-            errors.rejectValue("username", "invalid.username", new Object[]{signUpForm.getUsername()}, "이미 사용중인 이메일 입니다.");
+            errors.rejectValue("username", "invalid.username", new Object[]{signUpForm.getUsername()}, "이미 사용중인 사용자 입니다.");
         }
 
         if (accountRepository.existsByEmail(signUpForm.getEmail())) {

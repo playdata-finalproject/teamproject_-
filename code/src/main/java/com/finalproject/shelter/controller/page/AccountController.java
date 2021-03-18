@@ -1,6 +1,7 @@
 package com.finalproject.shelter.controller.page;
 
 import com.finalproject.shelter.model.entity.Account;
+import com.finalproject.shelter.model.entity.CurrentUser;
 import com.finalproject.shelter.model.entity.Role;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.AccountService;
@@ -39,15 +40,11 @@ public class AccountController {
         webDataBinder.addValidators(signUpFormValidator);
     }
 
-//    @GetMapping("/login")
-//    public String login(){
-//        return "account/login";
-//    }
     @GetMapping("/login")
-    public String signUpForm(Model model){
-        model.addAttribute("signUpForm", new SignUpForm());
+    public String login(){
         return "account/login";
     }
+
 //    @PostMapping("/login")
 //    public String signUpSubmit(@Valid SignUpForm signUpForm, Errors errors){
 //        if(errors.hasErrors()){
@@ -61,20 +58,30 @@ public class AccountController {
 
     @GetMapping ("/register")
     public String register(Model model){
-        model.addAttribute(new SignUpForm());
+        model.addAttribute("signUpForm",new SignUpForm());
         return "account/register";
     }
-
+//
+//    @PostMapping("/register")
+//    public String register(@Valid SignUpForm signUpForm, Errors errors) throws Exception{
+//        if (errors.hasErrors()) {
+//            return "account/register";
+//        }
+//        Account account = accountService.processNewAccount(signUpForm);
+//        accountService.login(account);
+//        //이메일 임시 승인
+//        account.completeSignUp();
+//        return "redirect:/login";
+//    }
     @PostMapping("/register")
-    public String register(Account account,  RedirectAttributes rttr, @Valid SignUpForm signUpForm, Errors errors) throws Exception{
+    public String register(Account user, RedirectAttributes rttr, @Valid SignUpForm signUpForm, Errors errors) throws Exception{
         if (errors.hasErrors()) {
             return "account/register";
         }
-        accountService.save(account);
+        accountService.save(user);
         rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
         return "redirect:/login";
     }
-
     @GetMapping("/check-email-token")
     public String checkEmailToken(String token, String email, Model model) {
         Account account = accountRepository.findByEmail(email);

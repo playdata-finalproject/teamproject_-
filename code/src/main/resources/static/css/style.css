@@ -206,10 +206,10 @@ a{
     padding-bottom:20px;
 }
 .board_main .left h3{
-    background-color: #b12e30;
+    background-color: #B9DEDF;
 }
 .board_main .right h3{
-    background-color: #393939;
+    background-color: #AAD4DA;
 }
 .board_main h3{
     height:42px;
@@ -225,7 +225,7 @@ a{
 
 .board_main .left
 .bm_list{
-	background-color:#ebebeb;
+	background-color:#f3f3f3;
 	padding: 24px 24px 24px 14px;
 }
 .ranking li {
@@ -233,12 +233,12 @@ a{
 }
 .board_main .right
 .bm_list{
-	background-color:#f3f3f3;
+	background-color:#ebebeb;
 	padding: 24px 24px 24px 14px;
 }
 .board_main .ranking
 .num {
-    color:#b12e30;
+    color:#B9DEDF;
     font-weight:bold;
 }
 .ranking li .num{

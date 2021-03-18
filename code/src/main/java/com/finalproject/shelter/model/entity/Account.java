@@ -15,6 +15,7 @@ import java.util.UUID;
 
 @Entity
 @Data
+@EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -25,30 +26,21 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @NotNull(message = "Can't be empty")
-//    @Size(min = 2, max = 30, message = "Must be more than 2 and less than 30 symbols")
     private Long id;
 
     private Long kakaoId;
 
-    private String nickname;
 
-//    @NotNull(message = "Can't be empty")
-//    @Size(min = 2, max = 30, message = "Must be more than 2 and less than 30 symbols")
-    private String identity;
-//    @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})",
-//            message = "Enter valid password")
-    private String password;
-//    private String password2;
 
-    //private String password2;
     private String username;
+    private String identity;
+
+    private String password;
 
     @Email(message = "Enter valid e-mail" )
     private String email;
-
     private Boolean enabled;
-
+    private String nickname;
     private String emailCheckToken;
     private LocalDateTime emailCheckTokenGeneratedAt;
 
@@ -67,8 +59,6 @@ public class Account {
     private LocalDateTime createdAt;
 
     private LocalDateTime uncreatedAt;
-
-    //private Long adminUserId;
 
     @JsonIgnore
     @ManyToMany

@@ -1,5 +1,6 @@
 package com.finalproject.shelter.controller.page;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finalproject.shelter.model.entity.Account;
 import com.finalproject.shelter.model.entity.CurrentUser;
 import com.finalproject.shelter.repository.AccountRepository;
@@ -13,7 +14,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.validation.Valid;
 
 @Controller
@@ -26,11 +26,9 @@ public class ProfileSettingController {
     static final String SETTINGS_ACCOUNT_URL = "/settings/account";
 
     private final AccountService accountService;
-//    private final AccountRepository accountRepository;
     private final IdentityFormValidator identityFormValidator;
 
     private final ModelMapper modelMapper;
-
     @InitBinder("passwordForm")
     public void passwordFormInitBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(new PasswordFormValidator());
@@ -61,22 +59,21 @@ public class ProfileSettingController {
         redirectAttributes.addFlashAttribute("message", "패스워드를 변경하였습니다.");
         return "redirect:" + SETTINGS_PASSWORD_URL;
     }
-    @GetMapping(SETTINGS_ACCOUNT_URL)
-    public String updateAccountForm(@CurrentUser Account accounts, Model model) {
-        model.addAttribute(accounts);
-        model.addAttribute(modelMapper.map(accounts, IdentityForm.class));
+    @GetMapping(SETTINGS_ACCOUNT_URL) //닉네임 수정 버튼
+    public String updateAccountForm(@CurrentUser Account account, Model model) {
+        model.addAttribute(account);
+        model.addAttribute(modelMapper.map(account, IdentityForm.class)); //이부분이 중요
         return SETTINGS_ACCOUNT_VIEW_NAME;
     }
 
-    @PostMapping(SETTINGS_ACCOUNT_URL)
-    public String updateAccount(@CurrentUser Account accounts, @Valid IdentityForm identityForm, Errors errors,
+    @PostMapping(SETTINGS_ACCOUNT_URL)  //닉네임 수정 완료
+    public String updateAccount(@CurrentUser Account account, @Valid IdentityForm identityForm, Errors errors,
                                 Model model, RedirectAttributes attributes) {
         if (errors.hasErrors()) {
-            model.addAttribute(accounts);
+            model.addAttribute(account);
             return SETTINGS_ACCOUNT_VIEW_NAME;
         }
-
-        accountService.updateIdentity(accounts, identityForm.getIdentity());
+        accountService.updateIdentity(account, identityForm.getIdentity());
         attributes.addFlashAttribute("message", "닉네임을 수정했습니다.");
         return "redirect:" + SETTINGS_ACCOUNT_URL;
     }

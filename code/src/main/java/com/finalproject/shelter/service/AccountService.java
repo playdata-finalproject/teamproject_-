@@ -37,7 +37,8 @@ public class AccountService implements UserDetailsService {
     private final TemplateEngine templateEngine;
     private final AppProperties appProperties;
     private final ModelMapper modelMapper;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 //    @Autowired
 //    private final EmailService emailService;
 
@@ -53,11 +54,10 @@ public class AccountService implements UserDetailsService {
         signUpForm.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
         Account account = modelMapper.map(signUpForm, Account.class);
         account.generateEmailCheckToken();
-        return accountRepository.save(account);
+        return save(account);
     }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
     //여기 부터!
     public Account save(Account account){
         String encodedPassword = passwordEncoder.encode(account.getPassword());
@@ -87,8 +87,7 @@ public class AccountService implements UserDetailsService {
                 account.getPassword(),
                 List.of(new SimpleGrantedAuthority("ROLE_USER")));
 
-        SecurityContext context = SecurityContextHolder.getContext();
-        context.setAuthentication(token);
+        SecurityContextHolder.getContext().setAuthentication(token);
     }
 
     @Transactional
@@ -99,10 +98,8 @@ public class AccountService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String usernameOrIdentity) throws UsernameNotFoundException { // 로그인 처리, Spring Security에서 자동으로 처리함.
         Account account = accountRepository.findByUsername(usernameOrIdentity);
-        //Account  확인
         if (account == null) {
             account = accountRepository.findByIdentity(usernameOrIdentity);
-            //Account  확인
         }
 
         if (account == null) {
@@ -121,5 +118,6 @@ public class AccountService implements UserDetailsService {
     public void updateIdentity(Account account, String identity) {
         account.setIdentity(identity);
         accountRepository.save(account);
+        login(account);
     }
 }
