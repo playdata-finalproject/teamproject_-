@@ -1,105 +1,105 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
 * {
-	font-family : 'Nanum Gothic';
+    font-family : 'Nanum Gothic';
 }
 h1 {
-	font-family : 'Hanna';
+    font-family : 'Hanna';
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-	height: 100px;
-	width: 100px;
-	outline: black;
-	background-size: 100%, 100%;
-	border-radius: 50%;
-	/*border: 1px solid black;*/
-	background-image: none;
+    height: 100px;
+    width: 100px;
+    outline: black;
+    background-size: 100%, 100%;
+    border-radius: 50%;
+    /*border: 1px solid black;*/
+    background-image: none;
 }
 
 .carousel-control-next-icon:after
 {
-	content: '>';
-	font-size: 55px;
-	//color: red;
+    content: '>';
+    font-size: 55px;
+//color: red;
 }
 
 .carousel-control-prev-icon:after {
-	content: '<';
-	font-size: 55px;
-	//color: red;
+    content: '<';
+    font-size: 55px;
+//color: red;
 }
 
 dropdown-toggle{
-	font-size:15px;
-	/*margin : 2px;*/
+    font-size:15px;
+    /*margin : 2px;*/
 }
 .btn{
-	font-size:13px;
-	/*margin : 10px;*/
-	font-weight: bold;
-	padding: 15px 12px;
-	text-align:center;
-	margin-top: 7px;
+    font-size:13px;
+    /*margin : 10px;*/
+    font-weight: bold;
+    padding: 15px 12px;
+    text-align:center;
+    margin-top: 7px;
 }
 a{
-	font-weight : bold;
+    font-weight : bold;
 }
 
 .form-signin {
-	width: 100%;
-	max-width: 350px;
-	padding: 15px;
-	margin: auto;
+    width: 100%;
+    max-width: 350px;
+    padding: 15px;
+    margin: auto;
 }
 .form-signin .checkbox {
-	font-weight: 400;
+    font-weight: 400;
 }
 
 .write{
-	float:right;
+    float:right;
 }
 .profile-content{
-	font-size:20px;
-	position:relative;
-	padding : 10px;
+    font-size:20px;
+    position:relative;
+    padding : 10px;
 }
 .search{
-	position:relative;
-	box-sizing: border-box;
-	height: auto;
-	padding: 15px;
-	margin:15px;
-	font-size: 16px;
+    position:relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 15px;
+    margin:15px;
+    font-size: 16px;
 }
 .boardlist{
-	padding: 15px 0px 15px 0px;
-	margin:10px 0px 10px 0px;
+    padding: 15px 0px 15px 0px;
+    margin:10px 0px 10px 0px;
 }
 .form-signin .form-control {
-	position: relative;
-	box-sizing: border-box;
-	height: auto;
-	padding: 10px;
-	font-size: 16px;
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
 }
 .form-signin .form-control:focus {
-	z-index: 2;
+    z-index: 2;
 }
 .form-signin input[type="email"] {
-	margin-bottom: -1px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 .form-signin input[type="password"] {
-	margin-bottom: 10px;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .profile {
-	overflow:auto;
-	display:block;
-	position:absolute;
+    overflow:auto;
+    display:block;
+    position:absolute;
 }

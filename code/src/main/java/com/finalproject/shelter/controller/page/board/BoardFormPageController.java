@@ -65,7 +65,7 @@ public class BoardFormPageController {
     @PostMapping("")
     public String postform(@Valid Board board,BindingResult bindingResult, Model model){
 
-        boardValidator.validate(board,bindingResult);
+        //boardValidator.validate(board,bindingResult);
 
         if(bindingResult.hasErrors()){
             model.addAttribute("eachboard",board);
