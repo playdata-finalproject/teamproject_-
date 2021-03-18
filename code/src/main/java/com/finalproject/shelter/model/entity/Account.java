@@ -53,6 +53,7 @@ public class Account {
     private Boolean enabled;
 
     private String emailCheckToken;
+
     private LocalDateTime emailCheckTokenGeneratedAt;
 
     private LocalDateTime lastLoginAt;
