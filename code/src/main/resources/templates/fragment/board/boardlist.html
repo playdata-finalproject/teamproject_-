@@ -18,7 +18,7 @@
             <tbody>
             <tr th:each="list,num : ${lists}" >
                 <td class="tit_notice" th:text="${num.count}">number</td>
-                <td class="tit_notice"><a href="" th:href="@{board/view(id=${list.id},viewboard=1)}" th:text="${list.title}">Otto</a></td>
+                <td class="tit_notice"><a href="" th:href="@{board/view(id=${list.id})}" th:text="${list.title}">Otto</a></td>
                 <td class="tit_notice" th:text="${list.nickname}">홍길동</td>
                 <td class="tit_notice" th:text="${list.registeredAt}">홍길동</td>
                 <td class="tit_notice" th:text="${list.viewBoard}">홍길동</td>

@@ -1,8 +1,12 @@
 package com.finalproject.shelter.service.Logic;
 
 import com.finalproject.shelter.model.entity.Answer;
+import com.finalproject.shelter.model.entity.Board;
+import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +23,21 @@ public class AnswerLogicService {
         return answerList;
     }
 
+    public Answer writeuserinfo(Board eachboard, AccountRepository accountRepository){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        Answer answer = Answer.builder()
+                .nickname(accountRepository.findByUsername(username).getIdentity())
+                .board(eachboard)
+                .build();
+
+        return answer;
+    }
+
     public Answer save(Answer answer){
+
         Answer answer1 = Answer.builder()
                 .nickname(answer.getNickname())
                 .answerText(answer.getAnswerText())

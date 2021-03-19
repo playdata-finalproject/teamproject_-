@@ -1,7 +1,10 @@
 package com.finalproject.shelter.service.Logic;
 
+import com.finalproject.shelter.model.entity.Account;
 import com.finalproject.shelter.model.entity.Answer;
 import com.finalproject.shelter.model.entity.Board;
+import com.finalproject.shelter.model.entity.Category;
+import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.repository.AnswerRepository;
 import com.finalproject.shelter.repository.BoardRepository;
 import com.finalproject.shelter.repository.CategoryRepository;
@@ -9,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -55,21 +60,35 @@ public class BoardLogicService {
     public Board readCategory(String id){
 
         List<Board> board = boardRepository.findBoardByCategoryId(Long.parseLong(id));
+        board1 = Board.builder().build();
 
-        // 이것을 해주지 않으면 null값으 board가 나와서 에러
+        // 이것을 해주지 않으면 null값의 board가 나와서 에러
         if(board.isEmpty()){
-            board1 = Board.builder()
-                    .category(categoryRepository.getOne(Long.parseLong(id)))
-                    .build();
+            log.info("new board");
+            Optional<Category> category1 = categoryRepository.findById(Long.parseLong(id));
+            if (category1.isPresent()){
+                category1.ifPresent(select->{
+                    board1.setCategory(select);
+            });}else{
+                log.error("category is empty");
+                return null;
+            }
         }else {
+            log.info("old board");
             board1= board.get(0);
         }
         return board1;
+        // board1 은 카테고리 정보만 있으면 된다.
     }
 
     public Board readBoard(String id){
 
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
+
+        if (board.isEmpty()){
+            log.error("id is not present");
+            board1=Board.builder().build();
+        }
 
         board.ifPresent(select->{
             board1 = select;
@@ -77,18 +96,32 @@ public class BoardLogicService {
         return board1;
     }
 
-    public Board readBoardview(String id, String viewboard){
+    public Board newuserboard(Board board,AccountRepository accountRepository){
 
-        view = Integer.parseInt(viewboard);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
 
-        if (view>1 || view<0){
-            view = 1;
-        }
+        Account account = accountRepository.findByUsername(username);
+        Board board1 = Board.builder()
+                .nickname(account.getIdentity())
+                .user(account)
+                .category(board.getCategory())
+                .build();
+
+        return board1;
+
+    }
+
+    public Board readBoardview(String id){
 
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
+        if (board.isEmpty()){
+            log.error("board is empty");
+            board1=Board.builder().build();
+        }
 
         board.ifPresent(select->{
-            select.setViewBoard(select.getViewBoard()+view);
+            select.setViewBoard(select.getViewBoard()+1);
             board1 = boardRepository.save(select);
         });
         return board1;
@@ -102,6 +135,7 @@ public class BoardLogicService {
         if (weekview!=null){
             return weekview;
         }else {
+            log.error("week data is empty");
             return null;
         }
     }
@@ -111,6 +145,7 @@ public class BoardLogicService {
         if (monthview!=null){
             return monthview;
         }else {
+            log.error("month data is empty");
             return null;
         }
     }
@@ -118,34 +153,40 @@ public class BoardLogicService {
     public String deleteid(String id){
 
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
+        if (board.isEmpty()){
+            log.error("board is empty");
+            ids=null;
+        }
 
         board.ifPresent(select->{
             newboard = select;
             ids = select.getCategory().getId();
             boardRepository.delete(select);
+
+            List<Answer> answer = answerRepository.findAnswerByBoardId(newboard.getId());
+
+            if (answer!=null){
+                answer.stream().forEach(select1->{
+                    answerRepository.delete(select1);
+                });
+            }
         });
-
-        List<Answer> answer = answerRepository.findAnswerByBoardId(newboard.getId());
-
-        if (answer!=null){
-            answer.stream().forEach(select->{
-                answerRepository.delete(select);
-            });
-        }
 
         return String.valueOf(ids);
     }
 
     public Board postservice(Board board){
-        Optional<Board> board1 = boardRepository.findBoardById(board.getId());
+        Optional<Board> postboard = boardRepository.findBoardById(board.getId());
 
-        board1.ifPresent(select->{
+        postboard.ifPresent(select->{
+            log.info("modify");
             select.setTitle(board.getTitle())
                     .setContents(board.getContents());
             newboard = boardRepository.save(select);
         });
 
-        if (board1.isEmpty()){
+        if (postboard.isEmpty()){
+            log.info("new board write");
             Board selectboard = board;
             selectboard.setNickname(board.getUser().getIdentity());
             newboard = boardRepository.save(selectboard);

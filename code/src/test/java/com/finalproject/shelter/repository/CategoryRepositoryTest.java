@@ -7,10 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-
+import java.util.logging.Logger;
 
 public class CategoryRepositoryTest extends ShelterApplicationTests {
 
+    private static final Logger log = Logger.getLogger(CategoryRepositoryTest.class.getName());
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -19,21 +20,24 @@ public class CategoryRepositoryTest extends ShelterApplicationTests {
 
     @Test
     public void create(){
-
-        Category category = Category.builder()
-                .title("이직")
-                .categorytable(categorytableRepository.getOne(5L))
-                .build();
-        categoryRepository.save(category);
+        for (int i=0; i<10; i++){
+            Category category = Category.builder()
+                    .title("test"+i)
+                    .categorytable(categorytableRepository.getOne(1L))
+                    .build();
+            Category newcategory = categoryRepository.save(category);
+            Assertions.assertTrue(category.equals(newcategory));
+        }
     }
 
     @Test
-    public void read(){
-        List<Category> category = categoryRepository.findCategoryByCategorytableId(2L);
+    public void read() {
+        List<Category> category = categoryRepository.findCategoryByCategorytableId(1L);
+        // query 를 더 적게 날린다.
         Assertions.assertFalse(category.isEmpty());
 
-        category.stream().forEach(select->{
-            System.out.println(select);
+        category.stream().forEach(select -> {
+            log.info(select.toString());
         });
 
     }

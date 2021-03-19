@@ -82,6 +82,7 @@ public class AccountController {
         rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
         return "redirect:/login";
     }
+
     @GetMapping("/check-email-token")
     public String checkEmailToken(String token, String email, Model model) {
         Account account = accountRepository.findByEmail(email);
