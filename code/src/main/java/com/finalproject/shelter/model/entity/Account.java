@@ -40,6 +40,7 @@ public class Account {
     private Boolean enabled;
     private String nickname;
     private String emailCheckToken;
+
     private LocalDateTime emailCheckTokenGeneratedAt;
 
     private LocalDate lastLoginAt;

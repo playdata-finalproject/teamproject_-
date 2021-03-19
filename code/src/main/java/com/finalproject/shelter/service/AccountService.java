@@ -71,7 +71,7 @@ public class AccountService implements UserDetailsService {
         account.setCreatedAt(LocalDate.now());
         account.setUncreatedAt(LocalDate.now());
         account.setUpdatedAt(LocalDate.now());
-        account.generateEmailCheckToken();
+        account.generateEmailCheckToken();  
         account.setLastLoginAt(LocalDate.now());
         account.setUpdatedBy("");
         account.setEnabled(true);

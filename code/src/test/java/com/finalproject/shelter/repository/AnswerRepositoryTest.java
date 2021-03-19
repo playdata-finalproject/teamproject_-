@@ -3,11 +3,13 @@ package com.finalproject.shelter.repository;
 import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.model.entity.Answer;
 import com.finalproject.shelter.model.entity.Board;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class AnswerRepositoryTest extends ShelterApplicationTests {
 
@@ -19,24 +21,19 @@ public class AnswerRepositoryTest extends ShelterApplicationTests {
 
     private Board board1;
 
+    private static final Logger log = Logger.getLogger(BoardRepositoryTest.class.getName());
+
     @Test
     public void create(){
-
-        Optional<Board> board = boardRepository.findBoardById(2L);
-
-        board.ifPresent(select->{
-            board1=select;
-        });
         for (int i =5; i<9; i++) {
             Answer answer = Answer.builder()
                     .nickname("aa")
                     .answerText("test"+i)
-                    .board(board1)
+                    .board(boardRepository.getOne(1L))
                     .build();
             Answer newanswer = answerRepository.save(answer);
-            System.out.println(newanswer);
+            log.info(newanswer.toString());
         }
-
     }
 
     @Test
@@ -46,10 +43,9 @@ public class AnswerRepositoryTest extends ShelterApplicationTests {
 
         if(answerList!=null){
             answerList.stream().forEach(select->{
-                System.out.println(select);
+                log.info(select.toString());
             });
         }
-
     }
 
 }

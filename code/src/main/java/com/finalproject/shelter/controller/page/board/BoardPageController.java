@@ -23,9 +23,6 @@ public class BoardPageController {
     @Autowired
     private BoardLogicService boardLogicService;
 
-    @Autowired
-    private AnswerLogicService answerLogicService;
-
     @GetMapping("")
     public String findboardlist(@RequestParam(value = "id") String id,
                                   @PageableDefault(size = 10) Pageable pageable,
@@ -54,12 +51,15 @@ public class BoardPageController {
     }
 
     @GetMapping("/delete")
-    public String deleteboard(HttpServletRequest request){
-        String ids = request.getParameter("id");
+    public String deleteboard(@RequestParam(value = "id") String ids){
 
         String id = boardLogicService.deleteid(ids);
 
-        return "redirect:/board?id="+id+"&page=0";
+        if (id!=null) {
+            return "redirect:/board?id=" + id + "&page=0";
+        }else{
+            return "redirect:/main";
+        }
     }
 
 }

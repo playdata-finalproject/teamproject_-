@@ -1,13 +1,10 @@
 package com.finalproject.shelter.controller.page.board;
 
-import com.finalproject.shelter.model.entity.Account;
 import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
 import com.finalproject.shelter.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,18 +33,11 @@ public class BoardFormPageController {
             Model model
     ){
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-
-        Account account = accountRepository.findByUsername(username);
 
         if (name.equals("write")){
             Board board = boardLogicService.readCategory(categoryid);
-            Board board1 = Board.builder()
-                    .nickname(account.getIdentity())
-                    .user(account)
-                    .category(board.getCategory())
-                    .build();
+            Board board1 = boardLogicService.newuserboard(board,accountRepository);
+
             model.addAttribute("eachboard",board);
             model.addAttribute("board",board1);
 
@@ -64,8 +54,6 @@ public class BoardFormPageController {
 
     @PostMapping("")
     public String postform(@Valid Board board,BindingResult bindingResult, Model model){
-
-        //boardValidator.validate(board,bindingResult);
 
         if(bindingResult.hasErrors()){
             model.addAttribute("eachboard",board);

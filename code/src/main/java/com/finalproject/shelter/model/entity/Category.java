@@ -45,8 +45,8 @@ public class Category {
     @JsonIgnore
     private List<Board> boardList;
 
-    @ManyToOne
-    private AdminUser adminUser;
+//    @ManyToOne
+//    private AdminUser adminUser;
 
     @ManyToOne
     private Categorytable categorytable;

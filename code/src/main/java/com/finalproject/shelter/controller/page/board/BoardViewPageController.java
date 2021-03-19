@@ -37,21 +37,16 @@ public class BoardViewPageController {
     @GetMapping("")
     public String listview(
             @RequestParam(value = "id",required = false, defaultValue = "0") String id,
-            @RequestParam(value = "viewboard",required = false, defaultValue = "0") String viewboard,
             Model model)
     {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
 
-        Board eachboard = boardLogicService.readBoardview(id,viewboard);
+        Board eachboard = boardLogicService.readBoardview(id);
         List<Answer> answerList = answerLogicService.readAnswer(id);
         List<Board> weekview = boardLogicService.bestweekview(String.valueOf(eachboard.getCategory().getId()));
         List<Board> monthview = boardLogicService.bestmonthview(String.valueOf(eachboard.getCategory().getId()));
 
-        Answer answer = Answer.builder()
-                .nickname(accountRepository.findByUsername(username).getIdentity())
-                .board(eachboard)
-                .build();
+        Answer answer = answerLogicService.writeuserinfo(eachboard,accountRepository);
+
         model.addAttribute("eachboard",eachboard);
         model.addAttribute("Answer",answer);
         model.addAttribute("Answers",answerList);
@@ -63,8 +58,6 @@ public class BoardViewPageController {
 
     @PostMapping("/answer")
     public String postanswer(@Valid Answer answer, BindingResult bindingResult, Model model){
-
-        //answerValidator.validate(answer,bindingResult);
 
         String id = String.valueOf(answer.getBoard().getId());
 
