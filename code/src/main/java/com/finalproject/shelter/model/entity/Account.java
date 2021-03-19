@@ -30,9 +30,6 @@ public class Account {
     private Long id;
 
     private Long kakaoId;
-
-
-
     private String username;
     private String identity;
 

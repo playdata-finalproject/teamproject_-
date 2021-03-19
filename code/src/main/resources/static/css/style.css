@@ -215,7 +215,7 @@ a{
     height:42px;
     line-height:42px;
     color:#fff;
-    padding-left:24px;
+    padding-left:32px;
 }
 .board_main .postbox{
 	float:left;
@@ -230,6 +230,7 @@ a{
 }
 .ranking li {
     padding : 8px 12px;
+    font-size:12px;
 }
 .board_main .right
 .bm_list{

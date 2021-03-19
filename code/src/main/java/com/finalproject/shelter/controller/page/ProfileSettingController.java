@@ -24,6 +24,7 @@ public class ProfileSettingController {
     static final String SETTINGS_PASSWORD_URL = "/settings/password";
     static final String SETTINGS_ACCOUNT_VIEW_NAME = "account/account";
     static final String SETTINGS_ACCOUNT_URL = "/settings/account";
+    static final String HOME = "/main";
 
     private final AccountService accountService;
     private final IdentityFormValidator identityFormValidator;
@@ -57,7 +58,7 @@ public class ProfileSettingController {
 
         accountService.updatePassword(accounts, passwordForm.getNewPassword());
         redirectAttributes.addFlashAttribute("message", "패스워드를 변경하였습니다.");
-        return "redirect:" + SETTINGS_PASSWORD_URL;
+        return "redirect:" + HOME;
     }
     @GetMapping(SETTINGS_ACCOUNT_URL) //닉네임 수정 버튼
     public String updateAccountForm(@CurrentUser Account account, Model model) {
@@ -75,6 +76,6 @@ public class ProfileSettingController {
         }
         accountService.updateIdentity(account, identityForm.getIdentity());
         attributes.addFlashAttribute("message", "닉네임을 수정했습니다.");
-        return "redirect:" + SETTINGS_ACCOUNT_URL;
+        return "redirect:" + HOME;
     }
 }
