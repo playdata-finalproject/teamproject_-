@@ -43,12 +43,9 @@ dependencies {
     testCompile('org.springframework.security:spring-security-test')
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.6'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.3.7.RELEASE'
-
-
-
-    compileOnly 'org.projectlombok:lombok'
-
-    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    compileOnly 'org.projectlombok:lombok:1.18.12'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'

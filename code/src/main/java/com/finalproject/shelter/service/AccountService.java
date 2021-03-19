@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.TemplateEngine;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -67,10 +68,10 @@ public class AccountService implements UserDetailsService {
         account.setNickname("aaaa");
         account.setKakaoId(1L);
         account.setLoginFailCount(0);
-        account.setCreatedAt(LocalDateTime.now());
-        account.setUncreatedAt(LocalDateTime.now());
-        account.setUpdatedAt(LocalDateTime.now());
-        account.setLastLoginAt(LocalDateTime.now());
+        account.setCreatedAt(LocalDate.now());
+        account.setUncreatedAt(LocalDate.now());
+        account.setUpdatedAt(LocalDate.now());
+        account.setLastLoginAt(LocalDate.now());
         account.setUpdatedBy("");
         account.setEnabled(false);
         Role role = new Role();
