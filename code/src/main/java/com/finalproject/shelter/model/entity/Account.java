@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,6 @@ public class Account {
     private Long id;
 
     private Long kakaoId;
-
-
-
     private String username;
     private String identity;
 
@@ -44,21 +42,21 @@ public class Account {
     private String emailCheckToken;
     private LocalDateTime emailCheckTokenGeneratedAt;
 
-    private LocalDateTime lastLoginAt;
+    private LocalDate lastLoginAt;
 
 
     private int loginFailCount; // integer의 용량 이 int보다 큼 바꿀라면 나중에 바꾸자
 
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    private LocalDate updatedAt;
 
     @LastModifiedBy
     private String updatedBy;
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
-    private LocalDateTime uncreatedAt;
+    private LocalDate uncreatedAt;
 
     @JsonIgnore
     @ManyToMany
@@ -83,7 +81,7 @@ public class Account {
 
     public void completeSignUp() {
         enabled = true;
-        createdAt = LocalDateTime.now();
+        createdAt = LocalDate.now();
     }
 
     public boolean isValidToken(String token) {
