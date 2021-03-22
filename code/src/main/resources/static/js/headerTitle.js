@@ -6,7 +6,7 @@ new Vue({
     methods : {
         languageboard : function (){
             let self = this;
-            axios.get('http://localhost:8080/category/title/1')
+            axios.get('http://13.209.116.217:8080/category/title/1')
                 .then(function (response){
                     console.log(response)
                     self.categories = response.data
@@ -26,7 +26,7 @@ new Vue({
     methods : {
         errorboard : function (){
             let self = this;
-            axios.get('http://localhost:8080/category/title/2')
+            axios.get('http://13.209.116.217:8080/category/title/2')
                 .then(function (response){
                     console.log(response)
                     self.categories = response.data
@@ -46,7 +46,7 @@ new Vue({
     methods : {
         bestboard : function (){
             let self = this;
-            axios.get('http://localhost:8080/category/title/3')
+            axios.get('http://13.209.116.217:8080/category/title/3')
                 .then(function (response){
                     console.log(response)
                     self.categories = response.data
@@ -66,7 +66,7 @@ new Vue({
     methods : {
         employeeboard : function (){
             let self = this;
-            axios.get('http://localhost:8080/category/title/4')
+            axios.get('http://13.209.116.217:8080/category/title/4')
                 .then(function (response){
                     console.log(response)
                     self.categories = response.data
@@ -86,7 +86,7 @@ new Vue({
     methods : {
         questionboard : function (){
             let self = this;
-            axios.get('http://localhost:8080/category/title/5')
+            axios.get('http://13.209.116.217:8080/category/title/5')
                 .then(function (response){
                     console.log(response)
                     self.categories = response.data

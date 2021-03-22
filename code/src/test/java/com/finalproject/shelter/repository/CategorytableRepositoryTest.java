@@ -28,6 +28,7 @@ public class CategorytableRepositoryTest extends ShelterApplicationTests {
     }
 
     @Test
+    @Transactional
     public void read(){
         List<Categorytable> categorytableList = categorytableRepository.findAll();
         Assertions.assertFalse(categorytableList.isEmpty());
