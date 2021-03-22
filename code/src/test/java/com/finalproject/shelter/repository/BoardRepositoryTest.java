@@ -25,6 +25,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
     private BoardRepository boardRepository;
 
     @Test
+    @Transactional
     public void create(){
         try {
             for (int i=40; i<50; i++) {
@@ -43,6 +44,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
     }
 
     @Test
+    @Transactional
     public void pageview() throws Exception{
         Pageable pageable = Pageable.unpaged();
         Page<Board> boardPage = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
@@ -70,6 +72,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
     }
 
     @Test
+    @Transactional
     public void boardlist() throws Exception{
         List<Board> board = boardRepository.findBoardByCategoryId(1L);
         Assertions.assertFalse(board.isEmpty());
@@ -82,6 +85,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
     }
 //
     @Test
+    @Transactional
     public void readboardid() throws Exception{
         Optional<Board> board = boardRepository.findBoardById(1L);
         Assertions.assertTrue(board.isPresent());
@@ -92,6 +96,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
     }
 
     @Test
+    @Transactional
     public void readCategory(){
         List<Board> board = boardRepository.findBoardByCategoryId(3L);
         Board board1 = board.get(0);
@@ -100,6 +105,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
     }
 
     @Test
+    @Transactional
     public void readAll(){
         List<Board> boards = boardRepository.findAll();
         boards.stream().forEach(select->{

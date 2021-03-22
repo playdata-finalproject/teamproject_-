@@ -6,6 +6,7 @@ import com.finalproject.shelter.model.entity.Board;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,7 @@ public class AnswerRepositoryTest extends ShelterApplicationTests {
     private static final Logger log = Logger.getLogger(BoardRepositoryTest.class.getName());
 
     @Test
+    @Transactional
     public void create(){
         for (int i =5; i<9; i++) {
             Answer answer = Answer.builder()
@@ -37,6 +39,7 @@ public class AnswerRepositoryTest extends ShelterApplicationTests {
     }
 
     @Test
+    @Transactional
     public void find(){
 
         List<Answer> answerList = answerRepository.findAnswerByBoardId(2L);
