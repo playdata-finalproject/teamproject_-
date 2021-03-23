@@ -47,7 +47,7 @@ public class BoardPageController {
         model.addAttribute("weekview",weekview);
         model.addAttribute("monthview",monthview);
 
-        return "/pages/list";
+        return "pages/list";
     }
 
     @GetMapping("/delete")
