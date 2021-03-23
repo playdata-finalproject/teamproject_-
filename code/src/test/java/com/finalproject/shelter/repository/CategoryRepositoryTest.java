@@ -3,6 +3,7 @@ package com.finalproject.shelter.repository;
 import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.model.entity.Category;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ public class CategoryRepositoryTest extends ShelterApplicationTests {
     @Autowired
     private CategorytableRepository categorytableRepository;
 
+    @DisplayName("카테고리 작성 테스트")
     @Test
     @Transactional
     public void create(){
@@ -35,6 +37,7 @@ public class CategoryRepositoryTest extends ShelterApplicationTests {
         }
     }
 
+    @DisplayName("카테고리 조회 테스트")
     @Test
     @Transactional
     public void read() {

@@ -20,7 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString(exclude = {"roles"})
+//@ToString(exclude = {"roles"})
 //@Accessors(chain = true)
 //@EntityListeners(AuditingEntityListener.class)
 public class Account {
@@ -30,12 +30,17 @@ public class Account {
     private Long id;
 
     private Long kakaoId;
+
+    @Column(unique = true, nullable = false)
     private String username;
+
+    @Column(unique = true, nullable = false)
     private String identity;
 
     private String password;
 
     @Email(message = "Enter valid e-mail" )
+    @Column(unique = true, nullable = false)
     private String email;
     private Boolean enabled;
     private String nickname;
@@ -74,15 +79,15 @@ public class Account {
 
     //@OneToMany(mappedBy = "User")
     //private List<Board> Board = new ArrayList<>();
-
+//
     public void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();
         this.emailCheckTokenGeneratedAt = LocalDateTime.now();
     }
-
+//
     public void completeSignUp() {
-        enabled = true;
-        createdAt = LocalDate.now();
+        this.enabled = true;
+        this.createdAt = LocalDate.now();
     }
 
     public boolean isValidToken(String token) {
@@ -92,9 +97,5 @@ public class Account {
     public boolean canSendConfirmEmail() {
         return emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1L));
     }
-
-
-
-
 
 }

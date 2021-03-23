@@ -5,6 +5,7 @@ import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.model.entity.Category;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
     @Autowired
     private BoardRepository boardRepository;
 
+    @DisplayName("게시판 작성 테스트")
     @Test
     @Transactional
     public void create(){
@@ -43,6 +45,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         }
     }
 
+    @DisplayName("게시판 페이지뷰 테스트")
     @Test
     @Transactional
     public void pageview() throws Exception{
@@ -57,6 +60,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         }
     }
 
+    @DisplayName("게시판 리스트 조회 테스트")
     @Test
     @Transactional
     public void boardview() throws Exception{
@@ -71,6 +75,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         }
     }
 
+    @DisplayName("게시판 리스트 작성 확인")
     @Test
     @Transactional
     public void boardlist() throws Exception{
@@ -84,6 +89,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         }
     }
 //
+
     @Test
     @Transactional
     public void readboardid() throws Exception{
@@ -94,7 +100,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
             log.info(select.toString());
         });
     }
-
+    @DisplayName("카테고리 읽기 기능 테스트")
     @Test
     @Transactional
     public void readCategory(){
@@ -104,6 +110,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         log.info(board1.toString());
     }
 
+    @DisplayName("게시판 읽기 기능")
     @Test
     @Transactional
     public void readAll(){
@@ -113,7 +120,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         });
     }
 
-
+    @DisplayName("게시판 수정 기능 테스트")
     @Test
     @Transactional
     public void update(){
@@ -129,6 +136,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         });
     }
 
+    @DisplayName("게시판 삭제 테스트")
     @Test
     @Transactional
     public void delete(){

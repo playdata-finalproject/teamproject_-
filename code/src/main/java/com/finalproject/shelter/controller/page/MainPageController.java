@@ -19,16 +19,11 @@ import java.util.Objects;
 public class MainPageController {
 
     @GetMapping("/main")
-    public ModelAndView mainpage(){ return new ModelAndView("pages/index");}
-
-//    @GetMapping("/main")
-//    public String home(@CurrentUser Account account, Model model) {
-//        if (!Objects.isNull(account)) {
-//            model.addAttribute(account);
-//        }
-//        return "pages/index";
-//    }
-
-
+    public String home(@CurrentUser Account account, Model model) {
+        if (!Objects.isNull(account)) {
+            model.addAttribute(account);
+        }
+        return "pages/index";
+    }
 
 }

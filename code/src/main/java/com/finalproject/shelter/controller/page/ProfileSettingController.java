@@ -20,21 +20,22 @@ import javax.validation.Valid;
 //@RequestMapping("settings")
 @RequiredArgsConstructor
 public class ProfileSettingController {
-    static final String SETTINGS_PASSWORD_VIEW_NAME = "account/password";
-    static final String SETTINGS_PASSWORD_URL = "/settings/password";
+    public static final String SETTINGS_PASSWORD_VIEW_NAME = "account/password";
+    public static final String SETTINGS_PASSWORD_URL = "/settings/password";
     static final String SETTINGS_ACCOUNT_VIEW_NAME = "account/account";
     static final String SETTINGS_ACCOUNT_URL = "/settings/account";
+    static final String SETTING_DELETEACCOUNT = "settings/deleteAccount";
+
     static final String HOME = "/main";
 
     private final AccountService accountService;
     private final IdentityFormValidator identityFormValidator;
-
     private final ModelMapper modelMapper;
+
     @InitBinder("passwordForm")
     public void passwordFormInitBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(new PasswordFormValidator());
     }
-
 
     @InitBinder("identityForm")
     public void identityFormInitBinder(WebDataBinder webDataBinder) {
@@ -42,28 +43,28 @@ public class ProfileSettingController {
     }
 
     @GetMapping(SETTINGS_PASSWORD_URL)
-    public String updatePasswordForm(@CurrentUser Account accounts, Model model) {
-        model.addAttribute(accounts);
-        model.addAttribute(new PasswordForm());
+    public String updatePasswordForm(@CurrentUser Account account, Model model) {
+        model.addAttribute(account);
+        model.addAttribute("passwordForm",new PasswordForm());
         return SETTINGS_PASSWORD_VIEW_NAME;
     }
 
     @PostMapping(SETTINGS_PASSWORD_URL)
-    public String updatePassword(@CurrentUser Account accounts, @Valid PasswordForm passwordForm, Errors errors,
+    public String updatePassword(@CurrentUser Account account, @Valid PasswordForm passwordForm, Errors errors,
                                  Model model, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
-            model.addAttribute(accounts);
+            model.addAttribute(account);
             return SETTINGS_PASSWORD_VIEW_NAME;
         }
 
-        accountService.updatePassword(accounts, passwordForm.getNewPassword());
+        accountService.updatePassword(account, passwordForm);
         redirectAttributes.addFlashAttribute("message", "패스워드를 변경하였습니다.");
         return "redirect:" + HOME;
     }
     @GetMapping(SETTINGS_ACCOUNT_URL) //닉네임 수정 버튼
     public String updateAccountForm(@CurrentUser Account account, Model model) {
         model.addAttribute(account);
-        model.addAttribute(modelMapper.map(account, IdentityForm.class)); //이부분이 중요
+        model.addAttribute("identityForm",new IdentityForm(account.getIdentity())); //이부분이 중요
         return SETTINGS_ACCOUNT_VIEW_NAME;
     }
 
@@ -78,4 +79,11 @@ public class ProfileSettingController {
         attributes.addFlashAttribute("message", "닉네임을 수정했습니다.");
         return "redirect:" + HOME;
     }
+
+    @PostMapping(SETTING_DELETEACCOUNT)
+    public String deleteAccount(@CurrentUser Account account){
+        accountService.deleteAccount(account);
+        return "redirect:"+HOME;
+    }
+
 }
