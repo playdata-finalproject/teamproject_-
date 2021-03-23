@@ -7,7 +7,7 @@ import com.finalproject.shelter.service.AccountService;
 import com.finalproject.shelter.settings.form.SignUpForm;
 import com.finalproject.shelter.settings.form.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +24,8 @@ import java.util.Objects;
 public class AccountController {
 
     private final SignUpFormValidator signUpFormValidator;
-    @Autowired
     private final AccountService accountService;
     private final AccountRepository accountRepository;
-    private PasswordEncoder passwordEncoder;
     private final String HOME = "/main";
     //private final String EMAIL_CONFIRM_VIEW = "account/emailConfirm";
 
@@ -35,27 +33,20 @@ public class AccountController {
     public void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(signUpFormValidator);
     }
-//
-//    @GetMapping("/login")
-//    public String login(){
-//        return "account/login";
-//    }
 
     @GetMapping("/login")
     public String login() {
         return "account/login";
     }
 
-
-
-    @GetMapping ("/register")
-    public String register(Model model){
-        model.addAttribute("signUpForm",new SignUpForm());
+    @GetMapping("/register")
+    public String register(Model model) {
+        model.addAttribute("signUpForm",new SignUpForm()); // class 이름과 동일한 attribute를 사용할 경우 생략 가능
         return "account/register";
     }
 
     @PostMapping("/register")
-    public String register(@Valid SignUpForm signUpForm, Errors errors) throws Exception{
+    public String register(@Valid SignUpForm signUpForm, Errors errors){
         if (errors.hasErrors()) {
             return "account/register";
         }
@@ -77,31 +68,42 @@ public class AccountController {
             model.addAttribute("error", "wrong.token");
             return view;
         }
-
         accountService.completeSignUp(account);
         model.addAttribute("numberOfUser", accountRepository.count());
-        model.addAttribute("nickname", account.getNickname());
+        model.addAttribute("identity", account.getIdentity());
         return view;
     }
 
+    @GetMapping("/check-email")
+    public String recheckEmail(@CurrentUser Account account, Model model) {
+        model.addAttribute("email", account.getEmail());
+        model.addAttribute("identity", account.getIdentity());
+        return "account/check-email";
+    }
 
 
+    @GetMapping("/resend-confirm-email")
+    public String resendConfirmEmail(@CurrentUser Account account, Model model) {
+        if (!account.canSendConfirmEmail()) {
+            model.addAttribute("error", "인증 이메일은 1시간에 한번만 전송할 수 있습니다.");
+            model.addAttribute("email", account.getEmail());
+            return "account/checked-email";
+        }
 
-//    @GetMapping("/check-email")
-//    public String checkEmail(@CurrentUser Account account, Model model) {
-//        model.addAttribute("email", account.getEmail());
-//        return "account/check-email";
-//    }
+        accountService.sendSignUpConfirmEmail(account);
+        return "redirect:"+HOME;
+    }
+    @GetMapping("/profile/{identity}")
+    public String viewProfile(@PathVariable String identity, Model model, @CurrentUser Account account) {
+        Account byIdentity = accountRepository.findByIdentity(identity);
 
-//    @GetMapping("/resend-confirm-email")
-//    public String resendConfirmEmail(@CurrentUser Account account, Model model) {
-//        if (!account.canSendConfirmEmail()) {
-//            model.addAttribute("error", "인증 이메일은 1시간에 한번만 전송할 수 있습니다.");
-//            model.addAttribute("email", account.getEmail());
-//        }
-//
-//        accountService.sendSignUpConfirmEmail(account);
-//        return "redirect:/";
-//    }
+        if (byIdentity == null) {
+            throw new IllegalArgumentException(identity + " 에 해당하는 사용자가 없습니다.");
+        }
+
+        model.addAttribute(byIdentity); // 기본값은 model에 들어간 객체의 타입이 이름으로 들어간다.
+        model.addAttribute("isOwner", account.equals(byIdentity));
+        return "account/profile";
+    }
 
 }

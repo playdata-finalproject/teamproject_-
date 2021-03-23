@@ -5,6 +5,7 @@ import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.model.entity.Category;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
     @Autowired
     private BoardRepository boardRepository;
 
+    @DisplayName("게시판 작성 테스트")
     @Test
     public void create(){
         try {
@@ -42,6 +44,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         }
     }
 
+    @DisplayName("게시판 페이지뷰 테스트")
     @Test
     public void pageview() throws Exception{
         Pageable pageable = Pageable.unpaged();
@@ -55,6 +58,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         }
     }
 
+    @DisplayName("게시판 리스트 조회 테스트")
     @Test
     @Transactional
     public void boardview() throws Exception{
@@ -69,6 +73,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         }
     }
 
+    @DisplayName("게시판 리스트 작성 확인")
     @Test
     public void boardlist() throws Exception{
         List<Board> board = boardRepository.findBoardByCategoryId(1L);
@@ -81,6 +86,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         }
     }
 //
+
     @Test
     public void readboardid() throws Exception{
         Optional<Board> board = boardRepository.findBoardById(1L);
@@ -90,7 +96,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
             log.info(select.toString());
         });
     }
-
+    @DisplayName("카테고리 읽기 기능 테스트")
     @Test
     public void readCategory(){
         List<Board> board = boardRepository.findBoardByCategoryId(3L);
@@ -99,6 +105,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         log.info(board1.toString());
     }
 
+    @DisplayName("게시판 읽기 기능")
     @Test
     public void readAll(){
         List<Board> boards = boardRepository.findAll();
@@ -107,7 +114,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         });
     }
 
-
+    @DisplayName("게시판 수정 기능 테스트")
     @Test
     @Transactional
     public void update(){
@@ -123,6 +130,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         });
     }
 
+    @DisplayName("게시판 삭제 테스트")
     @Test
     @Transactional
     public void delete(){

@@ -4,6 +4,7 @@ import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.model.entity.Answer;
 import com.finalproject.shelter.model.entity.Board;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,7 +23,7 @@ public class AnswerRepositoryTest extends ShelterApplicationTests {
     private Board board1;
 
     private static final Logger log = Logger.getLogger(BoardRepositoryTest.class.getName());
-
+    @DisplayName("댓글 작성 확인")
     @Test
     public void create(){
         for (int i =5; i<9; i++) {
@@ -35,7 +36,7 @@ public class AnswerRepositoryTest extends ShelterApplicationTests {
             log.info(newanswer.toString());
         }
     }
-
+    @DisplayName("댓글 검색되는지 테스트")
     @Test
     public void find(){
 

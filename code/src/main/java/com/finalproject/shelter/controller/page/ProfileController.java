@@ -21,15 +21,15 @@ public class ProfileController {
     private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
 
-    @GetMapping("/{username}")
-    public String viewProfile(@PathVariable String username, Model model){
-        Account byUsername = accountRepository.findByUsername(username);
+    @GetMapping("/{identity}")
+    public String viewProfile(@PathVariable String identity, Model model){
+        Account byIdentity = accountRepository.findByIdentity(identity);
 
-        if (username == null) {
-            throw new IllegalArgumentException(username + " 에 해당하는 사용자가 없습니다.");
+        if (identity == null) {
+            throw new IllegalArgumentException(identity + " 에 해당하는 사용자가 없습니다.");
         }
 
-        model.addAttribute(byUsername); // 기본값은 model에 들어간 객체의 타입이 이름으로 들어간다.
+        model.addAttribute(byIdentity); // 기본값은 model에 들어간 객체의 타입이 이름으로 들어간다.
         model.addAttribute("isOwner",1);
         return "account/profile";
     }
