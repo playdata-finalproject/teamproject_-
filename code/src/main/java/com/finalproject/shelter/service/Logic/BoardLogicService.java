@@ -126,7 +126,7 @@ public class BoardLogicService {
             Pattern pattern = Pattern.compile(REGEX);
             Matcher matcher = pattern.matcher(select.getContents());
             while (matcher.find()) {
-                select.setContents(select.getContents().replace(matcher.group(),"<a href="+matcher.group()+">"+matcher.group()+"</a>"));
+                select.setContents(select.getContents().replace(matcher.group(),"<a style='color:skyblue' href="+matcher.group()+">"+matcher.group()+"</a>"));
             }
         });
         return board1;
