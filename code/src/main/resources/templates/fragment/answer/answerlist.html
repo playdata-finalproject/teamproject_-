@@ -19,7 +19,8 @@
             </label>
             </p>
         </div>
-        <div style="color: rgb(223, 70, 85); font-size: 80%;" th:if="${#fields.hasErrors('AnswerText')}" th:errors="*{AnswerText}">
+        <div style="color: rgb(223, 70, 85); font-size: 80%;"
+             th:if="${#fields.hasErrors('AnswerText')}" th:errors="*{AnswerText}">
             제목 에러 메시지
         </div>
     </form>
@@ -36,7 +37,7 @@
             <span> &nbsp;&nbsp; | &nbsp;&nbsp; </span>
 
             <span class="text-center" th:text="${answer.registeredAt}">댓글 시간</span></h4>
-        <li style="font-size: 1.2em"><a th:text="${answer.answerText}">aaa</a>
+        <li style="font-size: 1.2em"><a th:utext="${answer.answerText}">aaa</a>
 <!--            <button id="answer" class="fa fa-reply" v-on:click="answer"-->
 <!--                    style="border: 0;outline: 0;"-->
 <!--                    th:value="${answer.id}"><a>답변</a></button></li>-->
