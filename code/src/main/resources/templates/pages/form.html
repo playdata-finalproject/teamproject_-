@@ -48,7 +48,8 @@
                         <div class="editer_content">
                             <textarea class="form-control" style="resize: none; font-size: medium;" cols="120" rows="30" th:field="*{contents}"
                                 th:classappend="${#fields.hasErrors('contents')} ? 'is-invalid'"
-                                placeholder="글을 작성해주세요" aria-describedby="nicknameHelp" required minlength="1">
+                                placeholder="ps.주소를 적을 때 명확하게 입력해주세요 ex)http:,https:"
+                                      aria-describedby="nicknameHelp" required minlength="1">
                             </textarea>
                             <div style="color: rgb(223, 70, 85); font-size: 80%;" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
                                 제목 에러 메시지

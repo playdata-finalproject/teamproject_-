@@ -33,10 +33,9 @@ public class BoardFormPageController {
             Model model
     ){
 
-
         if (name.equals("write")){
             Board board = boardLogicService.readCategory(categoryid);
-            Board board1 = boardLogicService.newuserboard(board,accountRepository);//error
+            Board board1 = boardLogicService.newuserboard(board,accountRepository); //error
 
             model.addAttribute("eachboard",board);
             model.addAttribute("board",board1);

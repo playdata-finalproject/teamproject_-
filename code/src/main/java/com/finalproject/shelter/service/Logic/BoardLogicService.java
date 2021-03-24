@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Slf4j
@@ -116,10 +118,16 @@ public class BoardLogicService {
             log.error("board is empty");
             board1=Board.builder().build();
         }
-
         board.ifPresent(select->{
             select.setViewBoard(select.getViewBoard()+1);
             board1 = boardRepository.save(select);
+            String REGEX = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+
+            Pattern pattern = Pattern.compile(REGEX);
+            Matcher matcher = pattern.matcher(select.getContents());
+            while (matcher.find()) {
+                select.setContents(select.getContents().replace(matcher.group(),"<a href="+matcher.group()+">"+matcher.group()+"</a>"));
+            }
         });
         return board1;
     }
@@ -175,7 +183,13 @@ public class BoardLogicService {
     public Board postservice(Board board){
         Optional<Board> postboard = boardRepository.findBoardById(board.getId());
 
+        // 테그 지우기
+        String regex = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
+        String tagRemove=board.getContents().replaceAll(regex, "");
+        board.setContents(tagRemove);
+
         postboard.ifPresent(select->{
+
             log.info("modify");
             select.setTitle(board.getTitle())
                     .setContents(board.getContents());
@@ -183,6 +197,7 @@ public class BoardLogicService {
         });
 
         if (postboard.isEmpty()){
+
             log.info("new board write");
             Board selectboard = board;
             selectboard.setNickname(board.getUser().getIdentity());
