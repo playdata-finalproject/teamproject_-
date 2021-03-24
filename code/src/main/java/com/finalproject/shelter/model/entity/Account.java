@@ -80,6 +80,8 @@ public class Account {
     //@OneToMany(mappedBy = "User")
     //private List<Board> Board = new ArrayList<>();
 //
+
+
     public void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();
         this.emailCheckTokenGeneratedAt = LocalDateTime.now();
