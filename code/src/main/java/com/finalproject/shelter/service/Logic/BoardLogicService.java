@@ -96,9 +96,9 @@ public class BoardLogicService {
     public Board newuserboard(Board board, AccountRepository accountRepository){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String identity = authentication.getName();
+        String username = authentication.getName();
 
-        Account account = accountRepository.findByIdentity(identity);
+        Account account = accountRepository.findByUsername(username);
         Board board1 = Board.builder()
                 .nickname(account.getIdentity())
                 .user(account)
