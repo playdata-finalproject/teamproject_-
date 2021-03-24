@@ -12,7 +12,6 @@ import org.springframework.security.test.context.support.WithSecurityContextFact
 
 @RequiredArgsConstructor
 public class WithAccountSecurityContextFactory implements WithSecurityContextFactory<WithAccount> { //Bean으로 등록된다.
-
     private final AccountService accountService;
 
     @Override

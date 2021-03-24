@@ -14,7 +14,7 @@ public class UserAccount extends User {
     private Account account; //왜 연동안되는지 모르겠음!!
 
     public UserAccount(Account account){
-        super(account.getIdentity(), account.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        super(account.getUsername(), account.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
         this.account = account;
     }
 }

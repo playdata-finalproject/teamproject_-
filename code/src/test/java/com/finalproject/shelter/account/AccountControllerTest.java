@@ -37,10 +37,10 @@ class AccountControllerTest {
     @DisplayName("회원 가입 화면 보이는지 테스트")
     @Test
     void signupForm() throws Exception {
-        mockMvc.perform(get("/sign-up"))
+        mockMvc.perform(get("/account/register"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("account/sign-up"))
+                .andExpect(view().name("account/register"))
                 .andExpect(model().attributeExists("signUpForm"))
                 .andExpect(unauthenticated());
     }
@@ -48,8 +48,8 @@ class AccountControllerTest {
     @DisplayName("회원 가입 처리 - 입력값 오류")
     @Test
     void signUpSubmit_with_wrong_input() throws Exception {
-        mockMvc.perform(post("/register")
-                .param("nickname", "dongchul")
+        mockMvc.perform(post("/account/register")
+                .param("nickname", "jihyeon")
                 .param("email", "email..")
                 .param("password", "12345")
                 .with(csrf()))
@@ -61,20 +61,21 @@ class AccountControllerTest {
     @DisplayName("회원 가입 처리 - 입력값 정상")
     @Test
     void signUpSubmit_with_correct_input() throws Exception {
-        mockMvc.perform(post("/register")
-                .param("nickname", "dongchul")
-                .param("email", "dongchul@gmail.com")
+        mockMvc.perform(post("/account/register")
+                .param("username", "jihyeon")
+                .param("identity", "identities")
+                .param("email", "jihyeon@gmail.com")
                 .param("password", "12345678")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(authenticated().withUsername("dongchul"));
+                .andExpect(authenticated().withUsername("jihyeon"));
 
-        Account account = accountRepository.findByEmail("dongchul@gmail.com");
+        Account account = accountRepository.findByEmail("jihyeon@gmail.com");
 
         assertNotNull(account);
 //        assertNotNull(account.getEmailCheckToken());
         assertNotEquals(account.getPassword(), "12345678");
-        assertTrue(accountRepository.existsByEmail("dongchul@gmail.com"));
+        assertTrue(accountRepository.existsByEmail("jihyeon@gmail.com"));
 //        then(emailService).should().sendEmail(any(EmailMessage.class)); // 메일 전송 메서드가 실행되었는지 확인
     }
 
@@ -96,7 +97,7 @@ class AccountControllerTest {
         Account account = Account.builder()
                 .email("test@email.com")
                 .password("12345678")
-                .nickname("dongchul")
+                .nickname("jihyeon")
                 .build();
         Account newAccount = accountRepository.save(account);
         newAccount.generateEmailCheckToken();
