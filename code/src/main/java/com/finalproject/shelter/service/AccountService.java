@@ -117,9 +117,9 @@ public class AccountService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String usernameOrIdentity) throws UsernameNotFoundException { // 로그인 처리, Spring Security에서 자동으로 처리함.
         Account account = accountRepository.findByUsername(usernameOrIdentity);
-        if (account == null) {
-            account = accountRepository.findByIdentity(usernameOrIdentity);
-        }
+//        if (account == null) {
+//            account = accountRepository.findByIdentity(usernameOrIdentity);
+//        }
 
         if (account == null) {
             throw new UsernameNotFoundException(usernameOrIdentity);

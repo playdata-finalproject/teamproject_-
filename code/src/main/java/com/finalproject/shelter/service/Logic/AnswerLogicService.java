@@ -26,10 +26,10 @@ public class AnswerLogicService {
     public Answer writeuserinfo(Board eachboard, AccountRepository accountRepository){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        String identity = authentication.getName();
 
         Answer answer = Answer.builder()
-                .nickname(accountRepository.findByUsername(username).getIdentity())
+                .nickname(accountRepository.findByIdentity(identity).getIdentity()) //Error
                 .board(eachboard)
                 .build();
 

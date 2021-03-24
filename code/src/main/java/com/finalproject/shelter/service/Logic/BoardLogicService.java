@@ -1,9 +1,6 @@
 package com.finalproject.shelter.service.Logic;
 
-import com.finalproject.shelter.model.entity.Account;
-import com.finalproject.shelter.model.entity.Answer;
-import com.finalproject.shelter.model.entity.Board;
-import com.finalproject.shelter.model.entity.Category;
+import com.finalproject.shelter.model.entity.*;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.repository.AnswerRepository;
 import com.finalproject.shelter.repository.BoardRepository;
@@ -96,17 +93,17 @@ public class BoardLogicService {
         return board1;
     }
 
-    public Board newuserboard(Board board,AccountRepository accountRepository){
+    public Board newuserboard(Board board, AccountRepository accountRepository){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        String identity = authentication.getName();
 
-        Account account = accountRepository.findByUsername(username);
+        Account account = accountRepository.findByIdentity(identity);
         Board board1 = Board.builder()
                 .nickname(account.getIdentity())
                 .user(account)
                 .category(board.getCategory())
-                .build();
+                .build(); //null
 
         return board1;
 
