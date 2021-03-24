@@ -6,7 +6,7 @@ new Vue({
     methods : {
         languageboard : function (){
             let self = this;
-            axios.get('http://13.209.116.217:8080/category/title/1')
+            axios.get('http://localhost:8080/category/title/1')
                 .then(function (response){
                     console.log(response)
                     self.categories = response.data

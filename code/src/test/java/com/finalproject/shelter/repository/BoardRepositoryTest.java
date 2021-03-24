@@ -14,9 +14,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BoardRepositoryTest extends ShelterApplicationTests {
 
@@ -150,5 +153,28 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         Optional<Board> otherboard = boardRepository.findBoardById(4L);
         Assertions.assertFalse(otherboard.isPresent());
 
+    }
+
+    @DisplayName("게시판 글작성 링크 테스트 정규표현식")
+    @Test
+    @Transactional
+    public void link(){
+        Optional<Board> board = boardRepository.findBoardById(10L);
+        Assertions.assertTrue(board.isPresent());
+
+        board.ifPresent(select->{
+
+            String REGEX = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+
+            Pattern pattern = Pattern.compile(REGEX);
+            Matcher matcher = pattern.matcher(select.getContents());
+
+            while(matcher.find()){
+                select.setContents(select.getContents().replace(matcher.group(),"<a href="+matcher.group()+"></a>"));
+                log.info(matcher.group());
+                Assertions.assertTrue(select.getContents().contains("<a href="+matcher.group()+"></a>"));
+            }
+
+        });
     }
 }

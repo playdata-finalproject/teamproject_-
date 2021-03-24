@@ -35,8 +35,8 @@
                 <li class="bbs_date">조회수 : <span th:text="${eachboard.viewBoard}">235</span></li>
                 <li class="bbs_content">
                     <div class="editer_content">
-                        <span th:utext="${eachboard.contents.replaceAll('\n','<br/>')}">
-                            가장 핵심이 되었던 것 : 제조업은 기술이 제품에 녹아든다면, IT는 개발자에게 기술이 녹아든다."""
+                        <span class="addr" cols="120px" rows="30" readonly style="resize: none; font-size: medium;
+                        border: 0; outline: 0;" th:utext="${eachboard.contents.replaceAll('\n','<br/>')}">
                         </span>
                     </div>
                 </li>
@@ -75,4 +75,5 @@
 <div th:replace="fragment/sideMenu"/>
 
 </body>
+
 </html>
