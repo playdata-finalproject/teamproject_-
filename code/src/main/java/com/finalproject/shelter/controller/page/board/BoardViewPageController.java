@@ -73,4 +73,15 @@ public class BoardViewPageController {
 
         return "redirect:/board/view?id=" + answer1.getBoard().getId();
     }
+
+    @GetMapping("/answer/delete")
+    public String deleteanswer(
+            @RequestParam(value = "id",required = false, defaultValue = "0") String id,
+            @RequestParam(value = "boardid",required = false, defaultValue = "0") String boardid){
+
+        answerLogicService.delete(id);
+
+        return "redirect:/board/view?id="+boardid;
+    }
 }
+

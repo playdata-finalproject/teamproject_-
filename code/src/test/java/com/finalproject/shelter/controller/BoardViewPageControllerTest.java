@@ -5,6 +5,7 @@ import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.controller.page.board.BoardViewPageController;
 import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.model.entity.Categorytable;
+import com.finalproject.shelter.repository.AnswerRepositoryTest;
 import com.finalproject.shelter.repository.BoardRepositoryTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -30,5 +31,6 @@ public class BoardViewPageControllerTest extends ShelterApplicationTests {
     private ObjectMapper objectMapper;
 
     private static final Logger log = Logger.getLogger(BoardRepositoryTest.class.getName());
+
 
 }

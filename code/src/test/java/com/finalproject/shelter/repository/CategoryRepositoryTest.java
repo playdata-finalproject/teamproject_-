@@ -41,14 +41,13 @@ public class CategoryRepositoryTest extends ShelterApplicationTests {
     @Test
     @Transactional
     public void read() {
-        List<Category> category = categoryRepository.findCategoryByCategorytableId(1L);
 
+        List<Category> category = categoryRepository.findCategoryByCategorytableId(1L);
         // query 를 더 적게 날린다.
         Assertions.assertFalse(category.isEmpty());
 
         category.stream().forEach(select -> {
             log.info(select.toString());
         });
-
     }
 }

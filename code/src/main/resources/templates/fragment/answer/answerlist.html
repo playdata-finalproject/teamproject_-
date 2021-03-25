@@ -38,6 +38,7 @@
 
             <span class="text-center" th:text="${answer.registeredAt}">댓글 시간</span></h4>
         <li style="font-size: 1.2em"><a th:utext="${answer.answerText}">aaa</a>
+            <button style="background-color: #444444" class="btn-sm"><a style="color: white" th:href="@{/board/view/answer/delete(id=${answer.id},boardid=${answer.board.id})}">삭제</a></button>
     </div>
 </div>
 
@@ -46,3 +47,9 @@
 
 
 </html>
+<script>
+    import Boostrap
+    export default {
+        components: {Boostrap}
+    }
+</script>

@@ -103,14 +103,19 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
             log.info(select.toString());
         });
     }
+
+
     @DisplayName("카테고리 읽기 기능 테스트")
     @Test
     @Transactional
     public void readCategory(){
         List<Board> board = boardRepository.findBoardByCategoryId(3L);
-        Board board1 = board.get(0);
-
-        log.info(board1.toString());
+        if (board.isEmpty()){
+            log.info("존재하지 않음");
+        }else{
+            Board board1 = board.get(0);
+            Assertions.assertTrue(board1.getCategory().getId().equals(3L));
+        }
     }
 
     @DisplayName("게시판 읽기 기능")
