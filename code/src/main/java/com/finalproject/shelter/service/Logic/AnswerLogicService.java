@@ -50,7 +50,7 @@ public class AnswerLogicService {
 
     public Answer save(Answer answer){
         String regex = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
-        String tagRemove=answer.getAnswerText().replaceAll(regex, "");
+        String tagRemove=answer.getAnswerText().replaceAll(regex, "<>안에 한글만 사용할수 있습니다.");
         answer.setAnswerText(tagRemove);
 
         Answer answer1 = Answer.builder()

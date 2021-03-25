@@ -185,7 +185,7 @@ public class BoardLogicService {
 
         // 테그 지우기
         String regex = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
-        String tagRemove=board.getContents().replaceAll(regex, "");
+        String tagRemove=board.getContents().replaceAll(regex, "(<> 안에 한글만 사용할수 있습니다!)");
         board.setContents(tagRemove);
 
         postboard.ifPresent(select->{
