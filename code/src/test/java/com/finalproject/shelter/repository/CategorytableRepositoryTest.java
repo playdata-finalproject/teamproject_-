@@ -57,7 +57,6 @@ public class CategorytableRepositoryTest extends ShelterApplicationTests {
 
         Optional<Categorytable> categorytable1 = categorytableRepository.findById(1L);
         Assertions.assertTrue(categorytable1.isPresent());
-
         Assertions.assertTrue(categorytable.equals(categorytable1));
     }
 

@@ -4,16 +4,19 @@ import com.finalproject.shelter.model.entity.Answer;
 import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.repository.AnswerRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@Slf4j
 public class AnswerLogicService {
 
     @Autowired
@@ -60,5 +63,17 @@ public class AnswerLogicService {
                 .build();
 
         return answerRepository.save(answer1);
+    }
+
+    public void delete(String id){
+        Optional<Answer> answer = answerRepository.findAnswerById(Long.parseLong(id));
+
+        answer.ifPresent(select->{
+            answerRepository.delete(select);
+        });
+
+        if (answer.isEmpty()){
+            log.error("answer is empty");
+        }
     }
 }
