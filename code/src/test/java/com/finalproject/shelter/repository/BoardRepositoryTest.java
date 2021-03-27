@@ -4,111 +4,133 @@ package com.finalproject.shelter.repository;
 import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.model.entity.Category;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BoardRepositoryTest extends ShelterApplicationTests {
+import static org.assertj.core.api.Assertions.assertThat;
 
-    private static final Logger log = Logger.getLogger(BoardRepositoryTest.class.getName());
+@Transactional
+@Slf4j
+public class BoardRepositoryTest extends ShelterApplicationTests {
 
     @Autowired
     private BoardRepository boardRepository;
 
+    @BeforeEach
+    public void createBefore(){
+        for (int i=0;i<11; i++) {
+            Board board = Board.builder()
+                    .title("Test"+i)
+                    .nickname("승헌")
+                    .contents("testtestssss")
+                    .category(Category.builder().id(3L).build())
+                    .build();
+            Board newboard = boardRepository.save(board);
+        }
+    }
+
     @DisplayName("게시판 작성 테스트")
     @Test
-    @Transactional
     public void create(){
-        try {
-            for (int i=40; i<50; i++) {
-                Board board = Board.builder()
-                        .title("Test"+i)
-                        .nickname("승헌")
-                        .contents("testtestssss"+i)
-                        .category(Category.builder().id(5L).build())
-                        .build();
-                Board newboard = boardRepository.save(board);
-                Assertions.assertTrue(newboard.equals(board));
-            }
-        }catch(Exception e) {
-            log.info("error");
-        }
+
+        Board board = Board.builder()
+                .title("Test")
+                .nickname("승헌")
+                .contents("testtestssss")
+                .category(Category.builder().id(5L).build())
+                .build();
+
+        Board newboard = boardRepository.save(board);
+
+        Assertions.assertTrue(newboard.equals(board));
+
+        assertThat(newboard.getTitle()).isEqualTo(board.getTitle());
+        assertThat(newboard.getNickname()).isEqualTo(board.getNickname());
+        assertThat(newboard.getContents()).isEqualTo(board.getContents());
+        assertThat(newboard.getCategory()).isEqualTo(board.getCategory());
     }
 
     @DisplayName("게시판 페이지뷰 테스트")
     @Test
-    @Transactional
-    public void pageview() throws Exception{
-        Pageable pageable = Pageable.unpaged();
+    public void pageView() {
+
+        Pageable pageable = PageRequest.of(0,10);
         Page<Board> boardPage = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
-                (1L,"","",pageable);
+                (3L,"","",pageable);
+
+        int count = (int)(boardRepository.findBoardByCategoryId(3L).stream().count()-1)/10;
         Assertions.assertFalse(boardPage.isEmpty());
 
         if(boardPage !=null){
-            log.info(String.valueOf(boardPage.getTotalPages()));
-            log.info(String.valueOf(boardPage.toString()));
+            assertThat(boardPage.getTotalPages()).isEqualTo(count+1);
+            boardPage.stream().forEach(select->{
+                assertThat(select.getCategory().getId()).isEqualTo(3L);
+            });
+        }else{
+            log.error("board 없음");
         }
     }
 
     @DisplayName("게시판 리스트 조회 테스트")
     @Test
-    @Transactional
-    public void boardview() throws Exception{
+    public void findBoardIdTop5(){
+
         List<Board> boardList = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
-                (3L,LocalDate.now().minusMonths(1),LocalDate.now());
+                (1L,LocalDate.now().minusMonths(1),LocalDate.now());
+
         Assertions.assertFalse(boardList.isEmpty());
+        Assertions.assertTrue(boardList.stream().count()<=5);
 
         if(boardList!=null){
             boardList.stream().forEach(select->{
-                log.info(select.toString());
+                assertThat(select.getCategory().getId()).isEqualTo(1L);
+                assertThat(select.getRegisteredAt()).isBetween(LocalDate.now().minusMonths(1),LocalDate.now());
             });
         }
     }
 
     @DisplayName("게시판 리스트 작성 확인")
     @Test
-    @Transactional
-    public void boardlist() throws Exception{
+    public void findCategoryIdList() {
         List<Board> board = boardRepository.findBoardByCategoryId(1L);
         Assertions.assertFalse(board.isEmpty());
 
         if (board!=null){
             board.stream().forEach(select->{
-                log.info(select.toString());
+                assertThat(select.getCategory().getId()).isEqualTo(1L);
             });
+        }else{
+            log.error("게시판 정보 없음");
         }
     }
-//
 
+    @DisplayName("레코드 board id 찾기 테스트")
     @Test
-    @Transactional
-    public void readboardid() throws Exception{
-        Optional<Board> board = boardRepository.findBoardById(1L);
+    public void findBoardId(){
+        Optional<Board> board = boardRepository.findBoardById(4L);
         Assertions.assertTrue(board.isPresent());
 
         board.ifPresent(select->{
-            log.info(select.toString());
+            assertThat(select.getId()).isEqualTo(4L);
         });
     }
 
 
     @DisplayName("카테고리 읽기 기능 테스트")
     @Test
-    @Transactional
-    public void readCategory(){
+    public void findCategoryId(){
         List<Board> board = boardRepository.findBoardByCategoryId(3L);
         if (board.isEmpty()){
             log.info("존재하지 않음");
@@ -118,19 +140,8 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         }
     }
 
-    @DisplayName("게시판 읽기 기능")
+    @DisplayName("레코드 수정 테스트")
     @Test
-    @Transactional
-    public void readAll(){
-        List<Board> boards = boardRepository.findAll();
-        boards.stream().forEach(select->{
-            log.info(select.getContents());
-        });
-    }
-
-    @DisplayName("게시판 수정 기능 테스트")
-    @Test
-    @Transactional
     public void update(){
         Optional<Board> board = boardRepository.findBoardById(4L);
         Assertions.assertTrue(board.isPresent());
@@ -140,13 +151,17 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
                     .setTitle("spring 이해")
                     .setNickname("asas")
                     .setContents("Spring도 어렵다.");
-            boardRepository.save(select);
+            Board newboard = boardRepository.save(select);
+            assertThat(newboard.getTitle()).isEqualTo("spring 이해");
+            assertThat(newboard.getNickname()).isEqualTo("asas");
+            assertThat(newboard.getContents()).isEqualTo("Spring도 어렵다.");
         });
+
+
     }
 
     @DisplayName("게시판 삭제 테스트")
     @Test
-    @Transactional
     public void delete(){
         Optional<Board> board = boardRepository.findBoardById(4L);
         Assertions.assertTrue(board.isPresent());
@@ -162,9 +177,8 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
 
     @DisplayName("게시판 글작성 링크 테스트 정규표현식")
     @Test
-    @Transactional
     public void link(){
-        Optional<Board> board = boardRepository.findBoardById(10L);
+        Optional<Board> board = boardRepository.findBoardById(6L);
         Assertions.assertTrue(board.isPresent());
 
         board.ifPresent(select->{
@@ -176,7 +190,6 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
 
             while(matcher.find()){
                 select.setContents(select.getContents().replace(matcher.group(),"<a href="+matcher.group()+"></a>"));
-                log.info(matcher.group());
                 Assertions.assertTrue(select.getContents().contains("<a href="+matcher.group()+"></a>"));
             }
 

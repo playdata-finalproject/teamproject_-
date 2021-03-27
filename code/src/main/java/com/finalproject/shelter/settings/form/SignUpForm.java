@@ -1,5 +1,6 @@
 package com.finalproject.shelter.settings.form;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
