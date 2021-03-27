@@ -23,7 +23,7 @@ public class AnswerRepositoryTest extends ShelterApplicationTests {
     @Autowired
     private BoardRepository boardRepository;
 
-    @DisplayName("repository create 확인")
+    @DisplayName("레코드 생성 테스트")
     @Test
     public void create(){
 
@@ -35,51 +35,50 @@ public class AnswerRepositoryTest extends ShelterApplicationTests {
 
         Answer newanswer = answerRepository.save(answer);
 
+        Assertions.assertTrue(newanswer.equals(answer));
+
         assertThat(newanswer.getNickname()).isEqualTo(answer.getNickname());
         assertThat(newanswer.getAnswerText()).isEqualTo(answer.getAnswerText());
         assertThat(newanswer.getBoard()).isEqualTo(answer.getBoard());
     }
 
-    @DisplayName("repository readboardid 확인")
+    @DisplayName("레코드 boardid 찾기 테스트")
     @Test
-    public void findBoardid(Long id){
-        List<Answer> answerList = answerRepository.findAnswerByBoardId(id);
+    public void findBoardid(){
+        List<Answer> answerList = answerRepository.findAnswerByBoardId(3L);
+        Assertions.assertFalse(answerList.isEmpty());
 
         if(answerList!=null){
             answerList.stream().forEach(select->{
-                assertThat(select.getBoard().getId()).isEqualTo(id);
+                assertThat(select.getBoard().getId()).isEqualTo(3L);
             });
-        }else{
-            log.error("게시판 없음");
         }
     }
 
-    @DisplayName("repository readid 확인")
+    @DisplayName("레코드 answerid 찾기 테스트")
     @Test
     public void findid(){
         Optional<Answer> answer = answerRepository.findAnswerById(5L);
+        Assertions.assertTrue(answer.isPresent());
 
         answer.ifPresent(select->{
             assertThat(select.getId()).isEqualTo(5L);
         });
-        if(answer.isEmpty()){
-            log.error("answer값 없음");
-        }
     }
 
-    @DisplayName("repository delete 확인")
+    @DisplayName("레코드 삭제 테스트")
     @Test
     public void delete(){
         Optional<Answer> answer = answerRepository.findAnswerById(5L);
+        Assertions.assertTrue(answer.isPresent());
 
         answer.ifPresent(select->{
             answerRepository.delete(select);
-            Optional<Answer> newanswer = answerRepository.findAnswerById(5L);
-            Assertions.assertTrue(newanswer.isEmpty());
         });
-        if(answer.isEmpty()){
-            log.error("지울게 없음");
-        }
+
+        Optional<Answer> newanswer = answerRepository.findAnswerById(5L);
+        Assertions.assertTrue(newanswer.isEmpty());
+
 
     }
 

@@ -1,7 +1,6 @@
 package com.finalproject.shelter.controller.page.board;
 
 import com.finalproject.shelter.model.entity.Board;
-import com.finalproject.shelter.service.Logic.AnswerLogicService;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,9 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -31,7 +28,7 @@ public class BoardPageController {
                                       Model model
                                       ){
 
-        Page<Board> boardlist = boardLogicService.readAll(id,select,searchText,pageable);
+        Page<Board> boardlist = boardLogicService.findCategoryIdTitleContents(id,select,searchText,pageable);
         List<Board> weekview = boardLogicService.bestweekview(id);
         List<Board> monthview = boardLogicService.bestmonthview(id);
         Board eachboard = boardLogicService.readCategory(id);

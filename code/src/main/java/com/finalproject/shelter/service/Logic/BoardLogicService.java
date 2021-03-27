@@ -37,7 +37,7 @@ public class BoardLogicService {
     private Board board1;
     private int view;
 
-    public Page<Board> readAll(String id,String select, String searchText, Pageable pageable){
+    public Page<Board> findCategoryIdTitleContents(String id, String select, String searchText, Pageable pageable){
 
         if (select.equals("title")){
             Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
@@ -63,9 +63,9 @@ public class BoardLogicService {
 
         // 이것을 해주지 않으면 null값의 board가 나와서 에러
         if(board.isEmpty()){
-            log.info("new board");
             Optional<Category> category1 = categoryRepository.findById(Long.parseLong(id));
             if (category1.isPresent()){
+                log.info("new board");
                 category1.ifPresent(select->{
                     board1.setCategory(select);
             });}else{
@@ -85,7 +85,7 @@ public class BoardLogicService {
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
 
         if (board.isEmpty()){
-            log.error("id is not present");
+            log.error("id is empty");
             board1=Board.builder().build();
         }
 
