@@ -45,12 +45,12 @@ public class AnswerRepositoryTest extends ShelterApplicationTests {
     @DisplayName("레코드 boardid 찾기 테스트")
     @Test
     public void findBoardid(){
-        List<Answer> answerList = answerRepository.findAnswerByBoardId(3L);
+        List<Answer> answerList = answerRepository.findAnswerByBoardId(6L);
         Assertions.assertFalse(answerList.isEmpty());
 
         if(answerList!=null){
             answerList.stream().forEach(select->{
-                assertThat(select.getBoard().getId()).isEqualTo(3L);
+                assertThat(select.getBoard().getId()).isEqualTo(6L);
             });
         }
     }

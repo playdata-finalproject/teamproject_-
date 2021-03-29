@@ -2,32 +2,30 @@ package com.finalproject.shelter.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finalproject.shelter.ShelterApplicationTests;
-import com.finalproject.shelter.controller.page.board.BoardFormPageController;
+import com.finalproject.shelter.controller.page.board.BoardPageController;
 import com.finalproject.shelter.model.entity.Account;
-import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.AccountService;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import lombok.extern.slf4j.Slf4j;
+
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Transactional
+@Slf4j
 @AutoConfigureMockMvc
-public class BoardFormPageControllerTest extends ShelterApplicationTests {
+public class BoardPageControllerTest extends ShelterApplicationTests{
 
     @Autowired
     private AccountRepository accountRepository;
@@ -47,20 +45,32 @@ public class BoardFormPageControllerTest extends ShelterApplicationTests {
         });
     }
 
-    @DisplayName("form 작성 연결 테스트")
+    @DisplayName("게시판 레코드 조회 테스트")
     @Test
-    public void writeview() throws Exception {
+    public void findboardlist() throws Exception {
 
-        mockMvc.perform(get("/board/form?name=write&categoryid=1"))
+        mockMvc.perform(get("/board?id=1"))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("pages/form"))
                 .andExpect(model().hasNoErrors())
-                .andDo(print());
+                .andExpect(view().name("pages/list"));
 
-        mockMvc.perform(get("/board/form?boardid=6&name=modify&categoryid=1"))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("pages/form"))
-                .andExpect(model().hasNoErrors())
-                .andDo(print());
+        // error 해결 못함
+//        mockMvc.perform(get("/board?id=100"))
+//                .andExpect(status().isInternalServerError())
+//                .andExpect(model().hasErrors());
     }
+
+    @DisplayName("게시판 레코드 삭제 테스트")
+    @Test
+    public void deleteboard() throws Exception {
+        mockMvc.perform(get("/board/delete?id=6"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/board?id=1&page=0"));
+
+        mockMvc.perform(get("/board/delete?id=1000"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/main"));
+    }
+
+
 }

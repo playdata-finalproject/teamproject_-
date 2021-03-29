@@ -51,7 +51,7 @@ public class BoardPageController {
 
         String id = boardLogicService.deleteid(ids);
 
-        if (id!=null) {
+        if (id!="null") {
             return "redirect:/board?id=" + id + "&page=0";
         }else{
             return "redirect:/main";
