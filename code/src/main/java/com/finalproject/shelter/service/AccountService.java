@@ -60,7 +60,7 @@ public class AccountService implements UserDetailsService {
         return newAccount;
     }
 
-    private Account saveNewAccount(@Valid SignUpForm signUpForm) {
+    public Account saveNewAccount(@Valid SignUpForm signUpForm) {
         signUpForm.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
         Account account = modelMapper.map(signUpForm, Account.class);
         account.generateEmailCheckToken();
@@ -115,14 +115,14 @@ public class AccountService implements UserDetailsService {
 
     @Transactional(readOnly = true)
     @Override
-    public UserDetails loadUserByUsername(String usernameOrIdentity) throws UsernameNotFoundException { // 로그인 처리, Spring Security에서 자동으로 처리함.
-        Account account = accountRepository.findByUsername(usernameOrIdentity);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // 로그인 처리, Spring Security에서 자동으로 처리함.
+        Account account = accountRepository.findByUsername(username);
 //        if (account == null) {
 //            account = accountRepository.findByIdentity(usernameOrIdentity);
 //        }
 
         if (account == null) {
-            throw new UsernameNotFoundException(usernameOrIdentity);
+            throw new UsernameNotFoundException(username);
         }
         return new UserAccount(account);  // Principal 객체 리턴
     }
@@ -137,9 +137,11 @@ public class AccountService implements UserDetailsService {
         account.setPassword(passwordEncoder.encode(passwordForm.getNewPassword()));
         accountRepository.save(account);
     }
+
     public void deleteAccount(Account account) {
         accountRepository.delete(account);
     }
+
     public void updateIdentity(Account account, String identity) {
         account.setIdentity(identity);
         accountRepository.save(account);

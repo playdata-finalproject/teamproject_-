@@ -42,12 +42,15 @@ public class BoardFormPageController {
 
             return "pages/form";
 
-        }else{
+        }else if(name.equals("modify")){
             Board board = boardLogicService.readBoard(boardid);
             model.addAttribute("eachboard",board);
             model.addAttribute("board",board);
 
             return "pages/form";
+        }
+        else {
+            return "pages/main";
         }
     }
 
