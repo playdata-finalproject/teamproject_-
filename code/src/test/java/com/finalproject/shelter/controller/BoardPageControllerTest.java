@@ -72,5 +72,4 @@ public class BoardPageControllerTest extends ShelterApplicationTests{
                 .andExpect(redirectedUrl("/main"));
     }
 
-
 }
