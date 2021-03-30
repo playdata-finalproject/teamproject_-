@@ -50,7 +50,7 @@ public class BoardFormPageController {
             return "pages/form";
         }
         else {
-            return "pages/main";
+            return "redirect:/main";
         }
     }
 
