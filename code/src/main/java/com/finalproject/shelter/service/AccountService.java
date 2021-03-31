@@ -138,7 +138,10 @@ public class AccountService implements UserDetailsService {
         accountRepository.save(account);
     }
     public void deleteAccount(Account account) {
-        accountRepository.delete(account);
+        //accountRepository.delete(account);
+        account.setEnabled(false);
+        account.setPassword("deletedaccount");
+        accountRepository.save(account);
     }
     public void updateIdentity(Account account, String identity) {
         account.setIdentity(identity);
