@@ -22,12 +22,12 @@ import javax.validation.Valid;
 public class ProfileSettingController {
     public static final String SETTINGS_PASSWORD_VIEW_NAME = "account/password";
     public static final String SETTINGS_PASSWORD_URL = "/settings/password";
-    static final String SETTINGS_ACCOUNT_VIEW_NAME = "account/account";
-    static final String SETTINGS_ACCOUNT_URL = "/settings/account";
-    static final String SETTING_DELETEACCOUNT = "settings/deleteAccount";
-
-    static final String HOME = "/main";
-
+    public static final String SETTINGS_ACCOUNT_VIEW_NAME = "account/account";
+    public static final String SETTINGS_ACCOUNT_URL = "/settings/account";
+    public static final String SETTING_DELETE_URL = "settings/delete";
+    public static final String SETTING_DELETE_VIEW_NAME = "account/delete";
+    public static final String REDIRECT_HOME = "redirect:"+"/main";
+    public static final String HOME = "/main";
     private final AccountService accountService;
     private final IdentityFormValidator identityFormValidator;
     private final ModelMapper modelMapper;
@@ -40,6 +40,11 @@ public class ProfileSettingController {
     @InitBinder("identityForm")
     public void identityFormInitBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(identityFormValidator);
+    }
+
+    @InitBinder("deleteForm")
+    public void deleteFormInitBinder(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(new DeleteFormValidator());
     }
 
     @GetMapping(SETTINGS_PASSWORD_URL)
@@ -59,7 +64,7 @@ public class ProfileSettingController {
 
         accountService.updatePassword(account, passwordForm);
         redirectAttributes.addFlashAttribute("message", "패스워드를 변경하였습니다.");
-        return "redirect:" + HOME;
+        return REDIRECT_HOME;
     }
     @GetMapping(SETTINGS_ACCOUNT_URL) //닉네임 수정 버튼
     public String updateAccountForm(@CurrentUser Account account, Model model) {
@@ -77,13 +82,26 @@ public class ProfileSettingController {
         }
         accountService.updateIdentity(account, identityForm.getIdentity());
         attributes.addFlashAttribute("message", "닉네임을 수정했습니다.");
-        return "redirect:" + HOME;
+        return REDIRECT_HOME;
     }
 
-    @PostMapping(SETTING_DELETEACCOUNT)
-    public String deleteAccount(@CurrentUser Account account){
+    @GetMapping(SETTING_DELETE_URL)
+    public String deleteAccountForm(@CurrentUser Account account, Model model){
+        model.addAttribute(account);
+        model.addAttribute("deleteForm",new DeleteForm());
+        return SETTING_DELETE_VIEW_NAME;
+    }
+    @PostMapping(SETTING_DELETE_URL)
+    public String deleteAccount(@CurrentUser Account account, @Valid DeleteForm deleteForm, Errors errors,
+                                 Model model, RedirectAttributes redirectAttributes) {
+        if (errors.hasErrors()) {
+            model.addAttribute(account);
+            return SETTING_DELETE_VIEW_NAME;
+        }
         accountService.deleteAccount(account);
-        return "redirect:"+HOME;
+
+        redirectAttributes.addFlashAttribute("message", "회원을 탈퇴하였습니다.");
+        return REDIRECT_HOME;
     }
 
 }
