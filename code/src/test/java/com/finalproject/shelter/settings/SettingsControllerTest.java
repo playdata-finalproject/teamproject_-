@@ -50,7 +50,7 @@ class SettingsControllerTest {
     }
 
 
-    @WithAccount("dongchul")
+    @WithAccount("jihyeon")
     @DisplayName("패스워드 수정폼 ")
     @Test
     void updatePasswordForm() throws Exception {
@@ -60,7 +60,7 @@ class SettingsControllerTest {
                 .andExpect(model().attributeExists("passwordForm"));
     }
 
-    @WithAccount("dongchul")
+    @WithAccount("jihyeon")
     @DisplayName("패스워드 수정하기 - 입력값 정상")
     @Test
     void updatePassword() throws Exception {
@@ -71,18 +71,18 @@ class SettingsControllerTest {
                 .param("newPasswordConfirm", newPasswordConfirm)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(ProfileSettingController.SETTINGS_PASSWORD_URL))
+                .andExpect(redirectedUrl(ProfileSettingController.HOME))
                 .andExpect(flash().attributeExists("message"));
-        Account account = accountRepository.findByUsername("dongchul");
+        Account account = accountRepository.findByUsername("jihyeon");
         assertTrue(passwordEncoder.matches(newPassword, account.getPassword()));
     }
 
-    @WithAccount("dongchul")
+    @WithAccount("jihyeon")
     @DisplayName("패스워드 수정하기 - 패스워드 불일치")
     @Test
     void updatePasswordFail() throws Exception {
-        String newPassword = "12345678";
-        String newPasswordConfirm = "123456782";
+        String newPassword = "11111111";
+        String newPasswordConfirm = "11111112";
         mockMvc.perform(post(ProfileSettingController.SETTINGS_PASSWORD_URL)
                 .param("newPassword", newPassword)
                 .param("newPasswordConfirm", newPasswordConfirm)
@@ -92,4 +92,29 @@ class SettingsControllerTest {
                 .andExpect(model().attributeExists("account"))
                 .andExpect(model().hasErrors());
     }
+
+    @WithAccount("jihyeon")
+    @DisplayName("닉네임 수정폼 ")
+    @Test
+    void updateAccountForm() throws Exception {
+        mockMvc.perform(get(ProfileSettingController.SETTINGS_ACCOUNT_URL))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("identityForm"));
+    }
+
+    @WithAccount("jihyeon")
+    @DisplayName("닉네임 수정하기 - 입력값 정상")
+    @Test
+    void updateAccount() throws Exception {
+        String identity = "abcdef";
+        mockMvc.perform(post(ProfileSettingController.SETTINGS_ACCOUNT_URL)
+                .param("identity", identity)
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(ProfileSettingController.HOME))
+                .andExpect(flash().attributeExists("message"));
+        Account account = accountRepository.findByUsername("jihyeon");
+    }
+
 }

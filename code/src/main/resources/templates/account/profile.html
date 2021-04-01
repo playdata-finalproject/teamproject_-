@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org/">
 
 <!-- head Start-->
@@ -67,6 +68,8 @@
                 <div th:if="${isOwner}">
                     <a class="btn btn-secondary" href="#" th:href="@{/settings/account}">닉네임 변경</a>
                     <a class="btn btn-primary" href="#" th:href="@{/settings/password}">비밀번호 변경</a>
+<!--                    <a class="btn btn-primary" href="#" th:href="@{/settings/delete}">회원 탈퇴</a>-->
+                    <a class="btn btn-warning" href="#" th:href="@{/settings/delete}">회원탈퇴</a>
                 </div>
             </div>
         </div>
