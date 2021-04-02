@@ -83,7 +83,7 @@ public class BoardFormPageControllerTest extends ShelterApplicationTests {
 
     }
 
-    
+
     @DisplayName("")
     @Test
     public void postform() throws Exception {
