@@ -100,7 +100,7 @@ public class BoardFormPageControllerTest extends ShelterApplicationTests {
 
         String content = objectMapper.writeValueAsString(board);
 
-
+        // jenkins test
 
     }
 }
