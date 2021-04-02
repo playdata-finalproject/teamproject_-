@@ -101,10 +101,6 @@ public class BoardFormPageControllerTest extends ShelterApplicationTests {
         String content = objectMapper.writeValueAsString(board);
 
 
-//        mockMvc.perform(post("/board/form")
-//                .content(content)
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().is3xxRedirection());
 
     }
 }
