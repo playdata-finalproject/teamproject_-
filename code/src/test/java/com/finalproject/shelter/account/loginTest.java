@@ -67,7 +67,6 @@ public class loginTest {
                 .andExpect(authenticated().withUsername("devkis"));
     }
 
-
     @Test
     @DisplayName("로그인 실패 테스트")
     public void login_fail_test() throws Exception {

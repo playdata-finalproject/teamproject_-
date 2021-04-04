@@ -1,30 +1,34 @@
 package com.finalproject.shelter.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.model.entity.Account;
 import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.repository.AccountRepository;
-import com.finalproject.shelter.repository.CategoryRepository;
+import com.finalproject.shelter.repository.BoardRepository;
 import com.finalproject.shelter.service.AccountService;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Transactional
@@ -43,7 +47,7 @@ public class BoardFormPageControllerTest extends ShelterApplicationTests {
     private AccountService accountService;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private BoardRepository boardRepository;
 
     @Autowired
     private MockMvc mockMvc;
@@ -84,23 +88,31 @@ public class BoardFormPageControllerTest extends ShelterApplicationTests {
     }
 
 
-    @DisplayName("")
+    @DisplayName("Post board저장 테스트")
     @Test
     public void postform() throws Exception {
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        MultiValueMap<String,String> content = new LinkedMultiValueMap<>();
+        content.add("title","Titletest");
+        content.add("nickname","asdfw");
+        content.add("user","76");
+        content.add("category","1");
+        content.add("contents","lkfjseisjflesselkfjliagjoi4ewghwoigilasdgj");
 
-        Board board = Board.builder()
-                .title("TitleTest")
-                .nickname("asdfw")
-                .user(accountRepository.getOne(76L))
-                .category(categoryRepository.getOne(1L))
-                .contents("lkfjseisjflesselkfjliagjoi4ewghwoigilasdgj")
-                .build();
+        mockMvc.perform(post("/board/form")
+                .params(content)
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection());
 
-        String content = objectMapper.writeValueAsString(board);
+        Optional<Board> board = boardRepository.findBoardByTitle("Titletest");
+        Assertions.assertTrue(board.isPresent());
+        board.ifPresent(select->{
+            assertThat(select.getTitle()).isEqualTo("Titletest");
+            assertThat(select.getNickname()).isNotEqualTo("asdfw");
+            assertThat(select.getUser().getId()).isEqualTo(76L);
+            assertThat(select.getCategory().getId()).isEqualTo(1L);
+        });
 
-        // jenkins test
 
     }
 }

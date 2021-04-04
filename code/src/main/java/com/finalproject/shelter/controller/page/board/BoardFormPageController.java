@@ -4,6 +4,7 @@ import com.finalproject.shelter.model.entity.Board;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.Logic.BoardLogicService;
 import com.finalproject.shelter.validator.BoardValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/board/form")
+@Slf4j
 public class BoardFormPageController {
 
     @Autowired

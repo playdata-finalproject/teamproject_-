@@ -34,18 +34,17 @@ class AccountControllerTest {
     private AccountRepository accountRepository;
 
 
-    @DisplayName("회원 가입 화면 보이는지 테스트")
+    @DisplayName("회원 가입 연결 확인 테스트")
     @Test
     void signupForm() throws Exception {
         mockMvc.perform(get("/account/register"))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("account/register"))
                 .andExpect(model().attributeExists("signUpForm"))
                 .andExpect(unauthenticated());
     }
 
-    @DisplayName("회원 가입 처리 - 입력값 오류")
+    @DisplayName("회원 가입 처리 binding 테스트(입력값 오류)")
     @Test
     void signUpSubmit_with_wrong_input() throws Exception {
         mockMvc.perform(post("/account/register")
@@ -59,7 +58,7 @@ class AccountControllerTest {
                 .andExpect(unauthenticated());
     }
 
-    @DisplayName("회원 가입 처리 - 입력값 정상")
+    @DisplayName("회원 가입 처리 바인딩 테스트(입력값 정상)")
     @Test
     void signUpSubmit_with_correct_input() throws Exception {
         mockMvc.perform(post("/account/register")
@@ -80,37 +79,37 @@ class AccountControllerTest {
 //        then(emailService).should().sendEmail(any(EmailMessage.class)); // 메일 전송 메서드가 실행되었는지 확인
     }
 
-    @DisplayName("인증 메일 확인 - 입력값 오류")
-    @Test
-    void checkEmailToken_with_wrong_input() throws Exception {
-        mockMvc.perform(get("/check-email-token")
-                .param("token", "sagdasga")
-                .param("email", "email@gmail.com"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("error"))
-                .andExpect(view().name("account/checked-email"))
-                .andExpect(unauthenticated()); // security와 연동이 되기 때문에 이러한 테스트가 가능하다.
-    }
+//    @DisplayName("인증 메일 확인 - 입력값 오류")
+//    @Test
+//    void checkEmailToken_with_wrong_input() throws Exception {
+//        mockMvc.perform(get("/check-email-token")
+//                .param("token", "sagdasga")
+//                .param("email", "email@gmail.com"))
+//                .andExpect(status().isOk())
+//                .andExpect(model().attributeExists("error"))
+//                .andExpect(view().name("account/checked-email"))
+//                .andExpect(unauthenticated()); // security와 연동이 되기 때문에 이러한 테스트가 가능하다.
+//    }
 
-    @DisplayName("인증 메일 확인 - 입력값 정상")
-    @Test
-    void checkEmailToken() throws Exception {
-        Account account = Account.builder()
-                .email("test@email.com")
-                .password("12345678")
-                .nickname("jihyeon")
-                .build();
-        Account newAccount = accountRepository.save(account);
-        newAccount.generateEmailCheckToken();
-
-        mockMvc.perform(get("/check-email-token")
-                .param("token", newAccount.getEmailCheckToken())
-                .param("email", newAccount.getEmail()))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeDoesNotExist("error"))
-                .andExpect(model().attributeExists("nickname"))
-                .andExpect(model().attributeExists("numberOfUser"))
-                .andExpect(view().name("account/checked-email"))
-                .andExpect(authenticated().withUsername(account.getNickname()));
-    }
+//    @DisplayName("인증 메일 확인 - 입력값 정상")
+//    @Test
+//    void checkEmailToken() throws Exception {
+//        Account account = Account.builder()
+//                .email("test@email.com")
+//                .password("12345678")
+//                .nickname("jihyeon")
+//                .build();
+//        Account newAccount = accountRepository.save(account);
+//        newAccount.generateEmailCheckToken();
+//
+//        mockMvc.perform(get("/check-email-token")
+//                .param("token", newAccount.getEmailCheckToken())
+//                .param("email", newAccount.getEmail()))
+//                .andExpect(status().isOk())
+//                .andExpect(model().attributeDoesNotExist("error"))
+//                .andExpect(model().attributeExists("nickname"))
+//                .andExpect(model().attributeExists("numberOfUser"))
+//                .andExpect(view().name("account/checked-email"))
+//                .andExpect(authenticated().withUsername(account.getNickname()));
+//    }
 }

@@ -3,7 +3,6 @@ package com.finalproject.shelter.repository;
 import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.model.entity.Account;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

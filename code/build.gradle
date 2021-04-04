@@ -52,8 +52,7 @@ dependencies {
     testAnnotationProcessor('org.projectlombok:lombok')
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.2'
 
 }

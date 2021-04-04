@@ -8,7 +8,7 @@ import com.finalproject.shelter.settings.form.SignUpForm;
 import com.finalproject.shelter.settings.form.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -29,7 +29,9 @@ public class AccountController {
     private final String HOME = "/main";
     //private final String EMAIL_CONFIRM_VIEW = "account/emailConfirm";
 
-    @InitBinder("signUpForm") // signUpForm 데이터를 받을 때 데이터를 자동으로 바인딩 해준다. 여기선 validator 가 자동으로 실행된다.
+    @InitBinder("signUpForm")
+    // signUpForm 데이터를 받을 때 데이터를 자동으로 바인딩 해준다.
+    // 여기선 validator 가 자동으로 실행된다.
     public void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(signUpFormValidator);
     }
@@ -93,6 +95,7 @@ public class AccountController {
         accountService.sendSignUpConfirmEmail(account);
         return "redirect:"+HOME;
     }
+
     @GetMapping("/profile/{identity}")
     public String viewProfile(@PathVariable String identity, Model model, @CurrentUser Account account) {
         Account byIdentity = accountRepository.findByIdentity(identity);
@@ -100,7 +103,6 @@ public class AccountController {
         if (byIdentity == null) {
             throw new IllegalArgumentException(identity + " 에 해당하는 사용자가 없습니다.");
         }
-
         model.addAttribute(byIdentity); // 기본값은 model에 들어간 객체의 타입이 이름으로 들어간다.
         model.addAttribute("isOwner", account.equals(byIdentity));
         return "account/profile";

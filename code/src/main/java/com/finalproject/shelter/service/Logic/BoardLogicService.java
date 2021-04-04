@@ -189,7 +189,6 @@ public class BoardLogicService {
         board.setContents(tagRemove);
 
         postboard.ifPresent(select->{
-
             log.info("modify");
             select.setTitle(board.getTitle())
                     .setContents(board.getContents());
@@ -197,7 +196,6 @@ public class BoardLogicService {
         });
 
         if (postboard.isEmpty()){
-
             log.info("new board write");
             Board selectboard = board;
             selectboard.setNickname(board.getUser().getIdentity());

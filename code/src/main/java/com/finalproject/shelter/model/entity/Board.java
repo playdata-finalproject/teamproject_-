@@ -55,9 +55,11 @@ public class Board {
     private String updatedBy;
 
     @ManyToOne
+    @JsonIgnore
     private Category category;
 
     @ManyToOne
+    @JsonIgnore
     private Account user;
 
     @OneToMany(mappedBy = "board",fetch = FetchType.LAZY )

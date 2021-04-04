@@ -60,6 +60,7 @@ public class BoardRepositoryTest extends ShelterApplicationTests {
         assertThat(newboard.getNickname()).isEqualTo(board.getNickname());
         assertThat(newboard.getContents()).isEqualTo(board.getContents());
         assertThat(newboard.getCategory()).isEqualTo(board.getCategory());
+        log.info(newboard.getId().toString());
     }
 
     @DisplayName("게시판 페이지뷰 테스트")
