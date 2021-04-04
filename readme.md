@@ -43,9 +43,9 @@
 # 💡 팀원소개
 
 |이름|자기소개서|깃허브|블로그|
-|------|---|---|---|
-|지승배|[Notion](#) | [JeeSeungBae](#https://github.com/jeeseungbae) | [Tistory](#https://jsb-diary0011.tistory.com/) |
-|문지현|[Notion](#) | [jihyeonmun](#https://github.com/jihyeonmun) | [Tistory](#https://startupdevelopers.tistory.com/) |
+|---|---|---|---|
+|지승배|[Notion](#) | [JeeSeungBae](#https://github.com/jeeseungbae) | [Tistory](#https://jsb-diary0011.tistory.com/)
+|문지현|[Notion](#) | [jihyeonmun](#https://github.com/jihyeonmun) | [Tistory](#https://startupdevelopers.tistory.com/)
 <br>
 
 # 운영구성
@@ -71,7 +71,7 @@
 
 
 
-## 비고
+# 비고
 
 [project - 과정및 기획](https://docs.google.com/presentation/d/1-auToEYtCUQvuk4Y1xfhFQQelqMFU-XGl0jmS-KDumw/edit?usp=sharing)
 
