@@ -1,7 +1,6 @@
 package com.finalproject.shelter.controller.page;
 
 import com.finalproject.shelter.model.entity.Account;
-import com.finalproject.shelter.model.entity.CurrentUser;
 import com.finalproject.shelter.repository.AccountRepository;
 import com.finalproject.shelter.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ProfileController {
 
-    private final AccountService accountService;
     private final AccountRepository accountRepository;
-    private final ModelMapper modelMapper;
 
     @GetMapping("/{username}")
     public String viewProfile(@PathVariable String username, Model model){
@@ -29,7 +26,8 @@ public class ProfileController {
             throw new IllegalArgumentException(byUsername + " 에 해당하는 사용자가 없습니다.");
         }
 
-        model.addAttribute(byUsername); // 기본값은 model에 들어간 객체의 타입이 이름으로 들어간다.
+        model.addAttribute(byUsername);
+        // 기본값은 model에 들어간 객체의 타입이 이름으로 들어간다.
         model.addAttribute("isOwner",1);
         return "account/profile";
     }
