@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .mvcMatchers("/","/main","/account/register","/account/login","/css/**","/img/**","/check-email", "/check-email-token",
                         "/email-login", "/check-email-login", "/login-link", "/login-by-email").permitAll()
-                .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
+                .mvcMatchers(HttpMethod.GET, "/profile/*","/category/*").permitAll()
                 .anyRequest().authenticated();
         http.formLogin()
                 .loginPage("/account/login")
