@@ -31,9 +31,6 @@ public class BoardViewPageController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @Autowired
-    private AnswerValidator answerValidator;
-
     @GetMapping("")
     public String listview(
             @RequestParam(value = "id",required = false, defaultValue = "0") String id,

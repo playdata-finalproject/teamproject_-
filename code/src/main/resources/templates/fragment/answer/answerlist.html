@@ -32,13 +32,15 @@
                     </span><span th:text="${#lists.size(Answers)}"></span> Comments</p>
     </div>
 
-    <div class="near_list" th:each="answer : ${Answers}">
-        <h4 style="font-size: 1.5em"><span class="text-right" th:text="${answer.nickname}">사용자 이름 </span>
+    <div class="near_list" th:each="answers : ${Answers}">
+        <h4 style="font-size: 1.5em"><span class="text-right" th:text="${answers.nickname}">사용자 이름 </span>
             <span> &nbsp;&nbsp; | &nbsp;&nbsp; </span>
 
-            <span class="text-center" th:text="${answer.registeredAt}">댓글 시간</span></h4>
-        <li style="font-size: 1.2em"><a th:utext="${answer.answerText}">aaa</a>
-            <button style="background-color: #444444" class="btn-sm"><a style="color: white" th:href="@{/board/view/answer/delete(id=${answer.id},boardid=${answer.board.id})}">삭제</a></button>
+            <span class="text-center" th:text="${answers.registeredAt}">댓글 시간</span></h4>
+        <li style="font-size: 1.2em"><a th:utext="${answers.answerText}">aaa</a>
+            <span th:if="${answers.nickname}==${Answer.nickname}">
+                <button style="background-color: #444444" class="btn-sm"><a style="color: white" th:href="@{/board/view/answer/delete(id=${answers.id},boardid=${answers.board.id})}">삭제</a></button>
+            </span>
     </div>
 </div>
 
