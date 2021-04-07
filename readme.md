@@ -6,9 +6,9 @@
 
 [1.설명](#설명)<br>
 [2.사용한 기술](#🔨사용한-기술)<br>
-[2.팀원소개](#팀원소개)<br>
-[3.운영구성](#운영구성)<br>
-[4.비고](#비고)<br>
+[3.팀원소개](#팀원소개)<br>
+[4.운영구성](#운영구성)<br>
+[5.비고](#비고)<br>
 <!-- [4.주요 기능](#주요-기능)<br> -->
 <!-- [5.단위 테스트 개발](#단위-테스트-개발)<br> -->
 <!-- [6.성능 테스트](#성능-테스트)<br> -->
@@ -65,6 +65,6 @@
 
 # 비고
 
-[project - 기획](https://drive.google.com/file/d/1MFzH2P66SX_q1huRGFzJAsULF0iO9lMd/view?usp=sharing)
+[project - 기획](https://drive.google.com/file/d/1b3jvRCzNwwICqVGKlSWpNIjtKHfPafWy/view?usp=sharing)
 
 [ 이슈 - 일정 정리 ](https://github.com/playdata-finalproject/teamproject_final/projects/1)
