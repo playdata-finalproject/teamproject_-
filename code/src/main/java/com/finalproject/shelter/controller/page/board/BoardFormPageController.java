@@ -32,8 +32,9 @@ public class BoardFormPageController {
             @RequestParam(value = "boardid",defaultValue = "") String boardid,
             @RequestParam(value = "name",defaultValue = "") String name,
             @RequestParam(value = "categoryid",defaultValue = "") String categoryid,
-            Model model
+            Model model, Error error
     ){
+        
 
         if (name.equals("write")){
             Board board = boardLogicService.readCategory(categoryid);
