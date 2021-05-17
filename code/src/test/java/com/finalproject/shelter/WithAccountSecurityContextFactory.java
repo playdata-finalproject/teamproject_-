@@ -1,7 +1,7 @@
 package com.finalproject.shelter;
 
-import com.finalproject.shelter.service.AccountService;
-import com.finalproject.shelter.settings.form.SignUpForm;
+import com.finalproject.shelter.businessLayer.service.account.AccountService;
+import com.finalproject.shelter.businessLayer.settings.form.signup.SignUpForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
