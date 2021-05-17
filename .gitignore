@@ -1,5 +1,14 @@
-/img
-/jdk
-/programmers
-/video
-/.idea
+# ignore image file 
+img/
+
+# ignore jdk file 
+jdk/
+
+# ignore programmers file 
+programmers/
+
+# ignore video file 
+video/
+
+# ignore idea file 
+idea/
