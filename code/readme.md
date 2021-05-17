@@ -5,4 +5,3 @@
 ---
 
 승배 : [html 코드 리팩토링 간단한 설명](https://jsb-diary0011.tistory.com/40)
-
