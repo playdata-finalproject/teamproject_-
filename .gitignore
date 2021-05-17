@@ -4,8 +4,5 @@ jdk/
 # ignore programmers file 
 programmers/
 
-# ignore video file 
-video/
-
 # ignore 깃허브 운영방침
 깃허브운영방침/
