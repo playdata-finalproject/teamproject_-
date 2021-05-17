@@ -1,6 +1,3 @@
-# ignore image file 
-img/
-
 # ignore jdk file 
 jdk/
 
@@ -10,5 +7,5 @@ programmers/
 # ignore video file 
 video/
 
-# ignore idea file 
-idea/
+# ignore 깃허브 운영방침
+깃허브운영방침/
