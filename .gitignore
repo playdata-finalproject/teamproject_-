@@ -1,5 +1,5 @@
-.img
-.jdk
-.programmers
-.video
-*.idea
+/img
+/jdk
+/programmers
+/video
+/.idea
