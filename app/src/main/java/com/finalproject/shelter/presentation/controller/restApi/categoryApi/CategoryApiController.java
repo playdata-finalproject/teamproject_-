@@ -4,6 +4,7 @@ import com.finalproject.shelter.domain.model.entity.noticationDomain.Category;
 import com.finalproject.shelter.domain.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -14,10 +15,10 @@ public class CategoryApiController {
     private CategoryRepository categoryRepository;
 
     @GetMapping("/title/{id}")
-    public List<Category> All(@PathVariable Long id){
+    public List<Category> all(@PathVariable Long id) {
 
-        List<Category> categoryList = categoryRepository.findCategoryByCategorytableId(id);
+        List<Category> categories = categoryRepository.findCategoryByCategorytableId(id);
 
-        return categoryList;
+        return categories;
     }
 }
