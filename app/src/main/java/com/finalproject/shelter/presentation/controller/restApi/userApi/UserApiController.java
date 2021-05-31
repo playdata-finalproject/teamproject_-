@@ -11,45 +11,37 @@ import java.util.List;
 @RequestMapping("/api")
 //@Slf4j
 class UserApiController {
-    @Autowired
-    private AccountRepository repository;
 
-    // Aggregate root
-    // tag::get-aggregate-root[]
+    @Autowired
+    private AccountRepository accountRepository;
+
     @GetMapping("/users")
     List<Account> all() {
-        return repository.findAll();
+        return accountRepository.findAll();
     }
-    // end::get-aggregate-root[]
 
     @PostMapping("/Accounts")
-    Account newAccount(@RequestBody Account newAccount) {
-        return repository.save(newAccount);
+    Account newAccount(@RequestBody Account account) {
+        return accountRepository.save(account);
     }
 
-    // Single item
-
     @GetMapping("/Accounts/{id}")
-    Account one(@PathVariable Long id) {
-
-        return repository.findById(id).orElse(null);
+    Account findById(@PathVariable Long id) {
+        return accountRepository.findById(id).orElse(null);
     }
 
     @PutMapping("/Accounts/{id}")
-    Account replaceAccount(@RequestBody Account newAccount, @PathVariable Long id) {
-
-        return repository.findById(id)
-                .map(Account -> {
-                    return repository.save(Account);
-                })
+    Account replaceAccount(@RequestBody Account account, @PathVariable Long id) {
+        return accountRepository.findById(id)
+                .map(Account -> accountRepository.save(Account))
                 .orElseGet(() -> {
-                    newAccount.setId(id);
-                    return repository.save(newAccount);
+                    account.setId(id);
+                    return accountRepository.save(account);
                 });
     }
 
     @DeleteMapping("/user/{id}")
-    void deleteuser(@PathVariable Long id) {
-        repository.deleteById(id);
+    void deleteUser(@PathVariable Long id) {
+        accountRepository.deleteById(id);
     }
 }
