@@ -1,6 +1,6 @@
 package com.finalproject.shelter.business.service.account;
 
-import com.finalproject.shelter.presentationLayer.config.AppProperties;
+import com.finalproject.shelter.presentation.config.AppProperties;
 import com.finalproject.shelter.business.mail.EmailMessage;
 import com.finalproject.shelter.business.mail.EmailService;
 import com.finalproject.shelter.domain.model.entity.userDomain.Account;
