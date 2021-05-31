@@ -1,6 +1,6 @@
-package com.finalproject.shelter.domainModelLayer.repository;
+package com.finalproject.shelter.domain.repository;
 
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Board;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

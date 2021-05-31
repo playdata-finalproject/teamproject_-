@@ -1,9 +1,9 @@
 package com.finalproject.shelter.business.service.logic.answerLogic;
 
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Answer;
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Board;
-import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
-import com.finalproject.shelter.domainModelLayer.repository.AnswerRepository;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Answer;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
+import com.finalproject.shelter.domain.repository.AccountRepository;
+import com.finalproject.shelter.domain.repository.AnswerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

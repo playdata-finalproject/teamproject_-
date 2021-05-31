@@ -1,11 +1,11 @@
 package com.finalproject.shelter.business.service;
 
 import com.finalproject.shelter.ShelterApplicationTests;
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Answer;
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Board;
-import com.finalproject.shelter.domainModelLayer.repository.AnswerRepository;
-import com.finalproject.shelter.domainModelLayer.repository.BoardRepository;
-import com.finalproject.shelter.domainModelLayer.repository.CategoryRepository;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Answer;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
+import com.finalproject.shelter.domain.repository.AnswerRepository;
+import com.finalproject.shelter.domain.repository.BoardRepository;
+import com.finalproject.shelter.domain.repository.CategoryRepository;
 import com.finalproject.shelter.business.service.logic.boardlogic.BoardLogicService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;

@@ -1,7 +1,7 @@
-package com.finalproject.shelter.domainModelLayer.repository;
+package com.finalproject.shelter.domain.repository;
 
 import com.finalproject.shelter.ShelterApplicationTests;
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Category;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Category;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

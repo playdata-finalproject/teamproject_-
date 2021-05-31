@@ -1,7 +1,7 @@
 package com.finalproject.shelter.presentationLayer.controller.restApi.userApi;
 
-import com.finalproject.shelter.domainModelLayer.model.entity.userDomain.Account;
-import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
+import com.finalproject.shelter.domain.model.entity.userDomain.Account;
+import com.finalproject.shelter.domain.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
 package com.finalproject.shelter.account;
 
-import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
+import com.finalproject.shelter.domain.repository.AccountRepository;
 import com.finalproject.shelter.business.service.account.AccountService;
 import com.finalproject.shelter.business.settings.form.signup.SignUpForm;
 import org.junit.After;

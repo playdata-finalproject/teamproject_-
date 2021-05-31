@@ -1,4 +1,4 @@
-package com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain;
+package com.finalproject.shelter.domain.model.entity.noticationDomain;
 
 import lombok.*;
 import lombok.experimental.Accessors;

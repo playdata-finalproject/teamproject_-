@@ -1,13 +1,13 @@
 package com.finalproject.shelter.business.service.logic.boardlogic;
 
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Answer;
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Board;
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Category;
-import com.finalproject.shelter.domainModelLayer.model.entity.userDomain.Account;
-import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
-import com.finalproject.shelter.domainModelLayer.repository.AnswerRepository;
-import com.finalproject.shelter.domainModelLayer.repository.BoardRepository;
-import com.finalproject.shelter.domainModelLayer.repository.CategoryRepository;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Answer;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Category;
+import com.finalproject.shelter.domain.model.entity.userDomain.Account;
+import com.finalproject.shelter.domain.repository.AccountRepository;
+import com.finalproject.shelter.domain.repository.AnswerRepository;
+import com.finalproject.shelter.domain.repository.BoardRepository;
+import com.finalproject.shelter.domain.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
 package com.finalproject.shelter.presentationLayer.controller.view.profile;
 
-import com.finalproject.shelter.domainModelLayer.model.entity.userDomain.Account;
-import com.finalproject.shelter.domainModelLayer.model.entity.userDomain.CurrentUser;
+import com.finalproject.shelter.domain.model.entity.userDomain.Account;
+import com.finalproject.shelter.domain.model.entity.userDomain.CurrentUser;
 import com.finalproject.shelter.business.service.account.AccountService;
 import com.finalproject.shelter.business.settings.form.delete.DeleteForm;
 import com.finalproject.shelter.business.settings.form.delete.DeleteFormValidator;

@@ -1,6 +1,6 @@
 package com.finalproject.shelter.business.validator.answer;
 
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Answer;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Answer;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

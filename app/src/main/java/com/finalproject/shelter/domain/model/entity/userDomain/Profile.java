@@ -1,4 +1,4 @@
-package com.finalproject.shelter.domainModelLayer.model.entity.userDomain;
+package com.finalproject.shelter.domain.model.entity.userDomain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

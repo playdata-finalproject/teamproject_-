@@ -1,7 +1,7 @@
 package com.finalproject.shelter.presentationLayer.controller.view.board;
 
-import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Board;
-import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
+import com.finalproject.shelter.domain.repository.AccountRepository;
 import com.finalproject.shelter.business.service.logic.boardlogic.BoardLogicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

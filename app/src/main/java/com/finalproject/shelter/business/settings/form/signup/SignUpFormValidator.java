@@ -1,7 +1,7 @@
 package com.finalproject.shelter.business.settings.form.signup;
 
 
-import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
+import com.finalproject.shelter.domain.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

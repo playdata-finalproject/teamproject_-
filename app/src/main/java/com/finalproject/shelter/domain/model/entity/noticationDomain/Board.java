@@ -1,7 +1,7 @@
-package com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain;
+package com.finalproject.shelter.domain.model.entity.noticationDomain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.finalproject.shelter.domainModelLayer.model.entity.userDomain.Account;
+import com.finalproject.shelter.domain.model.entity.userDomain.Account;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;

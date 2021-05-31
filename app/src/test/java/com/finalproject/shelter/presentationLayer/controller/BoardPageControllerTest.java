@@ -1,8 +1,8 @@
 package com.finalproject.shelter.presentationLayer.controller;
 
 import com.finalproject.shelter.ShelterApplicationTests;
-import com.finalproject.shelter.domainModelLayer.model.entity.userDomain.Account;
-import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
+import com.finalproject.shelter.domain.model.entity.userDomain.Account;
+import com.finalproject.shelter.domain.repository.AccountRepository;
 import com.finalproject.shelter.business.service.account.AccountService;
 import lombok.extern.slf4j.Slf4j;
 

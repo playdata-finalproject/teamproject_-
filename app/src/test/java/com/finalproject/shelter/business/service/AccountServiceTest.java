@@ -1,8 +1,8 @@
 package com.finalproject.shelter.business.service;
 
 import com.finalproject.shelter.ShelterApplicationTests;
-import com.finalproject.shelter.domainModelLayer.model.entity.userDomain.Account;
-import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
+import com.finalproject.shelter.domain.model.entity.userDomain.Account;
+import com.finalproject.shelter.domain.repository.AccountRepository;
 import com.finalproject.shelter.business.service.account.AccountService;
 import com.finalproject.shelter.business.settings.form.password.PasswordForm;
 import com.finalproject.shelter.business.settings.form.signup.SignUpForm;

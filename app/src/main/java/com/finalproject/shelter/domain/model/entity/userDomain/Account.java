@@ -1,4 +1,4 @@
-package com.finalproject.shelter.domainModelLayer.model.entity.userDomain;
+package com.finalproject.shelter.domain.model.entity.userDomain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
