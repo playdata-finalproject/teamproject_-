@@ -16,9 +16,7 @@ public class CategoryApiController {
 
     @GetMapping("/title/{id}")
     public List<Category> all(@PathVariable Long id) {
-
         List<Category> categories = categoryRepository.findCategoryByCategorytableId(id);
-
         return categories;
     }
 }
