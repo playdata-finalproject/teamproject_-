@@ -5,8 +5,8 @@ import com.finalproject.shelter.domainModelLayer.model.entity.userDomain.Account
 import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Board;
 import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
 import com.finalproject.shelter.domainModelLayer.repository.BoardRepository;
-import com.finalproject.shelter.businessLayer.service.account.AccountService;
-import com.finalproject.shelter.businessLayer.service.logic.boardlogic.BoardLogicService;
+import com.finalproject.shelter.business.service.account.AccountService;
+import com.finalproject.shelter.business.service.logic.boardlogic.BoardLogicService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

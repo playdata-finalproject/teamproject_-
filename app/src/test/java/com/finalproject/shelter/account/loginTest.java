@@ -1,8 +1,8 @@
 package com.finalproject.shelter.account;
 
 import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
-import com.finalproject.shelter.businessLayer.service.account.AccountService;
-import com.finalproject.shelter.businessLayer.settings.form.signup.SignUpForm;
+import com.finalproject.shelter.business.service.account.AccountService;
+import com.finalproject.shelter.business.settings.form.signup.SignUpForm;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;

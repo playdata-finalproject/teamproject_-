@@ -3,7 +3,7 @@ package com.finalproject.shelter.presentationLayer.controller;
 import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.domainModelLayer.model.entity.userDomain.Account;
 import com.finalproject.shelter.domainModelLayer.repository.AccountRepository;
-import com.finalproject.shelter.businessLayer.service.account.AccountService;
+import com.finalproject.shelter.business.service.account.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package com.finalproject.shelter.presentationLayer.controller.view.board;
 
 import com.finalproject.shelter.domainModelLayer.model.entity.noticationDomain.Board;
-import com.finalproject.shelter.businessLayer.service.logic.boardlogic.BoardLogicService;
+import com.finalproject.shelter.business.service.logic.boardlogic.BoardLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

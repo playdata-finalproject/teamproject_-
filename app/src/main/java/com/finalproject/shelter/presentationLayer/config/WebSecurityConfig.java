@@ -1,6 +1,6 @@
 package com.finalproject.shelter.presentationLayer.config;
 
-import com.finalproject.shelter.businessLayer.service.account.AccountService;
+import com.finalproject.shelter.business.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
