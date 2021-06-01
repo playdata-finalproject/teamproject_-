@@ -27,11 +27,8 @@ public class AccountController {
     private final AccountService accountService;
     private final AccountRepository accountRepository;
     private final String HOME = "/main";
-    //private final String EMAIL_CONFIRM_VIEW = "account/emailConfirm";
 
     @InitBinder("signUpForm")
-    // signUpForm 데이터를 받을 때 데이터를 자동으로 바인딩 해준다.
-    // 여기선 validator 가 자동으로 실행된다.
     public void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(signUpFormValidator);
     }
@@ -43,7 +40,7 @@ public class AccountController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("signUpForm",new SignUpForm()); // class 이름과 동일한 attribute를 사용할 경우 생략 가능
+        model.addAttribute("signUpForm",new SignUpForm());
         return "account/register";
     }
 
@@ -65,7 +62,6 @@ public class AccountController {
             model.addAttribute("error", "wrong.email");
             return view;
         }
-
         if (!account.isValidToken(token)) {
             model.addAttribute("error", "wrong.token");
             return view;
@@ -91,7 +87,6 @@ public class AccountController {
             model.addAttribute("email", account.getEmail());
             return "account/checked-email";
         }
-
         accountService.sendSignUpConfirmEmail(account);
         return "redirect:"+HOME;
     }
@@ -99,7 +94,6 @@ public class AccountController {
     @GetMapping("/profile/{identity}")
     public String viewProfile(@PathVariable String identity, Model model, @CurrentUser Account account) {
         Account byIdentity = accountRepository.findByIdentity(identity);
-
         if (byIdentity == null) {
             throw new IllegalArgumentException(identity + " 에 해당하는 사용자가 없습니다.");
         }
@@ -107,5 +101,4 @@ public class AccountController {
         model.addAttribute("isOwner", account.equals(byIdentity));
         return "account/profile";
     }
-
 }

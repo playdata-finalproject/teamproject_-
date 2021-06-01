@@ -21,41 +21,36 @@ public class BoardPageController {
     private BoardLogicService boardLogicService;
 
     @GetMapping("")
-    public String findboardlist(@RequestParam(value = "id") String id,
-                                  @PageableDefault(size = 10) Pageable pageable,
-                                      @RequestParam(value = "select",required = false, defaultValue = "") String select,
-                                      @RequestParam(value = "searchText",required = false, defaultValue = "") String searchText,
-                                      Model model
-                                      ){
-
-        Page<Board> boardlist = boardLogicService.findCategoryIdTitleContents(id,select,searchText,pageable);
+    public String readboards(@RequestParam(value = "id") String id,
+                             @PageableDefault(size = 10) Pageable pageable,
+                             @RequestParam(value = "select", required = false, defaultValue = "") String select,
+                             @RequestParam(value = "searchText", required = false, defaultValue = "") String searchText,
+                             Model model
+    ) {
+        Page<Board> boardlist = boardLogicService.findCategoryIdTitleContents(id, select, searchText, pageable);
         List<Board> weekview = boardLogicService.bestweekview(id);
         List<Board> monthview = boardLogicService.bestmonthview(id);
         Board eachboard = boardLogicService.readCategory(id);
 
-        int startPage = Math.max(1,boardlist.getPageable().getPageNumber() -4);
-        int endPage = Math.min(boardlist.getTotalPages(),boardlist.getPageable().getPageNumber()+4);
+        int startPage = Math.max(1, boardlist.getPageable().getPageNumber() - 4);
+        int endPage = Math.min(boardlist.getTotalPages(), boardlist.getPageable().getPageNumber() + 4);
 
-        model.addAttribute("boardlist",boardlist);
-        model.addAttribute("startPage",startPage);
-        model.addAttribute("endPage",endPage);
-        model.addAttribute("eachboard",eachboard);
-        model.addAttribute("weekview",weekview);
-        model.addAttribute("monthview",monthview);
-
+        model.addAttribute("boardlist", boardlist);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("eachboard", eachboard);
+        model.addAttribute("weekview", weekview);
+        model.addAttribute("monthview", monthview);
         return "pages/list";
     }
 
     @GetMapping("/delete")
-    public String deleteboard(@RequestParam(value = "id") String ids){
-
+    public String deleteboard(@RequestParam(value = "id") String ids) {
         String id = boardLogicService.deleteid(ids);
-
-        if (id!="null") {
+        if (id != "null") {
             return "redirect:/board?id=" + id + "&page=0";
-        }else{
+        } else {
             return "redirect:/main";
         }
     }
-
 }
