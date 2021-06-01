@@ -25,45 +25,35 @@ public class BoardFormPageController {
     private AccountRepository accountRepository;
 
     @GetMapping("")
-    public String writeview(
-            @RequestParam(value = "boardid",defaultValue = "") String boardid,
-            @RequestParam(value = "name",defaultValue = "") String name,
-            @RequestParam(value = "categoryid",defaultValue = "") String categoryid,
+    public String view(
+            @RequestParam(value = "boardid", defaultValue = "") String boardid,
+            @RequestParam(value = "name", defaultValue = "") String name,
+            @RequestParam(value = "categoryid", defaultValue = "") String categoryid,
             Model model, Error error
-    ){
-        
-
-        if (name.equals("write")){
+    ) {
+        if (name.equals("write")) {
             Board board = boardLogicService.readCategory(categoryid);
-            Board board1 = boardLogicService.newuserboard(board,accountRepository); //error
-
-            model.addAttribute("eachboard",board);
-            model.addAttribute("board",board1);
-
+            Board board1 = boardLogicService.newuserboard(board, accountRepository);
+            model.addAttribute("eachboard", board);
+            model.addAttribute("board", board1);
             return "pages/form";
-
-        }else if(name.equals("modify")){
+        } else if (name.equals("modify")) {
             Board board = boardLogicService.readBoard(boardid);
-            model.addAttribute("eachboard",board);
-            model.addAttribute("board",board);
-
+            model.addAttribute("eachboard", board);
+            model.addAttribute("board", board);
             return "pages/form";
-        }
-        else {
+        } else {
             return "redirect:/main";
         }
     }
 
     @PostMapping("")
-    public String postform(@Valid Board board,BindingResult bindingResult, Model model){
-
-        if(bindingResult.hasErrors()){
-            model.addAttribute("eachboard",board);
-            model.addAttribute("board",board);
-
+    public String save(@Valid Board board, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("eachboard", board);
+            model.addAttribute("board", board);
             return "pages/form";
         }
-
         Board newboard = boardLogicService.postservice(board);
         return "redirect:/board/view?id=" + newboard.getId();
     }

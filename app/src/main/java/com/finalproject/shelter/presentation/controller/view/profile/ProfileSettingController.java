@@ -20,9 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 @Controller
-//@RequestMapping("settings")
 @RequiredArgsConstructor
 public class ProfileSettingController {
+    
     public static final String SETTINGS_PASSWORD_VIEW_NAME = "account/password";
     public static final String SETTINGS_PASSWORD_URL = "/settings/password";
     public static final String SETTINGS_ACCOUNT_VIEW_NAME = "account/account";
@@ -31,9 +31,9 @@ public class ProfileSettingController {
     public static final String SETTING_DELETE_VIEW_NAME = "account/delete";
     public static final String REDIRECT_HOME = "redirect:"+"/main";
     public static final String HOME = "/main";
+
     private final AccountService accountService;
     private final IdentityFormValidator identityFormValidator;
-    private final ModelMapper modelMapper;
 
     @InitBinder("passwordForm")
     public void passwordFormInitBinder(WebDataBinder webDataBinder) {
@@ -64,19 +64,19 @@ public class ProfileSettingController {
             model.addAttribute(account);
             return SETTINGS_PASSWORD_VIEW_NAME;
         }
-
         accountService.updatePassword(account, passwordForm);
         redirectAttributes.addFlashAttribute("message", "패스워드를 변경하였습니다.");
         return REDIRECT_HOME;
     }
-    @GetMapping(SETTINGS_ACCOUNT_URL) //닉네임 수정 버튼
+
+    @GetMapping(SETTINGS_ACCOUNT_URL)
     public String updateAccountForm(@CurrentUser Account account, Model model) {
         model.addAttribute(account);
         model.addAttribute("identityForm",new IdentityForm(account.getIdentity())); //이부분이 중요
         return SETTINGS_ACCOUNT_VIEW_NAME;
     }
 
-    @PostMapping(SETTINGS_ACCOUNT_URL)  //닉네임 수정 완료
+    @PostMapping(SETTINGS_ACCOUNT_URL)
     public String updateAccount(@CurrentUser Account account, @Valid IdentityForm identityForm, Errors errors,
                                 Model model, RedirectAttributes attributes) {
         if (errors.hasErrors()) {
@@ -94,6 +94,7 @@ public class ProfileSettingController {
         model.addAttribute("deleteForm",new DeleteForm());
         return SETTING_DELETE_VIEW_NAME;
     }
+
     @PostMapping(SETTING_DELETE_URL)
     public String deleteAccount(@CurrentUser Account account, @Valid DeleteForm deleteForm, Errors errors,
                                  Model model, RedirectAttributes redirectAttributes) {
@@ -102,7 +103,6 @@ public class ProfileSettingController {
             return SETTING_DELETE_VIEW_NAME;
         }
         accountService.deleteAccount(account);
-
         redirectAttributes.addFlashAttribute("message", "회원을 탈퇴하였습니다.");
         return REDIRECT_HOME;
     }
