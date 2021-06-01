@@ -56,28 +56,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return jdbcTokenRepository;
     }
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth)
-//            throws Exception {
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .passwordEncoder(passwordEncoder())
-//                .usersByUsernameQuery("select username,password,enabled "
-//                        + "from account "
-//                        + "where username = ?")
-//                .authoritiesByUsernameQuery("select u.username,r.name "
-//                        + "from user_role ur inner join account u on ur.user_id=u.id "
-//                        + "inner join role r on ur.role_id=r.id "
-//                        + "where u.username = ?");
-//    }
-//    //Authentication 로그인 / Authorization 권한
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//        //로그인 요청 시, 입력된 유저 정보와 DB의 회원정보를 비교해 인증된
-//        // 사용자인지 체크하는 로직이 정의되어있습니다.
-//    }
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()

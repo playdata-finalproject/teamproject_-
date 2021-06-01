@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Profile("local")
 @Component
 public class ConsoleEmailService implements EmailService {
-
     @Override
     public void sendEmail(EmailMessage emailMessage) {
         log.info("ent email : {}", emailMessage.getMessage());
