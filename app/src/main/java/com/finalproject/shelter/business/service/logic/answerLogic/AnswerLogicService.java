@@ -37,8 +37,8 @@ public class AnswerLogicService {
 
         return answerList;
     }
-
-    public Answer writeuserinfo(Board eachboard, AccountRepository accountRepository){
+    
+    public Answer readUser(Board eachboard, AccountRepository accountRepository){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
