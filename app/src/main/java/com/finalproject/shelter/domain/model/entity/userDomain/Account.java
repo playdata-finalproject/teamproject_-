@@ -51,7 +51,7 @@ public class Account {
     private LocalDate lastLoginAt;
 
 
-    private int loginFailCount; // integer의 용량 이 int보다 큼 바꿀라면 나중에 바꾸자
+    private int loginFailCount;
 
     @LastModifiedDate
     private LocalDate updatedAt;
@@ -72,21 +72,10 @@ public class Account {
             inverseJoinColumns = @JoinColumn(name="role_id"))
     private List<Role> roles = new ArrayList<>();
 
-//    @AssertTrue(message = "Passwords should match")
-//    public boolean isPasswordsEqual() {
-//        return (password == null) ? false : password.equals(password2);
-//    }
-
-    //@OneToMany(mappedBy = "User")
-    //private List<Board> Board = new ArrayList<>();
-//
-
-
     public void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();
         this.emailCheckTokenGeneratedAt = LocalDateTime.now();
     }
-//
     public void completeSignUp() {
         this.enabled = true;
         this.createdAt = LocalDate.now();

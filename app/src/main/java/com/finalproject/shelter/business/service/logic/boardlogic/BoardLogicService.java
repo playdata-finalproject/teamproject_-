@@ -34,7 +34,6 @@ public class BoardLogicService {
 
     @Autowired
     private AnswerRepository answerRepository;
-
     private Board newboard;
     private Long ids;
     private Board board1;
@@ -57,13 +56,11 @@ public class BoardLogicService {
 
         return null;
     }
-
     public Board readCategory(String id){
 
         List<Board> board = boardRepository.findBoardByCategoryId(Long.parseLong(id));
         board1 = Board.builder().build();
 
-        // 이것을 해주지 않으면 null값의 board가 나와서 에러
         if(board.isEmpty()){
             Optional<Category> category1 = categoryRepository.findById(Long.parseLong(id));
             if (category1.isPresent()){
@@ -79,42 +76,31 @@ public class BoardLogicService {
             board1= board.get(0);
         }
         return board1;
-        // board1 은 카테고리 정보만 있으면 된다.
     }
-
     public Board readBoard(String id){
-
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
-
         if (board.isEmpty()){
             log.error("id is empty");
             board1=Board.builder().build();
         }
-
         board.ifPresent(select->{
             board1 = select;
         });
         return board1;
     }
-
     public Board newuserboard(Board board, AccountRepository accountRepository){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-
         Account account = accountRepository.findByUsername(username);
         Board board1 = Board.builder()
                 .nickname(account.getIdentity())
                 .user(account)
                 .category(board.getCategory())
-                .build(); //null
-
+                .build();
         return board1;
-
     }
-
     public Board readBoardview(String id){
-
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
         if (board.isEmpty()){
             log.error("board is empty");
@@ -133,9 +119,6 @@ public class BoardLogicService {
         });
         return board1;
     }
-
-
-
     public List<Board> bestweekview(String id){
         List<Board> weekview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
                 (Long.parseLong(id), LocalDate.now().minusDays(7),LocalDate.now());
@@ -156,54 +139,42 @@ public class BoardLogicService {
             return null;
         }
     }
-
     public String deleteid(String id){
-
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
         if (board.isEmpty()){
             log.error("board is empty");
             ids=null;
         }
-
         board.ifPresent(select->{
             newboard = select;
             ids = select.getCategory().getId();
             boardRepository.delete(select);
-
             List<Answer> answer = answerRepository.findAnswerByBoardId(newboard.getId());
-
             if (answer!=null){
                 answer.stream().forEach(select1->{
                     answerRepository.delete(select1);
                 });
             }
         });
-
         return String.valueOf(ids);
     }
-
     public Board postservice(Board board){
         Optional<Board> postboard = boardRepository.findBoardById(board.getId());
-
-        // 테그 지우기
         String regex = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
         String tagRemove=board.getContents().replaceAll(regex, "(<> 안에 한글만 사용할수 있습니다!)");
         board.setContents(tagRemove);
-
         postboard.ifPresent(select->{
             log.info("modify");
             select.setTitle(board.getTitle())
                     .setContents(board.getContents());
             newboard = boardRepository.save(select);
         });
-
         if (postboard.isEmpty()){
             log.info("new board write");
             Board selectboard = board;
             selectboard.setNickname(board.getUser().getIdentity());
             newboard = boardRepository.save(selectboard);
         }
-
         return newboard;
     }
 }

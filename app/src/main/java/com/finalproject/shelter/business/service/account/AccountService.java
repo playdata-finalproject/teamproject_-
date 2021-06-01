@@ -40,24 +40,20 @@ public class AccountService implements UserDetailsService {
 
     @Autowired
     private final AccountRepository accountRepository;
-
     private final TemplateEngine templateEngine;
     private final AppProperties appProperties;
     private final ModelMapper modelMapper;
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
-
     private final EmailService emailService;
 
     @Transactional
     public Account processNewAccount(@Valid SignUpForm signUpForm) {
         Account newAccount = saveNewAccount(signUpForm);
-
         sendSignUpConfirmEmail(newAccount);
         return newAccount;
     }
-
     public Account saveNewAccount(@Valid SignUpForm signUpForm) {
         signUpForm.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
         Account account = modelMapper.map(signUpForm, Account.class);
@@ -97,7 +93,6 @@ public class AccountService implements UserDetailsService {
         emailService.sendEmail(emailMessage);
         newAccount.setEmailCheckTokenGeneratedAt(LocalDateTime.now());
     }
-
     public void login(Account account) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 new UserAccount(account),
@@ -116,28 +111,22 @@ public class AccountService implements UserDetailsService {
         }
         return new UserAccount(account);
     }
-
     public void completeSignUp(Account account) {
         account.completeSignUp();
         login(account);
     }
-
-
     public void updatePassword(Account account, PasswordForm passwordForm) {
         account.setPassword(passwordEncoder.encode(passwordForm.getNewPassword()));
         accountRepository.save(account);
     }
-
     public void deleteAccount(Account account) {
         account.setEnabled(false);
         account.setPassword("deletedaccount");
         accountRepository.save(account);
     }
-
     public void updateIdentity(Account account, String identity) {
         account.setIdentity(identity);
         accountRepository.save(account);
         login(account);
     }
-
 }

@@ -10,7 +10,6 @@ import org.springframework.validation.Validator;
 @Component
 @RequiredArgsConstructor
 public class IdentityFormValidator implements Validator {
-
     private final AccountRepository accountRepository;
 
     @Override

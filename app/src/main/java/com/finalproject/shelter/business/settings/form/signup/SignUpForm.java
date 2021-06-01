@@ -19,10 +19,8 @@ public class SignUpForm {
     @NotBlank
     private String password;
 
-
     @Email
     @NotBlank
     private String email;
-
 
 }
