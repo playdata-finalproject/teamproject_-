@@ -52,11 +52,9 @@ public class AccountService implements UserDetailsService {
 
     @Transactional
     public Account processNewAccount(@Valid SignUpForm signUpForm) {
-        //회원 가입 처리
         Account newAccount = saveNewAccount(signUpForm);
 
         sendSignUpConfirmEmail(newAccount);
-        //Mail Send
         return newAccount;
     }
 
@@ -79,9 +77,6 @@ public class AccountService implements UserDetailsService {
         Role role = new Role();
         role.setId(1l);
         account.getRoles().add(role);
-        //tentative email auth set
-//        account.completeSignUp();
-        //validateDuplicateIdentity(account);
         return accountRepository.save(account);
     }
 
@@ -94,7 +89,6 @@ public class AccountService implements UserDetailsService {
         context.setVariable("linkName", "이메일 인증하기");
         context.setVariable("message", "스터디올래 서비스를 사용하려면 링크를 클릭하세요.");
         context.setVariable("host", appProperties.getHost());
-        //String message = templateEngine.process("mail/mailMessage", context);
         EmailMessage emailMessage = EmailMessage.builder()
                 .to(newAccount.getEmail())
                 .subject("스터디올래, 회원 가입 인증")
@@ -115,16 +109,12 @@ public class AccountService implements UserDetailsService {
 
     @Transactional(readOnly = true)
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // 로그인 처리, Spring Security에서 자동으로 처리함.
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findByUsername(username);
-//        if (account == null) {
-//            account = accountRepository.findByIdentity(usernameOrIdentity);
-//        }
-
         if (account == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new UserAccount(account);  // Principal 객체 리턴
+        return new UserAccount(account);
     }
 
     public void completeSignUp(Account account) {
@@ -139,7 +129,6 @@ public class AccountService implements UserDetailsService {
     }
 
     public void deleteAccount(Account account) {
-        //accountRepository.delete(account);
         account.setEnabled(false);
         account.setPassword("deletedaccount");
         accountRepository.save(account);
