@@ -22,7 +22,7 @@ import javax.validation.Valid;
 @Controller
 @RequiredArgsConstructor
 public class ProfileSettingController {
-    
+
     public static final String SETTINGS_PASSWORD_VIEW_NAME = "account/password";
     public static final String SETTINGS_PASSWORD_URL = "/settings/password";
     public static final String SETTINGS_ACCOUNT_VIEW_NAME = "account/account";
