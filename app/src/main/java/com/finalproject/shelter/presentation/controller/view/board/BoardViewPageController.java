@@ -37,8 +37,7 @@ public class BoardViewPageController {
         List<Answer> answerList = answerLogicService.readAnswer(id);
         List<Board> weekview = boardLogicService.bestweekview(String.valueOf(eachboard.getCategory().getId()));
         List<Board> monthview = boardLogicService.bestmonthview(String.valueOf(eachboard.getCategory().getId()));
-
-        Answer answer = answerLogicService.readUser(eachboard,accountRepository); //Error
+        Answer answer = answerLogicService.readUser(eachboard,accountRepository);
 
         model.addAttribute("eachboard",eachboard);
         model.addAttribute("Answer",answer);
