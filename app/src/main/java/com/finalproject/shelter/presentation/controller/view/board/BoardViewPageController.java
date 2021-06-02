@@ -3,8 +3,8 @@ package com.finalproject.shelter.presentation.controller.view.board;
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Answer;
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
 import com.finalproject.shelter.domain.repository.AccountRepository;
-import com.finalproject.shelter.business.service.logic.answerLogic.AnswerLogicService;
-import com.finalproject.shelter.business.service.logic.boardlogic.BoardLogicService;
+import com.finalproject.shelter.business.service.logic.AnswerLogicService;
+import com.finalproject.shelter.business.service.logic.BoardLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +33,7 @@ public class BoardViewPageController {
         List<Answer> answerList = answerLogicService.readAnswer(id);
         List<Board> weekview = boardLogicService.bestweekview(String.valueOf(eachboard.getCategory().getId()));
         List<Board> monthview = boardLogicService.bestmonthview(String.valueOf(eachboard.getCategory().getId()));
-        Answer answer = answerLogicService.writeuserinfo(eachboard, accountRepository);
+        Answer answer = answerLogicService.readUser(eachboard, accountRepository);
 
         model.addAttribute("eachboard", eachboard);
         model.addAttribute("Answer", answer);
