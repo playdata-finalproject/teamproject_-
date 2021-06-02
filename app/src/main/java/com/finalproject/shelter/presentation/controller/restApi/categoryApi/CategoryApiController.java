@@ -19,5 +19,4 @@ public class CategoryApiController {
     public List<Category> all(@PathVariable Long id) {
         return categoryLogicService.read(id);
     }
-
 }
