@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-//@Slf4j
 class UserApiController {
 
     @Autowired
