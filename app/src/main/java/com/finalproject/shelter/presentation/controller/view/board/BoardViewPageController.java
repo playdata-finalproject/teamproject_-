@@ -20,50 +20,61 @@ public class BoardViewPageController {
 
     @Autowired
     private BoardLogicService boardLogicService;
+
     @Autowired
     private AnswerLogicService answerLogicService;
+
     @Autowired
     private AccountRepository accountRepository;
 
     @GetMapping("")
-    public String view(
-            @RequestParam(value = "id", required = false, defaultValue = "0") String id,
-            Model model) {
+    public String listview(
+            @RequestParam(value = "id",required = false, defaultValue = "0") String id,
+            Model model)
+    {
+
         Board eachboard = boardLogicService.readBoardview(id);
         List<Answer> answerList = answerLogicService.readAnswer(id);
         List<Board> weekview = boardLogicService.bestweekview(String.valueOf(eachboard.getCategory().getId()));
         List<Board> monthview = boardLogicService.bestmonthview(String.valueOf(eachboard.getCategory().getId()));
-        Answer answer = answerLogicService.writeuserinfo(eachboard, accountRepository);
 
-        model.addAttribute("eachboard", eachboard);
-        model.addAttribute("Answer", answer);
-        model.addAttribute("Answers", answerList);
-        model.addAttribute("weekview", weekview);
-        model.addAttribute("monthview", monthview);
+        Answer answer = answerLogicService.readUser(eachboard,accountRepository); //Error
+
+        model.addAttribute("eachboard",eachboard);
+        model.addAttribute("Answer",answer);
+        model.addAttribute("Answers",answerList);
+        model.addAttribute("weekview",weekview);
+        model.addAttribute("monthview",monthview);
 
         return "pages/view";
     }
 
     @PostMapping("/answer")
-    public String saveAnswer(@Valid Answer answer, BindingResult bindingResult, Model model) {
+    public String postanswer(@Valid Answer answer, BindingResult bindingResult, Model model){
+
         String id = String.valueOf(answer.getBoard().getId());
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("eachboard", answer.getBoard());
-            model.addAttribute("Answer", answer);
-            model.addAttribute("Answers", answerLogicService.readAnswer(id));
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("eachboard",answer.getBoard());
+            model.addAttribute("Answer",answer);
+            model.addAttribute("Answers",answerLogicService.readAnswer(id));
+
             return "pages/view";
         }
+
         Answer answer1 = answerLogicService.save(answer);
+
         return "redirect:/board/view?id=" + answer1.getBoard().getId();
     }
 
     @GetMapping("/answer/delete")
-    public String deleteAnswer(
-            @RequestParam(value = "id", required = false, defaultValue = "0") String id,
-            @RequestParam(value = "boardid", required = false, defaultValue = "0") String boardid) {
-        answerLogicService.delete(id);
-        return "redirect:/board/view?id=" + boardid;
-    }
+    public String deleteanswer(
+            @RequestParam(value = "id",required = false, defaultValue = "0") String id,
+            @RequestParam(value = "boardid",required = false, defaultValue = "0") String boardid){
 
+        answerLogicService.delete(id);
+
+        return "redirect:/board/view?id="+boardid;
+    }
 }
 
