@@ -1,4 +1,4 @@
-package com.finalproject.shelter.business.service.logic.answerLogic;
+package com.finalproject.shelter.business.service.logic;
 
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Answer;
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
