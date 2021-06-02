@@ -33,7 +33,7 @@ public class AccountLogicService {
                     return accountRepository.save(account);
                 });
     }
-    
+
     public void delete(Long id){
         accountRepository.deleteById(id);
     }
