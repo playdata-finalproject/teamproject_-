@@ -21,31 +21,29 @@ public class BoardFormPageController {
     @Autowired
     private BoardLogicService boardLogicService;
 
+    //변경 필요 ServiceLayer 이슈등록!
     @Autowired
     private AccountRepository accountRepository;
 
-    @GetMapping("")
-    public String view(
-            @RequestParam(value = "boardid", defaultValue = "") String boardid,
-            @RequestParam(value = "name", defaultValue = "") String name,
+    @GetMapping("/write")
+    public String create(
             @RequestParam(value = "categoryid", defaultValue = "") String categoryid,
-            Model model, Error error
-    ) {
-        if (name.equals("write")) {
-            Board board = boardLogicService.readCategory(categoryid);
-            Board board1 = boardLogicService.newuserboard(board, accountRepository);
-            model.addAttribute("eachboard", board);
-            model.addAttribute("board", board1);
-            return "pages/form";
-        } else if (name.equals("modify")) {
-            Board board = boardLogicService.readBoard(boardid);
-            model.addAttribute("eachboard", board);
-            model.addAttribute("board", board);
-            return "pages/form";
-        } else {
-            return "redirect:/main";
-        }
+            Model model) {
+        Board board = boardLogicService.readCategory(categoryid);
+        model.addAttribute("eachboard", board);
+        model.addAttribute("board", boardLogicService.newuserboard(board, accountRepository));
+        return "pages/form";
     }
+
+    @GetMapping("/modify")
+    public String modify(
+            @RequestParam(value = "boardid", defaultValue = "") String boardid,
+            Model model) {
+        model.addAttribute("eachboard", boardLogicService.readBoard(boardid));
+        model.addAttribute("board", boardLogicService.readBoard(boardid));
+        return "pages/form";
+    }
+
 
     @PostMapping("")
     public String save(@Valid Board board, BindingResult bindingResult, Model model) {
@@ -54,8 +52,6 @@ public class BoardFormPageController {
             model.addAttribute("board", board);
             return "pages/form";
         }
-        Board newboard = boardLogicService.postservice(board);
-        return "redirect:/board/view?id=" + newboard.getId();
+        return "redirect:/board/view?id=" + boardLogicService.postservice(board).getId();
     }
-
 }
