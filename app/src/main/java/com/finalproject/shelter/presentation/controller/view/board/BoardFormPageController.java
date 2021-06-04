@@ -30,7 +30,6 @@ public class BoardFormPageController {
         model.addAttribute("board", boardLogicService.newuserboard(board));
         return "pages/form";
     }
-
     @GetMapping("/modify")
     public String modify(
             @RequestParam(value = "boardid", defaultValue = "") String boardid,
