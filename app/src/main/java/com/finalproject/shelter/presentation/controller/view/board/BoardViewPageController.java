@@ -18,10 +18,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/board/view")
 public class BoardViewPageController {
-
     @Autowired
     private BoardLogicService boardLogicService;
-
     @Autowired
     private AnswerLogicService answerLogicService;
 
@@ -29,7 +27,6 @@ public class BoardViewPageController {
     public String listview(
             @RequestParam(value = "id", required = false, defaultValue = "0") String id,
             Model model) {
-
         Board eachBoard = boardLogicService.readBoardview(id);
 
         modelAdd(eachBoard, model,"Answer");
@@ -40,7 +37,6 @@ public class BoardViewPageController {
 
         return "pages/view";
     }
-
     @PostMapping("/answer")
     public String postAnswer(@Valid Answer answer, BindingResult bindingResult, Model model) {
         String id = String.valueOf(answer.getBoard().getId());
@@ -53,7 +49,6 @@ public class BoardViewPageController {
         Answer answer1 = answerLogicService.save(answer);
         return "redirect:/board/view?id=" + answer1.getBoard().getId();
     }
-
     @GetMapping("/answer/delete")
     public String deleteAnswer(
             @RequestParam(value = "id", required = false, defaultValue = "0") String id,
@@ -61,7 +56,6 @@ public class BoardViewPageController {
         answerLogicService.delete(id);
         return "redirect:/board/view?id=" + boardid;
     }
-
     private void modelAdd(Object obj, Model model, String str){
         model.addAttribute(str,obj);
     }
