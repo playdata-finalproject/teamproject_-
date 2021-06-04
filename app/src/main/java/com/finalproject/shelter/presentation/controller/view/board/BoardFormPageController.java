@@ -21,17 +21,13 @@ public class BoardFormPageController {
     @Autowired
     private BoardLogicService boardLogicService;
 
-    //변경 필요 ServiceLayer 이슈등록!
-    @Autowired
-    private AccountRepository accountRepository;
-
     @GetMapping("/write")
     public String create(
             @RequestParam(value = "categoryid", defaultValue = "") String categoryid,
             Model model) {
         Board board = boardLogicService.readCategory(categoryid);
         model.addAttribute("eachboard", board);
-        model.addAttribute("board", boardLogicService.newuserboard(board, accountRepository));
+        model.addAttribute("board", boardLogicService.newuserboard(board));
         return "pages/form";
     }
 

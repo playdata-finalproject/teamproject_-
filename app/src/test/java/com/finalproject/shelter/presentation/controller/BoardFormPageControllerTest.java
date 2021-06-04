@@ -65,7 +65,7 @@ public class BoardFormPageControllerTest extends ShelterApplicationTests {
     public void writeview() throws Exception {
 
         Board board = boardLogicService.readCategory("1");
-        Board board1 = boardLogicService.newuserboard(board,accountRepository);
+        Board board1 = boardLogicService.newuserboard(board);
 
         mockMvc.perform(get("/board/form?name=write&categoryid=1"))
                 .andExpect(status().is2xxSuccessful())

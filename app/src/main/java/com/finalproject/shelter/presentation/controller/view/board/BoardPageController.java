@@ -41,6 +41,7 @@ public class BoardPageController {
         model.addAttribute("eachboard", eachboard);
         model.addAttribute("weekview", weekview);
         model.addAttribute("monthview", monthview);
+
         return "pages/list";
     }
 
