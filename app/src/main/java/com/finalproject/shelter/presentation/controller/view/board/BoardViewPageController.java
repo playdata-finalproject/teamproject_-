@@ -42,19 +42,20 @@ public class BoardViewPageController {
     }
 
     @PostMapping("/answer")
-    public String postanswer(@Valid Answer answer, BindingResult bindingResult, Model model) {
+    public String postAnswer(@Valid Answer answer, BindingResult bindingResult, Model model) {
         String id = String.valueOf(answer.getBoard().getId());
         if (bindingResult.hasErrors()) {
-            model.addAttribute("eachboard", answer.getBoard());
-            model.addAttribute("Answer", answer);
-            model.addAttribute("Answers", answerLogicService.readAnswer(id));
+            modelAdd(answer.getBoard(),model,"eachboard");
+            modelAdd(answer,model,"Answer");
+            modelAdds(answerLogicService.readAnswer(id),model,"Answers");
             return "pages/view";
         }
         Answer answer1 = answerLogicService.save(answer);
         return "redirect:/board/view?id=" + answer1.getBoard().getId();
     }
+
     @GetMapping("/answer/delete")
-    public String deleteanswer(
+    public String deleteAnswer(
             @RequestParam(value = "id", required = false, defaultValue = "0") String id,
             @RequestParam(value = "boardid", required = false, defaultValue = "0") String boardid) {
         answerLogicService.delete(id);
