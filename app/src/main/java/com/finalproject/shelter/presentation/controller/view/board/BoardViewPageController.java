@@ -2,10 +2,8 @@ package com.finalproject.shelter.presentation.controller.view.board;
 
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Answer;
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
-import com.finalproject.shelter.domain.repository.AccountRepository;
 import com.finalproject.shelter.business.service.logic.AnswerLogicService;
 import com.finalproject.shelter.business.service.logic.BoardLogicService;
-import net.bytebuddy.description.type.TypeList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,9 +29,10 @@ public class BoardViewPageController {
 
         modelAdd(eachBoard, model,"Answer");
         modelAdd(answerLogicService.readUser(eachBoard), model,"eachboard");
+
         modelAdds(answerLogicService.readAnswer(id),model,"Answers");
-        modelAdds(boardLogicService.bestweekview(String.valueOf(eachBoard.getCategory().getId())),model,"weekview");
-        modelAdds(boardLogicService.bestmonthview(String.valueOf(eachBoard.getCategory().getId())),model,"monthview");
+        modelAdds(boardLogicService.bestweekview(getCategoryId(eachBoard)),model,"weekview");
+        modelAdds(boardLogicService.bestmonthview(getCategoryId(eachBoard)),model,"monthview");
 
         return "pages/view";
     }
@@ -43,6 +42,7 @@ public class BoardViewPageController {
         if (bindingResult.hasErrors()) {
             modelAdd(answer.getBoard(),model,"eachboard");
             modelAdd(answer,model,"Answer");
+
             modelAdds(answerLogicService.readAnswer(id),model,"Answers");
             return "pages/view";
         }
@@ -56,6 +56,12 @@ public class BoardViewPageController {
         answerLogicService.delete(id);
         return "redirect:/board/view?id=" + boardid;
     }
+
+    private String getCategoryId(Board board){
+        String categoryId = String.valueOf(board.getCategory().getId());
+        return categoryId;
+    }
+
     private void modelAdd(Object obj, Model model, String str){
         model.addAttribute(str,obj);
     }
@@ -63,4 +69,3 @@ public class BoardViewPageController {
         model.addAttribute(str,objs);
     }
 }
-
