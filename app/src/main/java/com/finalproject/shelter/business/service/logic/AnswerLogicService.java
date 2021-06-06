@@ -22,58 +22,65 @@ public class AnswerLogicService {
     @Autowired
     private AnswerRepository answerRepository;
 
-    public List<Answer> readAnswer(String id){
-        List<Answer> answerList = answerRepository.findAnswerByBoardId(Long.parseLong(id));
+    @Autowired
+    private AccountRepository accountRepository;
 
-        answerList.stream().forEach(select->{
-            String REGEX = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-
-            Pattern pattern = Pattern.compile(REGEX);
-            Matcher matcher = pattern.matcher(select.getAnswerText());
-            while (matcher.find()) {
-                select.setAnswerText(select.getAnswerText().replace(matcher.group(),"<a style='color:skyblue' href="+matcher.group()+">"+matcher.group()+"</a>"));
-            }
-        });
-
-        return answerList;
+    public List<Answer> readAnswer(String id) {
+        List<Answer> answers = answerRepository.findAnswerByBoardId(Long.parseLong(id));
+        findTag(answers);
+        return answers;
     }
-    
-    public Answer readUser(Board eachboard, AccountRepository accountRepository){
-
+    public Answer readUser(Board eachboard) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-
-        Answer answer = Answer.builder()
-                .nickname(accountRepository.findByUsername(username).getIdentity()) //Error
-                .board(eachboard)
-                .build();
-
-        return answer;
+        return read(username,eachboard);
+    }
+    public Answer save(Answer answer) {
+        String regex = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
+        String tagRemove = answer.getAnswerText().replaceAll(regex, "<>안에 한글만 사용할수 있습니다.");
+        answer.setAnswerText(tagRemove);
+        return answerRepository.save(saveAnswer(answer));
+    }
+    public void delete(String id) {
+        Optional<Answer> answer = answerRepository.findAnswerById(Long.parseLong(id));
+        answer.ifPresent(select -> {
+            answerRepository.delete(select);
+        });
+        if (answer.isEmpty()) {
+            log.error("answer is empty");
+        }
     }
 
-    public Answer save(Answer answer){
-        String regex = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
-        String tagRemove=answer.getAnswerText().replaceAll(regex, "<>안에 한글만 사용할수 있습니다.");
-        answer.setAnswerText(tagRemove);
-
-        Answer answer1 = Answer.builder()
+    private void findTag(List<Answer> answers){
+        answers.stream().forEach(select -> {
+            String REGEX = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+            initPattern(REGEX,select);
+        });
+    }
+    private void initPattern(String regex,Answer answer){
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(answer.getAnswerText());
+        findMatcher(matcher,answer);
+    }
+    private void findMatcher(Matcher matcher,Answer answer){
+        while (matcher.find()) {
+            answer.setAnswerText(answer.getAnswerText().replace(matcher.group(), "<a style='color:skyblue' href=" + matcher.group() + ">" + matcher.group() + "</a>"));
+        }
+    }
+    private Answer read(String username,Board eachboard){
+        Answer answer = Answer.builder()
+                .nickname(accountRepository.findByUsername(username).getIdentity())
+                .board(eachboard)
+                .build();
+        return answer;
+    }
+    private Answer saveAnswer(Answer answer){
+        Answer saveAnswer = Answer.builder()
                 .nickname(answer.getNickname())
                 .answerText(answer.getAnswerText())
                 .board(answer.getBoard())
                 .build();
-
-        return answerRepository.save(answer1);
+        return saveAnswer;
     }
 
-    public void delete(String id){
-        Optional<Answer> answer = answerRepository.findAnswerById(Long.parseLong(id));
-
-        answer.ifPresent(select->{
-            answerRepository.delete(select);
-        });
-
-        if (answer.isEmpty()){
-            log.error("answer is empty");
-        }
-    }
 }
