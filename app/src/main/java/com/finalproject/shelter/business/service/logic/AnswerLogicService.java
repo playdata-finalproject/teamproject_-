@@ -43,12 +43,7 @@ public class AnswerLogicService {
     }
     public void delete(String id) {
         Optional<Answer> answer = answerRepository.findAnswerById(Long.parseLong(id));
-        answer.ifPresent(select -> {
-            answerRepository.delete(select);
-        });
-        if (answer.isEmpty()) {
-            log.error("answer is empty");
-        }
+        answer.ifPresent(select -> answerRepository.delete(select));
     }
 
     private void findTag(List<Answer> answers){
