@@ -34,7 +34,6 @@ public class BoardViewPageController {
         modelAdds(boardLogicService.bestweekview(getCategoryId(eachBoard)),model,"weekview");
         modelAdds(boardLogicService.bestmonthview(getCategoryId(eachBoard)),model,"monthview");
 
-
         return "pages/view";
     }
     @PostMapping("/answer")

@@ -43,7 +43,6 @@ public class BoardLogicService {
     private Board board1;
 
     public Page<Board> findCategoryIdTitleContents(String id, String select, String searchText, Pageable pageable){
-
         if (select.equals("title")){
             Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
                     (Long.parseLong(id),searchText,"",pageable);
@@ -61,10 +60,8 @@ public class BoardLogicService {
         return null;
     }
     public Board readCategory(String id){
-
         List<Board> board = boardRepository.findBoardByCategoryId(Long.parseLong(id));
         board1 = Board.builder().build();
-
         if(board.isEmpty()){
             Optional<Category> category1 = categoryRepository.findById(Long.parseLong(id));
             if (category1.isPresent()){
