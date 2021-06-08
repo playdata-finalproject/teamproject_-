@@ -92,7 +92,7 @@ public class BoardLogicService {
         });
         return board1;
     }
-    public Board newuserboard(Board board){
+    public Board newuserboard(Category category){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -100,7 +100,7 @@ public class BoardLogicService {
         Board board1 = Board.builder()
                 .nickname(account.getIdentity())
                 .user(account)
-                .category(board.getCategory())
+                .category(category)
                 .build();
         return board1;
     }

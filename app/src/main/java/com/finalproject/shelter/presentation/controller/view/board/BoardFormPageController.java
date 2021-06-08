@@ -1,7 +1,8 @@
 package com.finalproject.shelter.presentation.controller.view.board;
 
+import com.finalproject.shelter.business.service.logic.CategoryLogicService;
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
-import com.finalproject.shelter.domain.repository.AccountRepository;
+import com.finalproject.shelter.domain.model.entity.noticationDomain.Category;
 import com.finalproject.shelter.business.service.logic.BoardLogicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +22,19 @@ public class BoardFormPageController {
     @Autowired
     private BoardLogicService boardLogicService;
 
+    @Autowired
+    private CategoryLogicService categoryLogicService;
+
     @GetMapping("/write")
     public String create(
             @RequestParam(value = "categoryid", defaultValue = "") String categoryid,
             Model model) {
-        Board board = boardLogicService.readCategory(categoryid);
-        model.addAttribute("eachboard", board);
-        model.addAttribute("board", boardLogicService.newuserboard(board));
+        Category category = categoryLogicService.findId(Long.parseLong(categoryid));
+        model.addAttribute("category", category);
+        model.addAttribute("board", boardLogicService.newuserboard(category));
         return "pages/form";
     }
+
     @GetMapping("/modify")
     public String modify(
             @RequestParam(value = "boardid", defaultValue = "") String boardid,
@@ -38,7 +43,6 @@ public class BoardFormPageController {
         model.addAttribute("board", boardLogicService.readBoard(boardid));
         return "pages/form";
     }
-
 
     @PostMapping("")
     public String save(@Valid Board board, BindingResult bindingResult, Model model) {

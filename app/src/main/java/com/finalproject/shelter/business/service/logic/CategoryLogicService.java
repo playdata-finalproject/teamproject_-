@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryLogicService {
@@ -15,5 +16,9 @@ public class CategoryLogicService {
 
     public List<Category> read(Long id) {
         return categoryRepository.findCategoryByCategorytableId(id);
+    }
+
+    public Category findId(Long id){
+        return categoryRepository.getOne(id);
     }
 }
