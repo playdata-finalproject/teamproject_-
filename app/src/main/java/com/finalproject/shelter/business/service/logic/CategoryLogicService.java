@@ -18,7 +18,7 @@ public class CategoryLogicService {
         return categoryRepository.findCategoryByCategorytableId(id);
     }
 
-    public Category findId(Long id){
-        return categoryRepository.getOne(id);
+    public Category findById(String id){
+        return categoryRepository.findById(id);
     }
 }

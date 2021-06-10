@@ -2,6 +2,7 @@ package com.finalproject.shelter.domain.repository;
 
 import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Categorytable;
+import jdk.swing.interop.SwingInterOpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -27,6 +28,12 @@ public class CategorytableRepositoryTest extends ShelterApplicationTests {
                 .build();
         Categorytable newcategorytable = categorytableRepository.save(categorytable);
         Assertions.assertTrue(categorytable.equals(newcategorytable));
+    }
+
+    @Test
+    public void findById(){
+        Optional<Categorytable> categorytable = categorytableRepository.findById(1L);
+        categorytable.ifPresent(System.out::println);
     }
 
     @DisplayName("카테고리 테이블 삭제 테스트")
