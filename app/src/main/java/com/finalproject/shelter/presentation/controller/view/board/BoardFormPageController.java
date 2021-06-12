@@ -29,7 +29,7 @@ public class BoardFormPageController {
     public String create(
             @RequestParam(value = "categoryid", defaultValue = "") String categoryid,
             Model model) {
-        Category category = categoryLogicService.findById(categoryid);
+        Category category = categoryLogicService.findById(Long.parseLong(categoryid));
         model.addAttribute("category", category);
         model.addAttribute("board", boardLogicService.newuserboard(category));
         return "pages/form";

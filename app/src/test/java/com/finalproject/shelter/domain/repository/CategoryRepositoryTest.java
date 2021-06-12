@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,6 +36,15 @@ public class CategoryRepositoryTest extends ShelterApplicationTests {
         Category newcategory = categoryRepository.save(category);
 
         Assertions.assertTrue(category.equals(newcategory));
+
+    }
+    @Test
+    public void findById(){
+
+        Optional<Category> test = categoryRepository.findById(1L);
+        test.ifPresent(select->{
+            System.out.println(select);
+        });
 
     }
 

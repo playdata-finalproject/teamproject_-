@@ -62,7 +62,6 @@ public class BoardLogicServiceTest extends ShelterApplicationTests {
         });
 
     }
-
     @DisplayName("레코드 categoryId 조회 테스트")
     @Test
     public void readcategory(){
@@ -73,7 +72,6 @@ public class BoardLogicServiceTest extends ShelterApplicationTests {
         Board board1 = boardLogicService.readCategory("100");
         Assertions.assertTrue(board1==null);
     }
-
     @DisplayName("레코드 boardid 조회 테스트")
     @Test
     public void readboard(){
