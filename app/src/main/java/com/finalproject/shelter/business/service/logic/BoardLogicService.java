@@ -92,18 +92,23 @@ public class BoardLogicService {
         });
         return board1;
     }
-    public Board newuserboard(Category category){
+    public Board newUserBoard(Category category){
+        Account account = accountRepository.findByUsername(userName());
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Account account = accountRepository.findByUsername(username);
         Board board1 = Board.builder()
                 .nickname(account.getIdentity())
                 .user(account)
                 .category(category)
                 .build();
+
         return board1;
     }
+    private String userName(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return username;
+    }
+
     public Board readBoardview(String id){
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
         if (board.isEmpty()){
