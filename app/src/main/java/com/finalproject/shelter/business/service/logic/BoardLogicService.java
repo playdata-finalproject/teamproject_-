@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -85,7 +86,8 @@ public class BoardLogicService {
         Optional<Board> board = boardRepository.findBoardById(Long.parseLong(id));
         if (board.isEmpty()){
             log.error("id is empty");
-            board1=Board.builder().build();
+            board1=Board.builder()
+                    .build();
         }
         board.ifPresent(select->{
             board1 = select;
@@ -104,9 +106,9 @@ public class BoardLogicService {
         return board1;
     }
     private String userName(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        return username;
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        return authentication.getName();
     }
 
     public Board readBoardview(String id){
@@ -181,7 +183,8 @@ public class BoardLogicService {
         if (postboard.isEmpty()){
             log.info("new board write");
             Board selectboard = board;
-            selectboard.setNickname(board.getUser().getIdentity());
+            selectboard.setNickname(board.getUser()
+                    .getIdentity());
             newboard = boardRepository.save(selectboard);
         }
         return newboard;
