@@ -2,31 +2,30 @@ package com.finalproject.shelter.domain.repository;
 
 import com.finalproject.shelter.ShelterApplicationTests;
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Category;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 public class CategoryRepositoryTest extends ShelterApplicationTests {
 
-    private static final Logger log = Logger.getLogger(CategoryRepositoryTest.class.getName());
+    private final CategoryRepository categoryRepository;
+    private final CategorytableRepository categorytableRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private CategorytableRepository categorytableRepository;
+    public CategoryRepositoryTest(CategoryRepository categoryRepository, CategorytableRepository categorytableRepository) {
+        this.categoryRepository = categoryRepository;
+        this.categorytableRepository = categorytableRepository;
+    }
 
     @DisplayName("레코드 생성 테스트")
     @Test
-    public void create(){
+    public void create() {
         Category category = Category.builder()
                 .title("test")
                 .categorytable(categorytableRepository.getOne(1L))
@@ -38,9 +37,19 @@ public class CategoryRepositoryTest extends ShelterApplicationTests {
 
     }
 
+    @Test
+    public void findById() {
+
+        Optional<Category> test = categoryRepository.findById(1L);
+        test.ifPresent(select -> {
+            assertThat(select.getId().equals(1L));
+        });
+
+    }
+
     @DisplayName("레코드 Categorytable id 조회 테스트")
     @Test
-    public void findCategoryId(){
+    public void findCategoryId() {
 
         List<Category> category = categoryRepository.findCategoryByCategorytableId(1L);
 
