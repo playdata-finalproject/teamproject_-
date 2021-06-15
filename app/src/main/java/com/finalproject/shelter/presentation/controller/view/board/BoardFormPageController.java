@@ -32,7 +32,6 @@ public class BoardFormPageController {
 
         Category category = categoryLogicService.findById(Long.parseLong(id));
 
-
         model.addAttribute("category", category);
         model.addAttribute("board", boardLogicService.newUserBoard(category));
         return "pages/form";
