@@ -25,9 +25,6 @@ public class BoardFormPageController {
         this.categoryLogicService = categoryLogicService;
     }
 
-    @Autowired
-    private CategoryLogicService categoryLogicService;
-
     @GetMapping("/write")
     public String create(
             @RequestParam(value = "id", defaultValue = "") String id,
