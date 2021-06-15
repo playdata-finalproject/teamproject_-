@@ -25,11 +25,16 @@ public class BoardFormPageController {
         this.categoryLogicService = categoryLogicService;
     }
 
+    @Autowired
+    private CategoryLogicService categoryLogicService;
+
     @GetMapping("/write")
     public String create(
             @RequestParam(value = "id", defaultValue = "") String id,
             Model model) {
+
         Category category = categoryLogicService.findById(Long.parseLong(id));
+
 
         model.addAttribute("category", category);
         model.addAttribute("board", boardLogicService.newUserBoard(category));
