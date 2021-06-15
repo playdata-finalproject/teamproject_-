@@ -5,12 +5,10 @@ import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Category;
 import com.finalproject.shelter.business.service.logic.BoardLogicService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 
 import javax.validation.Valid;
 
@@ -19,17 +17,24 @@ import javax.validation.Valid;
 @Slf4j
 public class BoardFormPageController {
 
-    @Autowired
-    private BoardLogicService boardLogicService;
+    private final BoardLogicService boardLogicService;
+    private final CategoryLogicService categoryLogicService;
+
+    public BoardFormPageController(BoardLogicService boardLogicService, CategoryLogicService categoryLogicService){
+        this.boardLogicService = boardLogicService;
+        this.categoryLogicService = categoryLogicService;
+    }
 
     @Autowired
     private CategoryLogicService categoryLogicService;
 
     @GetMapping("/write")
     public String create(
-            @RequestParam(value = "categoryid", defaultValue = "") String categoryid,
+            @RequestParam(value = "id", defaultValue = "") String id,
             Model model) {
-        Category category = categoryLogicService.findById(Long.parseLong(categoryid));
+
+        Category category = categoryLogicService.findById(Long.parseLong(id));
+
 
         model.addAttribute("category", category);
         model.addAttribute("board", boardLogicService.newUserBoard(category));
@@ -38,10 +43,10 @@ public class BoardFormPageController {
 
     @GetMapping("/modify")
     public String modify(
-            @RequestParam(value = "boardid", defaultValue = "") String boardid,
+            @RequestParam(value = "id", defaultValue = "") String id,
             Model model) {
-        model.addAttribute("eachboard", boardLogicService.readBoard(boardid));
-        model.addAttribute("board", boardLogicService.readBoard(boardid));
+        model.addAttribute("eachboard", boardLogicService.readBoard(id));
+        model.addAttribute("board", boardLogicService.readBoard(id));
         return "pages/form";
     }
 
