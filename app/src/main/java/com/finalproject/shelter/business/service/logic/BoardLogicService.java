@@ -43,23 +43,13 @@ public class BoardLogicService {
     private Long ids;
     private Board board1;
 
-    public Page<Board> findCategoryIdTitleContents(String id, String select, String searchText, Pageable pageable){
-
-        if (select.equals("title")){
-            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
-                    (Long.parseLong(id),searchText,"",pageable);
-            if (boards!=null){
-                return boards;
-            }
-        }else{
-            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
-                    (Long.parseLong(id),"",searchText,pageable);
-            if (boards!=null){
-                return boards;
-            }
-        }
-
-        return null;
+    public Page<Board> findTitle(String id,String searchText, Pageable pageable){
+        return boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
+                (Long.parseLong(id),searchText,"",pageable);
+    }
+    public Page<Board> findContents(String id, String searchText, Pageable pageable){
+        return boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
+                (Long.parseLong(id),"",searchText,pageable);
     }
     public Board readCategory(String id){
 

@@ -39,29 +39,6 @@ public class BoardLogicServiceTest extends ShelterApplicationTests {
     @Autowired
     private AnswerRepository answerRepository;
 
-    @DisplayName("내용,제목포함 카테고리 검색 테스트")
-    @Test
-    public void findCategoryfindTitleContents(){
-        Pageable pageable = PageRequest.of(0,10);
-
-        Page<Board> board = boardLogicService.findCategoryIdTitleContents("21","title","박종천",pageable);
-        Assertions.assertFalse(board.isEmpty());
-
-        board.stream().forEach(select->{
-            Assertions.assertTrue(select.getTitle().contains("박종천"));
-            assertThat(select.getCategory().getId()).isEqualTo(21L);
-        });
-
-
-        Page<Board> board1 = boardLogicService.findCategoryIdTitleContents("21","Contents","스피커",pageable);
-        Assertions.assertFalse(board1.isEmpty());
-
-        board1.stream().forEach(select->{
-            Assertions.assertTrue(select.getContents().contains("스피커"));
-            assertThat(select.getCategory().getId()).isEqualTo(21L);
-        });
-
-    }
     @DisplayName("레코드 categoryId 조회 테스트")
     @Test
     public void readcategory(){
