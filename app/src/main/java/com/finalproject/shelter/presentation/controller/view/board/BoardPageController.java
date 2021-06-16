@@ -30,7 +30,7 @@ public class BoardPageController {
                           @RequestParam(value = "searchText", required = false, defaultValue = "") String searchText,
                           Model model
     ) {
-        searchForm.init(boardLogicService,id,searchText,pageable);
+        searchForm.add(boardLogicService,id,searchText,pageable);
         Page<Board> boards = searchForm.getSearch(select);
 
         model.addAttribute("boards", boards);
