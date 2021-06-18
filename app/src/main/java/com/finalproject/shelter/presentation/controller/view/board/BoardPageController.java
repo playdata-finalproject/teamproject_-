@@ -17,6 +17,8 @@ public class BoardPageController {
 
     private final BoardLogicService boardLogicService;
     private final SearchForm searchForm;
+    private final int pageRange = 4;
+    private final int pageMinNumber = 1;
 
     public BoardPageController(BoardLogicService boardLogicService, SearchForm searchForm) {
         this.boardLogicService = boardLogicService;
@@ -26,17 +28,34 @@ public class BoardPageController {
     @GetMapping("")
     public String readAll(@RequestParam(value = "id") String id,
                           @PageableDefault(size = 10) Pageable pageable,
-                          @RequestParam(value = "select", required = false, defaultValue = "") String select,
-                          @RequestParam(value = "searchText", required = false, defaultValue = "") String searchText,
                           Model model
     ) {
-        searchForm.add(boardLogicService,id,searchText,pageable);
+        Page<Board> boards = boardLogicService.findCategorys(id,pageable);
+
+        model.addAttribute("boards", boards);
+        model.addAttribute("eachboard", boardLogicService.readCategory(id));
+        model.addAttribute("startPage", Math.max(pageMinNumber, boards.getPageable().getPageNumber() - pageRange));
+        model.addAttribute("endPage", Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + pageRange));
+        model.addAttribute("weekview", boardLogicService.bestweekview(id));
+        model.addAttribute("mothview", boardLogicService.bestmonthview(id));
+
+        return "pages/list";
+    }
+
+    @GetMapping("/search")
+    public String readSearchAll(@RequestParam(value = "id") String id,
+                                @PageableDefault(size = 10) Pageable pageable,
+                                @RequestParam(value = "select", required = false, defaultValue = "") String select,
+                                @RequestParam(value = "searchText", required = false, defaultValue = "") String searchText,
+                                Model model
+    ) {
+        searchForm.add(boardLogicService, id, searchText, pageable);
         Page<Board> boards = searchForm.getSearch(select);
 
         model.addAttribute("boards", boards);
         model.addAttribute("eachboard", boardLogicService.readCategory(id));
-        model.addAttribute("startPage", Math.max(1, boards.getPageable().getPageNumber() - 4));
-        model.addAttribute("endPage", Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + 4));
+        model.addAttribute("startPage", Math.max(pageMinNumber, boards.getPageable().getPageNumber() - pageRange));
+        model.addAttribute("endPage", Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + pageRange));
         model.addAttribute("weekview", boardLogicService.bestweekview(id));
         model.addAttribute("mothview", boardLogicService.bestmonthview(id));
 

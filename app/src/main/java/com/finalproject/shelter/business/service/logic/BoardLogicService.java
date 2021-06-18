@@ -51,6 +51,10 @@ public class BoardLogicService {
         return boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
                 (Long.parseLong(id),"",searchText,pageable);
     }
+    public Page<Board> findCategorys(String id, Pageable pageable){
+        return boardRepository.findBoardByCategoryId(Long.parseLong(id),pageable);
+    }
+
     public Board readCategory(String id){
 
         List<Board> board = boardRepository.findBoardByCategoryId(Long.parseLong(id));
