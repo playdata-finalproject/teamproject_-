@@ -12,9 +12,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -95,7 +92,7 @@ public class BoardLogicServiceTest extends ShelterApplicationTests {
             boardRepository.save(board1);
         }
 
-        List<Board> board = boardLogicService.bestweekview("1");
+        List<Board> board = boardLogicService.bestWeekView("1");
         Assertions.assertFalse(board.isEmpty());
         assertThat(board.stream().count()).isEqualTo(5);
         for (int i=1; i<board.stream().count(); i++){
@@ -125,7 +122,7 @@ public class BoardLogicServiceTest extends ShelterApplicationTests {
             boardRepository.save(board1);
         }
 
-        List<Board> board = boardLogicService.bestmonthview("1");
+        List<Board> board = boardLogicService.bestMonthView("1");
         Assertions.assertFalse(board.isEmpty());
 
         assertThat(board.stream().count()).isEqualTo(5);
