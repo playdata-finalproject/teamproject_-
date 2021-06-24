@@ -2,6 +2,7 @@ package com.finalproject.shelter.presentation.controller.view.board;
 
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
 import com.finalproject.shelter.business.service.logic.BoardLogicService;
+import com.finalproject.shelter.presentation.settingform.SearchData;
 import com.finalproject.shelter.presentation.settingform.SearchForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,12 +18,14 @@ public class BoardPageController {
 
     private final BoardLogicService boardLogicService;
     private final SearchForm searchForm;
+    private final SearchData searchData;
     private final int pageRange = 4;
     private final int pageMinNumber = 1;
 
-    public BoardPageController(BoardLogicService boardLogicService, SearchForm searchForm) {
+    public BoardPageController(BoardLogicService boardLogicService, SearchForm searchForm, SearchData searchData) {
         this.boardLogicService = boardLogicService;
         this.searchForm = searchForm;
+        this.searchData = searchData;
     }
 
     @GetMapping("")
@@ -49,7 +52,8 @@ public class BoardPageController {
                                 @RequestParam(value = "searchText", required = false, defaultValue = "") String searchText,
                                 Model model
     ) {
-        searchForm.add(boardLogicService, id, searchText, pageable);
+        SearchData boardInfo = searchData.setAll(Long.valueOf(id),searchText,pageable);
+        searchForm.add(boardLogicService, boardInfo);
         Page<Board> boards = searchForm.getSearch(select);
 
         model.addAttribute("boards", boards);

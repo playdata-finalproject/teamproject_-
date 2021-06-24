@@ -8,6 +8,7 @@ import com.finalproject.shelter.domain.repository.AccountRepository;
 import com.finalproject.shelter.domain.repository.AnswerRepository;
 import com.finalproject.shelter.domain.repository.BoardRepository;
 import com.finalproject.shelter.domain.repository.CategoryRepository;
+import com.finalproject.shelter.presentation.settingform.SearchData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,13 +44,13 @@ public class BoardLogicService {
     private Long ids;
     private Board board1;
 
-    public Page<Board> findTitle(String id,String searchText, Pageable pageable){
+    public Page<Board> findTitle(SearchData searchData){
         return boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
-                (Long.parseLong(id),searchText,"",pageable);
+                (searchData.getId(),searchData.getSearchText(),"",searchData.getPageable());
     }
-    public Page<Board> findContents(String id, String searchText, Pageable pageable){
+    public Page<Board> findContents(SearchData searchData){
         return boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
-                (Long.parseLong(id),"",searchText,pageable);
+                (searchData.getId(),"",searchData.getSearchText(),searchData.getPageable());
     }
     public Page<Board> findCategorys(String id, Pageable pageable){
         return boardRepository.findBoardByCategoryId(Long.parseLong(id),pageable);
