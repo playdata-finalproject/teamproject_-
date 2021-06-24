@@ -21,7 +21,7 @@ public class BoardPageController {
     private final int pageRange = 4;
     private final int pageMinNumber = 1;
 
-    public BoardPageController(BoardLogicService boardLogicService, SearchForm searchForm, SearchData searchData) {
+    public BoardPageController(BoardLogicService boardLogicService, SearchForm searchForm) {
         this.boardLogicService = boardLogicService;
         this.searchForm = searchForm;
     }
