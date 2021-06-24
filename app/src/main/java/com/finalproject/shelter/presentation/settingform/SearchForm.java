@@ -8,21 +8,20 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class SearchForm {
-    private HashMap<String, Page<Board>> boards;
+    private Map<String, Page<Board>> boards;
 
     @PostConstruct
     public void init() {
         boards = new HashMap<>();
     }
-
     public void add(BoardLogicService boardLogicService, String id, String searchText, Pageable pageable) {
         boards.put("title", boardLogicService.findTitle(id, searchText, pageable));
         boards.put("contents", boardLogicService.findContents(id, searchText, pageable));
     }
-
     public Page<Board> getSearch(String select) {
         return boards.get(select);
     }
