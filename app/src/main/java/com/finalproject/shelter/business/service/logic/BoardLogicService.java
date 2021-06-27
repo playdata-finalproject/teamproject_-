@@ -8,6 +8,7 @@ import com.finalproject.shelter.domain.repository.AccountRepository;
 import com.finalproject.shelter.domain.repository.AnswerRepository;
 import com.finalproject.shelter.domain.repository.BoardRepository;
 import com.finalproject.shelter.domain.repository.CategoryRepository;
+import com.finalproject.shelter.presentation.settingform.SearchData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,24 +44,18 @@ public class BoardLogicService {
     private Long ids;
     private Board board1;
 
-    public Page<Board> findCategoryIdTitleContents(String id, String select, String searchText, Pageable pageable){
-
-        if (select.equals("title")){
-            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
-                    (Long.parseLong(id),searchText,"",pageable);
-            if (boards!=null){
-                return boards;
-            }
-        }else{
-            Page<Board> boards = boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
-                    (Long.parseLong(id),"",searchText,pageable);
-            if (boards!=null){
-                return boards;
-            }
-        }
-
-        return null;
+    public Page<Board> findTitle(SearchData searchData){
+        return boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
+                (searchData.getId(),searchData.getSearchText(),"",searchData.getPageable());
     }
+    public Page<Board> findContents(SearchData searchData){
+        return boardRepository.findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc
+                (searchData.getId(),"",searchData.getSearchText(),searchData.getPageable());
+    }
+    public Page<Board> findCategorys(String id, Pageable pageable){
+        return boardRepository.findBoardByCategoryId(Long.parseLong(id),pageable);
+    }
+
     public Board readCategory(String id){
 
         List<Board> board = boardRepository.findBoardByCategoryId(Long.parseLong(id));
@@ -130,7 +125,7 @@ public class BoardLogicService {
         });
         return board1;
     }
-    public List<Board> bestweekview(String id){
+    public List<Board> bestWeekView(String id){
         List<Board> weekview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
                 (Long.parseLong(id), LocalDate.now().minusDays(7),LocalDate.now());
         if (weekview!=null){
@@ -140,7 +135,7 @@ public class BoardLogicService {
             return null;
         }
     }
-    public List<Board> bestmonthview(String id){
+    public List<Board> bestMonthView(String id){
         List<Board> monthview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
                 (Long.parseLong(id), LocalDate.now().minusMonths(1),LocalDate.now());
         if (monthview!=null){

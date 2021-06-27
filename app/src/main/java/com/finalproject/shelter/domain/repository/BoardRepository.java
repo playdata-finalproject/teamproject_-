@@ -15,6 +15,7 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<Board,Long> {
     Optional<Board> findBoardById(@Param("id") Long id);
     Page<Board> findBoardByCategoryIdAndTitleContainingAndContentsContainingOrderByRegisteredAtDescIdDesc(Long id,String title,String content,Pageable pageable);
+    Page<Board> findBoardByCategoryId(Long id, Pageable pageable);
     List<Board> findBoardByCategoryId(Long id);
     List<Board> findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc(Long id, LocalDate date1, LocalDate date2);
     Optional<Board> findBoardByTitle(String title);

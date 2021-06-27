@@ -12,9 +12,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -39,29 +36,6 @@ public class BoardLogicServiceTest extends ShelterApplicationTests {
     @Autowired
     private AnswerRepository answerRepository;
 
-    @DisplayName("내용,제목포함 카테고리 검색 테스트")
-    @Test
-    public void findCategoryfindTitleContents(){
-        Pageable pageable = PageRequest.of(0,10);
-
-        Page<Board> board = boardLogicService.findCategoryIdTitleContents("21","title","박종천",pageable);
-        Assertions.assertFalse(board.isEmpty());
-
-        board.stream().forEach(select->{
-            Assertions.assertTrue(select.getTitle().contains("박종천"));
-            assertThat(select.getCategory().getId()).isEqualTo(21L);
-        });
-
-
-        Page<Board> board1 = boardLogicService.findCategoryIdTitleContents("21","Contents","스피커",pageable);
-        Assertions.assertFalse(board1.isEmpty());
-
-        board1.stream().forEach(select->{
-            Assertions.assertTrue(select.getContents().contains("스피커"));
-            assertThat(select.getCategory().getId()).isEqualTo(21L);
-        });
-
-    }
     @DisplayName("레코드 categoryId 조회 테스트")
     @Test
     public void readcategory(){
@@ -118,7 +92,7 @@ public class BoardLogicServiceTest extends ShelterApplicationTests {
             boardRepository.save(board1);
         }
 
-        List<Board> board = boardLogicService.bestweekview("1");
+        List<Board> board = boardLogicService.bestWeekView("1");
         Assertions.assertFalse(board.isEmpty());
         assertThat(board.stream().count()).isEqualTo(5);
         for (int i=1; i<board.stream().count(); i++){
@@ -148,7 +122,7 @@ public class BoardLogicServiceTest extends ShelterApplicationTests {
             boardRepository.save(board1);
         }
 
-        List<Board> board = boardLogicService.bestmonthview("1");
+        List<Board> board = boardLogicService.bestMonthView("1");
         Assertions.assertFalse(board.isEmpty());
 
         assertThat(board.stream().count()).isEqualTo(5);
