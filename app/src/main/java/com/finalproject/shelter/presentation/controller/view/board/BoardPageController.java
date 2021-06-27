@@ -2,7 +2,6 @@ package com.finalproject.shelter.presentation.controller.view.board;
 
 import com.finalproject.shelter.domain.model.entity.noticationDomain.Board;
 import com.finalproject.shelter.business.service.logic.BoardLogicService;
-import com.finalproject.shelter.presentation.settingform.SearchData;
 import com.finalproject.shelter.presentation.settingform.SearchForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,8 +17,9 @@ public class BoardPageController {
 
     private final BoardLogicService boardLogicService;
     private final SearchForm searchForm;
+
     private final int pageRange = 4;
-    private final int pageMinNumber = 1;
+    private final int pageFirst = 1;
 
     public BoardPageController(BoardLogicService boardLogicService, SearchForm searchForm) {
         this.boardLogicService = boardLogicService;
@@ -35,7 +35,7 @@ public class BoardPageController {
 
         model.addAttribute("boards", boards);
         model.addAttribute("eachboard", boardLogicService.readCategory(id));
-        model.addAttribute("startPage", Math.max(pageMinNumber, boards.getPageable().getPageNumber() - pageRange));
+        model.addAttribute("startPage", Math.max(pageFirst, boards.getPageable().getPageNumber() - pageRange));
         model.addAttribute("endPage", Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + pageRange));
         model.addAttribute("weekview", boardLogicService.bestWeekView(id));
         model.addAttribute("mothview", boardLogicService.bestMonthView(id));
@@ -56,7 +56,7 @@ public class BoardPageController {
 
         model.addAttribute("boards", boards);
         model.addAttribute("eachboard", boardLogicService.readCategory(id));
-        model.addAttribute("startPage", Math.max(pageMinNumber, boards.getPageable().getPageNumber() - pageRange));
+        model.addAttribute("startPage", Math.max(pageFirst, boards.getPageable().getPageNumber() - pageRange));
         model.addAttribute("endPage", Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + pageRange));
         model.addAttribute("weekview", boardLogicService.bestWeekView(id));
         model.addAttribute("mothview", boardLogicService.bestMonthView(id));
