@@ -44,7 +44,7 @@ public class AnswerLogicServiceTest extends ShelterApplicationTests {
         Answer newanswer = answerRepository.save(answer);
         Assertions.assertFalse(newanswer.getAnswerText().contains("<a style"));
 
-        List<Answer> answerList = answerLogicService.readAnswer("3");
+        List<Answer> answerList = answerLogicService.readAnswer(3L);
         Assertions.assertFalse(answerList.isEmpty());
 
         if(answerList!=null){
@@ -79,7 +79,7 @@ public class AnswerLogicServiceTest extends ShelterApplicationTests {
     @DisplayName("댓글 id로 조회 후 삭제 확인 테스트")
     @Test
     public void delete(){
-        answerLogicService.delete("5");
+        answerLogicService.delete(5L);
 
         Optional<Answer> answer = answerRepository.findAnswerById(5L);
         Assertions.assertTrue(answer.isEmpty());
