@@ -25,9 +25,10 @@ public class BoardViewPageController {
 
     @GetMapping("")
     public String listview(
-            @RequestParam(value = "id", required = false, defaultValue = "0") String id,
+            @RequestParam(value = "receiveId", required = false, defaultValue = "0") String receiveId,
             Model model) {
-        Board eachBoard = boardLogicService.readBoardview(id);
+        Board eachBoard = boardLogicService.readBoardview(receiveId);
+        Long id = Long.valueOf(receiveId);
 
         model.addAttribute("Answer", eachBoard);
         model.addAttribute("eachboard", answerLogicService.readUser(eachBoard));
@@ -40,7 +41,7 @@ public class BoardViewPageController {
 
     @PostMapping("/answer")
     public String postAnswer(@Valid Answer answer, BindingResult bindingResult, Model model) {
-        String id = String.valueOf(answer.getBoard().getId());
+        Long id = answer.getBoard().getId();
         if (bindingResult.hasErrors()) {
             model.addAttribute("eachboard", answer.getBoard());
             model.addAttribute("Answer", answer);
@@ -53,14 +54,17 @@ public class BoardViewPageController {
 
     @GetMapping("/answer/delete")
     public String deleteAnswer(
-            @RequestParam(value = "id", required = false, defaultValue = "0") String id,
-            @RequestParam(value = "boardid", required = false, defaultValue = "0") String boardid) {
-        answerLogicService.delete(id);
-        return "redirect:/board/view?id=" + boardid;
+            @RequestParam(value = "receiveId", required = false, defaultValue = "0") String receiveId,
+            @RequestParam(value = "boardId", required = false, defaultValue = "0") String boardId) {
+        delete(Long.valueOf(receiveId));
+        return "redirect:/board/view?id=" + boardId;
     }
 
-    private String getCategoryId(Board board) {
-        String categoryId = String.valueOf(board.getCategory().getId());
-        return categoryId;
+    private void delete(Long id) {
+        answerLogicService.delete(id);
+    }
+
+    private Long getCategoryId(Board board) {
+        return board.getCategory().getId();
     }
 }
