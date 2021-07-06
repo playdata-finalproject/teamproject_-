@@ -37,8 +37,8 @@ public class BoardPageController {
         model.addAttribute("eachboard", boardLogicService.readCategory(id));
         model.addAttribute("startPage", Math.max(pageFirst, boards.getPageable().getPageNumber() - pageRange));
         model.addAttribute("endPage", Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + pageRange));
-        model.addAttribute("weekview", boardLogicService.bestWeekView(id));
-        model.addAttribute("mothview", boardLogicService.bestMonthView(id));
+        model.addAttribute("weekview", boardLogicService.bestWeekView(Long.valueOf(id)));
+        model.addAttribute("mothview", boardLogicService.bestMonthView(Long.valueOf(id)));
 
         return "pages/list";
     }
@@ -58,8 +58,8 @@ public class BoardPageController {
         model.addAttribute("eachboard", boardLogicService.readCategory(id));
         model.addAttribute("startPage", Math.max(pageFirst, boards.getPageable().getPageNumber() - pageRange));
         model.addAttribute("endPage", Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + pageRange));
-        model.addAttribute("weekview", boardLogicService.bestWeekView(id));
-        model.addAttribute("mothview", boardLogicService.bestMonthView(id));
+        model.addAttribute("weekview", boardLogicService.bestWeekView(Long.valueOf(id)));
+        model.addAttribute("mothview", boardLogicService.bestMonthView(Long.valueOf(id)));
 
         return "pages/list";
     }

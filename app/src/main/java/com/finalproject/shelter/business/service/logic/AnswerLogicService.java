@@ -25,8 +25,8 @@ public class AnswerLogicService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public List<Answer> readAnswer(String id) {
-        List<Answer> answers = answerRepository.findAnswerByBoardId(Long.parseLong(id));
+    public List<Answer> readAnswer(Long id) {
+        List<Answer> answers = answerRepository.findAnswerByBoardId(id);
         findTag(answers);
         return answers;
     }
@@ -41,8 +41,8 @@ public class AnswerLogicService {
         answer.setAnswerText(tagRemove);
         return answerRepository.save(saveAnswer(answer));
     }
-    public void delete(String id) {
-        Optional<Answer> answer = answerRepository.findAnswerById(Long.parseLong(id));
+    public void delete(Long id) {
+        Optional<Answer> answer = answerRepository.findAnswerById(id);
         answer.ifPresent(select -> answerRepository.delete(select));
     }
 

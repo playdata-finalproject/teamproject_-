@@ -125,9 +125,9 @@ public class BoardLogicService {
         });
         return board1;
     }
-    public List<Board> bestWeekView(String id){
+    public List<Board> bestWeekView(Long id){
         List<Board> weekview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
-                (Long.parseLong(id), LocalDate.now().minusDays(7),LocalDate.now());
+                (id, LocalDate.now().minusDays(7),LocalDate.now());
         if (weekview!=null){
             return weekview;
         }else {
@@ -135,9 +135,9 @@ public class BoardLogicService {
             return null;
         }
     }
-    public List<Board> bestMonthView(String id){
+    public List<Board> bestMonthView(Long id){
         List<Board> monthview = boardRepository.findTop5ByCategoryIdAndRegisteredAtBetweenOrderByViewBoardDesc
-                (Long.parseLong(id), LocalDate.now().minusMonths(1),LocalDate.now());
+                (id, LocalDate.now().minusMonths(1),LocalDate.now());
         if (monthview!=null){
             return monthview;
         }else {
