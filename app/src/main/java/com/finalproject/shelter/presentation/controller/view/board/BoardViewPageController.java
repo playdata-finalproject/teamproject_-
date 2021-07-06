@@ -35,7 +35,6 @@ public class BoardViewPageController {
         model.addAttribute("Answers", answerLogicService.readAnswer(id));
         model.addAttribute("weekview", boardLogicService.bestWeekView(getCategoryId(eachBoard)));
         model.addAttribute("monthview", boardLogicService.bestMonthView(getCategoryId(eachBoard)));
-
         return "pages/view";
     }
 

@@ -33,7 +33,7 @@ public class AnswerLogicServiceTest extends ShelterApplicationTests {
 
     @DisplayName("http링크에 href 태그 삽입 테스트")
     @Test
-    public void readAnswer(){
+    public void readAnswer() {
 
         Answer answer = Answer.builder()
                 .nickname("test1234")
@@ -47,16 +47,16 @@ public class AnswerLogicServiceTest extends ShelterApplicationTests {
         List<Answer> answerList = answerLogicService.readAnswer(3L);
         Assertions.assertFalse(answerList.isEmpty());
 
-        if(answerList!=null){
-            answerList.stream().forEach(select->{
-                Assertions.assertTrue(select.getAnswerText().contains("<a style='color:skyblue' href="+"http://www.naver.com123fewfa"+">http://www.naver.com123fewfa</a>"));
+        if (answerList != null) {
+            answerList.stream().forEach(select -> {
+                Assertions.assertTrue(select.getAnswerText().contains("<a style='color:skyblue' href=" + "http://www.naver.com123fewfa" + ">http://www.naver.com123fewfa</a>"));
             });
         }
     }
 
     @DisplayName("태그 지우고 데이터베이스 저장 확인 테스트")
     @Test
-    public void save(){
+    public void save() {
 
         Answer answer = Answer.builder()
                 .nickname("aaww")
@@ -78,7 +78,7 @@ public class AnswerLogicServiceTest extends ShelterApplicationTests {
 
     @DisplayName("댓글 id로 조회 후 삭제 확인 테스트")
     @Test
-    public void delete(){
+    public void delete() {
         answerLogicService.delete(5L);
 
         Optional<Answer> answer = answerRepository.findAnswerById(5L);
