@@ -27,14 +27,15 @@ public class BoardPageController {
     }
 
     @GetMapping("")
-    public String readAll(@RequestParam(value = "id") String id,
+    public String readAll(@RequestParam(value = "getId") String getId,
                           @PageableDefault(size = 10) Pageable pageable,
                           Model model
     ) {
-        Page<Board> boards = boardLogicService.findCategorys(id, pageable);
+        Page<Board> boards = boardLogicService.findCategorys(getId, pageable);
+        Long id = Long.valueOf(getId);
 
         model.addAttribute("boards", boards);
-        model.addAttribute("eachboard", boardLogicService.readCategory(id));
+        model.addAttribute("eachboard", boardLogicService.readCategory(getId));
         model.addAttribute("startPage", Math.max(pageFirst, boards.getPageable().getPageNumber() - pageRange));
         model.addAttribute("endPage", Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + pageRange));
         model.addAttribute("weekview", boardLogicService.bestWeekView(id));
@@ -44,24 +45,28 @@ public class BoardPageController {
     }
 
     @GetMapping("/search")
-    public String readSearchAll(@RequestParam(value = "id") String id,
+    public String readSearchAll(@RequestParam(value = "getId") String getId,
                                 @PageableDefault(size = 10) Pageable pageable,
                                 @RequestParam(value = "select", required = false, defaultValue = "") String select,
                                 @RequestParam(value = "searchText", required = false, defaultValue = "") String searchText,
                                 Model model
     ) {
-        searchForm.DataSet(Long.valueOf(id), searchText, pageable);
-        searchForm.add(boardLogicService);
-        Page<Board> boards = searchForm.getSearch(select);
+        searchForm.DataSet(Long.valueOf(getId), searchText, pageable);
+        Page<Board> boards = pageSet(select);
+        Long id = Long.valueOf(getId);
 
         model.addAttribute("boards", boards);
-        model.addAttribute("eachboard", boardLogicService.readCategory(id));
+        model.addAttribute("eachboard", boardLogicService.readCategory(getId));
         model.addAttribute("startPage", Math.max(pageFirst, boards.getPageable().getPageNumber() - pageRange));
         model.addAttribute("endPage", Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + pageRange));
         model.addAttribute("weekview", boardLogicService.bestWeekView(id));
         model.addAttribute("mothview", boardLogicService.bestMonthView(id));
 
         return "pages/list";
+    }
+    private Page<Board> pageSet(String select){
+        searchForm.add(boardLogicService);
+        return searchForm.getSearch(select);
     }
 
     @GetMapping("/delete")
